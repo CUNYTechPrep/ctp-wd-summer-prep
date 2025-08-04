@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Form </title>
+</head>
+<body>
+  <div id="habitform"></div>
+  <label for = "habitName"> Habit Name:</label>
+  <input type="text" id="habitName" name="habitName" required>
+
+<!-- Select Dropdown -->
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            <option value="health">Health</option>
+            <option value="productivity">Productivity</option>
+            <option value="learning">Learning</option>
+        </select>
+        
+        <!-- Radio Buttons -->
+        <fieldset>
+            <legend>Frequency:</legend>
+            <input type="radio" id="daily" name="frequency" value="daily" checked>
+            <label for="daily">Daily</label>
+            
+            <input type="radio" id="weekly" name="frequency" value="weekly">
+            <label for="weekly">Weekly</label>
+        </fieldset>
+        
+        <!-- Checkbox -->
+        <input type="checkbox" id="reminder" name="reminder">
+        <label for="reminder">Enable reminders</label>
+        
+        <!-- Buttons -->
+        <button type="submit">Create Habit</button>
+        <button type="reset">Clear Form</button>
+    </form>
+</body>
+</html>
