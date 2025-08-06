@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -84,4 +84,13 @@ button.primary {
 ```
   </File>
 </CodeDisplay>
+<Notes>
+CSS selectors are the foundation of styling web pages. They determine which HTML elements your styles apply to. Understanding selectors is like learning to aim - you need to know how to target exactly the elements you want to style.
+
+The three basic selectors cover most use cases. Element selectors (like h1, p, div) target all instances of that HTML tag - great for consistent styling across your site. Class selectors (starting with .) are reusable and can be applied to multiple elements - perfect for components like buttons or cards. ID selectors (starting with #) target a single unique element - use sparingly for truly unique elements.
+
+Selector specificity determines which styles win when multiple rules target the same element. IDs are most specific (100 points), classes are medium (10 points), and elements are least specific (1 point). Inline styles trump everything, but avoid them for maintainability.
+
+Combinator selectors let you target elements based on their relationships. Descendant selectors (space) target nested elements, child selectors (>) target direct children only, and sibling selectors (+, ~) target elements at the same level. These powerful tools let you write precise, contextual styles without adding extra classes to your HTML.
+</Notes>
 </SlideLayout.Full>

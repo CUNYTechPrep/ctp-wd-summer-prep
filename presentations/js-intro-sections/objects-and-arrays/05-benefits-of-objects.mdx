@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -28,4 +28,27 @@ function saveHabit(habit) {
 const habits = [exerciseHabit, readingHabit, meditationHabit];
 habits.forEach(habit => habit.complete());
 ```
+<Notes>
+These benefits represent a fundamental shift from scattered programming to organized programming. Let's explore why each benefit transforms your development experience.
+
+**Organized, maintainable code** is about cognitive load - how much you need to remember while programming. With separate variables, you're constantly juggling multiple pieces of information. When fixing a bug in habit tracking, you need to remember: "What variables store habit data? Which functions modify them? What happens if I update one but forget another?" Objects eliminate this mental overhead. Everything related to a habit lives in the habit object. Need to modify habit behavior? Look at the habit object. Need to add a new property? Add it to the habit object.
+
+The maintainability benefit compounds over time. Six months from now, when you're adding a new feature, objects serve as documentation. The habit object clearly shows what properties and methods exist. With scattered variables, you're archaeology - digging through code to understand what exists and how it connects.
+
+**Easier parameter passing** solves the "parameter explosion" problem. Compare these function signatures:
+
+```javascript
+// Without objects - parameter explosion
+function updateHabit(id, name, category, streak, isActive, lastCompleted) { ... }
+
+// With objects - clean interface
+function updateHabit(habit) { ... }
+```
+
+The object version is impossible to get wrong. You can't accidentally swap the order of parameters. Adding new properties doesn't break existing function calls. The function signature becomes self-documenting - it works with habit objects.
+
+**Foundation for advanced patterns** is about future-proofing your code. Objects teach you to think in terms of entities and their behaviors. This mental model scales to more sophisticated patterns: classes (templates for creating objects), inheritance (objects that extend other objects), and composition (objects that contain other objects). These patterns power large applications, frameworks, and libraries.
+
+The code examples show practical benefits. The saveHabit function works with any habit object - it doesn't need to know about individual properties. The forEach example demonstrates how objects enable functional programming patterns. Each habit knows how to complete itself; we just tell each one to do it.
+</Notes>
 </SlideLayout.Full>

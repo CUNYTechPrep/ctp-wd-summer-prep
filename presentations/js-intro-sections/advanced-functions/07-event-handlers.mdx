@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -22,4 +22,14 @@ function setupHabitButton(habitName, pointValue) {
 const exerciseBtn = setupHabitButton('Exercise', 10);
 const readingBtn = setupHabitButton('Reading', 5);
 ```
+
+<Notes>
+Event handlers are one of the most common uses of closures in web development. Every time you attach an event listener that uses variables from outside its scope, you're creating a closure. This example shows how powerful this can be for creating dynamic, data-driven interfaces.
+
+Each button created by setupHabitButton carries its own habitName and pointValue in its closure. When the click event fires - possibly minutes or hours after the button was created - the handler still remembers these values. This is how we can create multiple buttons with different behaviors without global variables or data attributes.
+
+This pattern is everywhere in JavaScript: React event handlers close over props and state, setTimeout callbacks close over variables they need, and async operations close over data they'll use when they complete. Understanding this helps explain why sometimes you get stale values in React (the closure captured an old value) and how to fix such issues.
+
+The closure here acts like a backpack for the event handler, carrying along exactly the data it needs to function correctly when called in the future.
+</Notes>
 </SlideLayout.Full>

@@ -1,10 +1,22 @@
-import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Notes} from 'spectacle'
 import { CodeDisplay, File, Version, Tests } from '../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Control Flow
 
 Making decisions and repeating tasks in JavaScript
+
+<Notes>
+Welcome to our lesson on Control Flow in JavaScript! This is one of the most fundamental concepts in programming. Control flow determines the order in which code executes and allows our programs to be dynamic and responsive.
+
+Think of control flow as the decision-making brain of your program. Just like you make decisions throughout your day - "If it's raining, I'll take an umbrella" or "I'll keep exercising until I reach my goal" - programs need similar logic.
+
+We'll cover two main areas:
+1. Conditional statements (if/else, switch) - for making decisions
+2. Loops (for, while) - for repeating tasks
+
+These concepts are essential for building our habit tracker application, where we need to make decisions about habit status, calculate streaks, and process collections of habit data.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -17,6 +29,30 @@ Programs need to make decisions based on data:
 - Combine conditions with `&&` (and), `||` (or), `!` (not)
 
 **The Goal**: Build logic that responds to different situations
+
+<Notes>
+Before we dive into specific syntax, let's understand WHY we need decision-making in code. Programs become powerful when they can respond differently to different situations.
+
+In our habit tracker, we might need to:
+- Show different messages based on streak length
+- Display different colors for active vs inactive habits
+- Calculate scores differently for different habit types
+
+The comparison operators are crucial here:
+- Use `===` for strict equality (checks value AND type)
+- Avoid `==` which does type coercion and can lead to bugs
+- `!==` is the opposite of `===`
+- `>`, `<`, `>=`, `<=` work as expected for numbers and can compare strings alphabetically
+
+Logical operators let you combine conditions:
+- `&&` means "both conditions must be true"
+- `||` means "at least one condition must be true"  
+- `!` means "opposite of this condition"
+
+Example: `if (streak > 7 && isActive)` means both conditions must be true.
+
+Common mistake: Using = instead of === for comparison. Remember: = assigns, === compares!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -30,6 +66,33 @@ if (condition) {
   // code if false
 }
 ```
+
+<Notes>
+Here's the foundation of decision-making in JavaScript - the if/else statement. This is the most basic form of conditional logic.
+
+Key points to emphasize:
+1. The condition must evaluate to true or false (boolean)
+2. JavaScript uses "truthy" and "falsy" values - most things are truthy except: false, 0, "", null, undefined, NaN
+3. The `else` block is optional - you can have just an `if`
+4. Always use curly braces {} even for single statements to avoid bugs
+
+In our habit tracker context:
+```javascript
+if (habit.completed) {
+  showSuccessMessage();
+} else {
+  showEncouragement();
+}
+```
+
+Common mistakes:
+- Forgetting parentheses around the condition
+- Using = instead of === in the condition
+- Missing curly braces leading to unexpected behavior when adding more code
+- Not considering what happens when the condition is falsy
+
+The else block runs when the condition is false, but remember that JavaScript has truthy/falsy values, so `if (0)` will be false!
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Conditional Statements
@@ -46,6 +109,39 @@ switch (value) {
     // default code
 }
 ```
+
+<Notes>
+Switch statements are perfect when you have multiple discrete options to check against a single value. They're cleaner than long if/else chains when dealing with many specific cases.
+
+Critical points about switch statements:
+1. **ALWAYS include break statements** - without them, code "falls through" to the next case
+2. The `default` case is optional but recommended - it's like the final `else`
+3. Switch uses strict equality (===) for comparisons
+4. Cases can be grouped together by omitting breaks intentionally
+
+For our habit tracker:
+```javascript
+switch (habitCategory) {
+  case "health":
+    icon = "💪";
+    color = "green";
+    break;
+  case "productivity":
+    icon = "⚡";
+    color = "blue";
+    break;
+  default:
+    icon = "📋";
+    color = "gray";
+}
+```
+
+When to use switch vs if/else:
+- Switch: When comparing one value against many specific options
+- If/else: When you have complex conditions or ranges (like > 10)
+
+The most common bug with switch statements is forgetting the `break` - this causes "fall-through" where multiple cases execute!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -67,6 +163,37 @@ if (score >= 90) {
 - Check conditions in order
 - First true condition wins
 - else catches everything else
+
+<Notes>
+If/else chains are perfect for checking ranges or multiple complex conditions. They're evaluated from top to bottom, and the first condition that's true wins - the rest are skipped.
+
+Key teaching points:
+1. **Order matters!** Always put the most specific conditions first
+2. Use `else if` to continue the chain - each `if` is independent
+3. The final `else` is your "catch-all" case
+4. Only ONE block of code will execute
+
+For our habit tracker, this pattern is perfect for streak messages:
+```javascript
+if (streak >= 30) {
+  message = "Habit Master! 🏆";
+  badge = "gold";
+} else if (streak >= 7) {
+  message = "On fire! 🔥";
+  badge = "silver";
+} else if (streak >= 3) {
+  message = "Building momentum! 💪";
+  badge = "bronze";
+} else {
+  message = "Keep going! 🌱";
+  badge = "none";
+}
+```
+
+Common mistake: Using separate `if` statements instead of `else if` - this would check ALL conditions even after finding a match, which is inefficient and can lead to unexpected behavior.
+
+The order is crucial - if you put `score >= 70` first, a score of 95 would get grade "C" because it stops at the first true condition!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -88,6 +215,44 @@ if (isLoggedIn) {
 - Concise conditional assignment
 - Best for simple true/false cases
 - Can be nested (but avoid complexity)
+
+<Notes>
+The ternary operator is JavaScript's shorthand for simple if/else statements. It's called "ternary" because it has three parts: condition ? valueIfTrue : valueIfFalse.
+
+When to use ternary vs if/else:
+- **Ternary**: When assigning one of two values to a variable
+- **If/else**: When you need to execute multiple statements or complex logic
+
+Perfect for our habit tracker:
+```javascript
+const habitStatus = habit.completed ? "✅ Done" : "⭕ Pending";
+const streakColor = streak > 7 ? "green" : "red";
+const points = isWeekend ? 5 : 10;
+```
+
+Best practices:
+1. Keep it simple - if you need multiple lines, use if/else
+2. Avoid nesting ternary operators - it becomes unreadable
+3. Use parentheses for clarity with complex conditions
+
+Example of what NOT to do:
+```javascript
+// ❌ Hard to read
+const message = streak > 30 ? "Master" : streak > 7 ? "Good" : "Start";
+
+// ✅ Better as if/else chain
+let message;
+if (streak > 30) {
+  message = "Master";
+} else if (streak > 7) {
+  message = "Good";
+} else {
+  message = "Start";
+}
+```
+
+The ternary operator is an expression (returns a value), while if/else is a statement (performs actions).
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -111,6 +276,41 @@ switch (day) {
 - Cleaner than multiple if/else
 - Don't forget `break` statements!
 - Can group cases together
+
+<Notes>
+This slide shows switch statements in action with some advanced patterns. Notice how we can group cases together and use return statements instead of break.
+
+Key teaching points:
+1. **Grouping cases**: Saturday and Sunday both return "Weekend!" by omitting the break from Saturday
+2. **Return vs break**: If you return from a function, you don't need break (the function exits)
+3. **Default case**: Always consider what happens if none of the cases match
+
+For our habit tracker, switch is perfect for categorizing habits:
+```javascript
+function getHabitMetadata(category) {
+  switch (category) {
+    case "health":
+    case "fitness":
+      return { icon: "💪", color: "green", points: 10 };
+    case "productivity":
+    case "work":
+      return { icon: "⚡", color: "blue", points: 8 };
+    case "learning":
+    case "education":
+      return { icon: "📚", color: "purple", points: 12 };
+    case "social":
+    case "relationships":
+      return { icon: "👥", color: "orange", points: 6 };
+    default:
+      return { icon: "📋", color: "gray", points: 5 };
+  }
+}
+```
+
+Advanced pattern: You can group related cases together by intentionally omitting breaks. This is one of the few times "fall-through" is actually desired behavior.
+
+Performance note: Switch statements can be faster than long if/else chains because JavaScript engines can optimize them into jump tables.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -122,14 +322,23 @@ You'll build conditional logic for a habit tracker that:
 2. **Categorizes habits** with appropriate icons/styling  
 3. **Checks activity status** to show current state
 
-</SlideLayout.Full>
-<SlideLayout.Full>
-## Exercise Overview: Habit Streak Messages
+<Notes>
+Now we're going to apply everything we've learned about conditional statements in a practical exercise that directly relates to our habit tracker application.
 
-**Key Concepts to Apply:**
-- if/else chains for streak milestones
-- Switch statement for category handling
-- Ternary operator for active/inactive status
+This exercise is designed to reinforce three key concepts:
+1. **If/else chains** for handling ranges (streak lengths)
+2. **Switch statements** for discrete categories
+3. **Ternary operators** for simple binary choices
+
+In a real habit tracker app, these are exactly the kinds of decisions your code needs to make:
+- What message should we show based on how long someone's streak is?
+- What icon and color should represent different types of habits?
+- Should we show "Active" or "Inactive" status?
+
+This exercise bridges the gap between syntax and real-world application. Students will see how conditional logic directly impacts user experience - encouraging messages for good streaks, appropriate visual cues for different habit types, and clear status indicators.
+
+Encourage students to think about edge cases: What if the streak is 0? What if someone passes an invalid category? These are the kinds of defensive programming practices that make applications robust.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -235,6 +444,44 @@ describe('Habit Streak Messages', () => {
     
   </Tests>
 </CodeDisplay>
+
+<Notes>
+This is the hands-on exercise where students apply all the conditional logic concepts they've learned. Walk through each part of the solution carefully:
+
+**Part 1 - Streak Messages (if/else chain):**
+- Notice the order: highest thresholds first (30, then 7, then 3)
+- Each condition builds on the previous (if not 30+, check if 7+, etc.)
+- The final `else` catches anyone with 0-2 days
+
+**Part 2 - Activity Status (ternary operator):**
+- Perfect for this simple binary choice
+- Much cleaner than a full if/else block
+- Could also write as: `const status = isActive ? "Active" : "Inactive"`
+
+**Part 3 - Category Handling (switch statement):**
+- Each case returns a specific icon
+- Don't forget the `break` statements!
+- The `default` case handles any unexpected categories
+
+**Key teaching moments:**
+1. **Defensive programming**: The default case prevents errors if someone passes "sports" or another category
+2. **Variable naming**: `categoryIcon` is descriptive and clear
+3. **String interpolation**: Using template literals for clean output
+
+**Common mistakes to watch for:**
+- Missing breaks in switch statement
+- Wrong order in if/else chain (putting >= 3 before >= 30)
+- Forgetting the final else case
+- Using == instead of ===
+
+**Extension ideas:**
+- Add more categories (social, creative, spiritual)
+- Include colors or points in the switch cases
+- Add validation to check if streak is negative
+- Create a function that takes multiple parameters
+
+The tests show exactly what the expected behavior should be - this is test-driven development in action!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -247,6 +494,28 @@ When you have collections of data, you need to process each item:
 - **for...of loop** - when you want to iterate over values  
 - **while loop** - when you don't know how many iterations needed
 - **Array methods** - functional programming approach
+
+<Notes>
+Now we're moving from making single decisions to processing collections of data. Iteration (looping) is essential when working with arrays, objects, or any collection of items.
+
+In our habit tracker context, loops are everywhere:
+- Processing a week's worth of habit data
+- Calculating total points across all habits
+- Finding the habit with the longest streak
+- Displaying a list of completed habits
+
+**Choosing the right loop type:**
+
+**Traditional for loop**: Use when you need to know the index or want precise control over iteration. Perfect for going backwards or skipping items.
+
+**for...of loop**: Use when you just need the values and want clean, readable code. Best for most array iterations.
+
+**while loop**: Use when you don't know how many iterations you'll need. Great for searching until you find something or processing data until a condition changes.
+
+**Array methods** (map, filter, reduce): Functional programming style. We'll cover these later, but they're often the most elegant solution.
+
+The key is matching the loop type to the problem. Students often default to traditional for loops, but for...of is usually cleaner and less error-prone for simple iteration.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -260,6 +529,39 @@ With loops, you can:
 - Filter collections based on conditions
 
 Let's explore each loop type...
+
+<Notes>
+Before diving into specific loop syntax, it's important to understand the common patterns you'll use loops for. These are the fundamental data processing operations that appear in almost every application.
+
+**For our habit tracker, here's how each pattern applies:**
+
+**Counting items that meet criteria:**
+- How many habits were completed this week?
+- How many habits are in the "health" category?
+- How many habits have streaks over 7 days?
+
+**Calculate totals/averages:**
+- What's the total points earned this month?
+- What's the average completion rate across all habits?
+- What's the total number of days tracked?
+
+**Find maximum/minimum values:**
+- Which habit has the longest streak?
+- What's the lowest completion rate?
+- Which day had the most habits completed?
+
+**Transform data into new formats:**
+- Convert habit objects into just their names for a dropdown
+- Create display strings like "Exercise - 7 days" from habit data
+- Generate summary reports from raw tracking data
+
+**Filter collections based on conditions:**
+- Show only active habits
+- Display habits completed today
+- List habits that need attention (low streaks)
+
+These patterns are so common that JavaScript has built-in array methods for many of them (which we'll cover later), but understanding how to implement them with loops first builds important problem-solving skills.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -281,6 +583,47 @@ for (let i = 0; i < array.length; i += 2) {
   console.log(array[i]);
 }
 ```
+
+<Notes>
+The traditional for loop is the most flexible but also the most error-prone loop type. It's essential when you need index control or want to iterate in non-standard ways.
+
+**Breaking down the syntax:**
+- `let i = 0` - initialization (runs once at the start)
+- `i < array.length` - condition (checked before each iteration)
+- `i++` - increment (runs after each iteration)
+
+**When to use traditional for loops:**
+1. When you need the index position for something
+2. When you need to iterate backwards
+3. When you need to skip items or use custom increments
+4. When you're working with nested loops (common for 2D arrays)
+
+**Habit tracker examples:**
+```javascript
+// Display habits with position numbers
+for (let i = 0; i < habits.length; i++) {
+  console.log(`${i + 1}. ${habits[i].name}`);
+}
+
+// Process last week's data (newest first)
+for (let i = weekData.length - 1; i >= 0; i--) {
+  processDay(weekData[i]);
+}
+
+// Check every other day for patterns
+for (let i = 0; i < dailyData.length; i += 2) {
+  analyzeTrends(dailyData[i]);
+}
+```
+
+**Common pitfalls:**
+- Off-by-one errors: `i <= array.length` goes too far!
+- Infinite loops: forgetting to increment `i`
+- Variable scope: use `let` not `var` to avoid scope issues
+- Modifying array length during iteration can cause skipped items
+
+The three-part structure (init; condition; increment) is very powerful but requires careful attention to detail.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -301,6 +644,52 @@ for (const char of "Hello") {
 ```
 
 Cleaner syntax when index isn't needed
+
+<Notes>
+The for...of loop is modern JavaScript's answer to clean, readable iteration. It's perfect when you just need the values and don't care about indexes.
+
+**Key advantages:**
+1. **Cleaner syntax** - no index management, no length checks
+2. **Less error-prone** - no off-by-one errors possible
+3. **More readable** - the intent is crystal clear
+4. **Works with any iterable** - arrays, strings, NodeLists, etc.
+
+**Use const vs let:**
+- Use `const` when you won't reassign the loop variable
+- Use `let` if you need to modify the variable inside the loop
+
+**Habit tracker examples:**
+```javascript
+// Process each habit's completion status
+for (const habit of userHabits) {
+  if (habit.completed) {
+    showSuccessIcon(habit.name);
+  }
+}
+
+// Calculate total points
+let totalPoints = 0;
+for (const habit of habits) {
+  totalPoints += habit.points;
+}
+
+// Generate habit names list
+const habitNames = [];
+for (const habit of habits) {
+  habitNames.push(habit.name);
+}
+```
+
+**When NOT to use for...of:**
+- When you need the index position
+- When you need to modify the original array (though you can modify object properties)
+- When you need to iterate backwards or skip items
+
+**Bonus: Works with strings too!**
+This is great for character-by-character processing, like validating input or analyzing text patterns.
+
+For...of should be your default choice for simple array iteration - it's cleaner and safer than traditional for loops.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -321,6 +710,68 @@ while (index < habits.length && habits[index].streak < 30) {
 ```
 
 Be careful of infinite loops!
+
+<Notes>
+While loops are perfect when you don't know how many iterations you'll need. They continue until a condition becomes false, making them ideal for searching, validation, and dynamic processing.
+
+**Key characteristics:**
+1. **Condition-driven** - continues while condition is true
+2. **Unknown iteration count** - you don't know how many times it will run
+3. **Must update condition** - inside the loop, or it runs forever!
+
+**Common while loop patterns:**
+
+**1. Searching until found:**
+```javascript
+let index = 0;
+let foundHabit = null;
+while (index < habits.length && !foundHabit) {
+  if (habits[index].name === searchName) {
+    foundHabit = habits[index];
+  }
+  index++;
+}
+```
+
+**2. Processing until empty:**
+```javascript
+const tasksToProcess = [...pendingTasks];
+while (tasksToProcess.length > 0) {
+  const task = tasksToProcess.pop();
+  processTask(task);
+}
+```
+
+**3. User input validation:**
+```javascript
+let validInput = false;
+while (!validInput) {
+  const userInput = promptUser("Enter habit name:");
+  validInput = validateHabitName(userInput);
+  if (!validInput) {
+    showError("Invalid name. Try again.");
+  }
+}
+```
+
+**CRITICAL WARNING: Infinite loops!**
+The most dangerous aspect of while loops is infinite loops. Always ensure:
+1. The condition CAN become false
+2. You're updating the condition variable inside the loop
+3. You have a reasonable "escape hatch" (like a maximum iteration counter)
+
+**Safe while loop pattern:**
+```javascript
+let attempts = 0;
+const maxAttempts = 100;
+while (condition && attempts < maxAttempts) {
+  // your code
+  attempts++;
+}
+```
+
+While loops are powerful but require more careful thought than for loops.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -341,6 +792,66 @@ for (const item of items) {
   total += item.points;
 }
 ```
+
+<Notes>
+These are two of the most fundamental loop patterns you'll use constantly in programming. Let's break down each pattern:
+
+**Counting Pattern:**
+This pattern uses a counter variable that starts at 0 and increments when items meet specific criteria. 
+
+Key elements:
+1. Initialize counter to 0 before the loop
+2. Use an if statement to check criteria
+3. Increment counter when criteria is met
+
+For our habit tracker:
+```javascript
+// Count completed habits this week
+let completedCount = 0;
+for (const day of weeklyData) {
+  if (day.completed) {
+    completedCount++;
+  }
+}
+
+// Count habits in specific category
+let healthHabits = 0;
+for (const habit of allHabits) {
+  if (habit.category === "health") {
+    healthHabits++;
+  }
+}
+```
+
+**Accumulating Pattern:**
+This pattern builds up a running total by adding values together.
+
+Key elements:
+1. Initialize accumulator to 0 (or appropriate starting value)
+2. Add each relevant value to the accumulator
+3. The final value is your result
+
+For our habit tracker:
+```javascript
+// Calculate total points earned
+let totalPoints = 0;
+for (const habit of habits) {
+  totalPoints += habit.points;
+}
+
+// Calculate average streak length
+let totalDays = 0;
+for (const habit of habits) {
+  totalDays += habit.streakLength;
+}
+const averageStreak = totalDays / habits.length;
+```
+
+**Common mistakes:**
+- Forgetting to initialize the counter/accumulator
+- Putting the initialization inside the loop
+- Using the wrong starting value (like starting a product at 0 instead of 1)
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -367,6 +878,68 @@ for (const item of items) {
   }
 }
 ```
+
+<Notes>
+Finding extremes (maximum, minimum, first match) is another crucial loop pattern. These patterns help you analyze data and find specific items in collections.
+
+**Finding Maximum Pattern:**
+This pattern tracks the highest value seen so far and the item that has that value.
+
+Key elements:
+1. Initialize tracking variables before the loop
+2. Compare each item against the current best
+3. Update both the value and the item when you find a better one
+
+Important consideration: What initial value should you use?
+- For finding max: Start with 0, -Infinity, or the first item's value
+- For finding min: Start with Infinity or the first item's value
+
+**Habit tracker examples:**
+```javascript
+// Find habit with longest streak
+let longestStreak = 0;
+let bestHabit = null;
+for (const habit of habits) {
+  if (habit.streak > longestStreak) {
+    longestStreak = habit.streak;
+    bestHabit = habit;
+  }
+}
+
+// Find day with most points
+let maxPoints = -1;
+let bestDay = null;
+for (const day of weeklyData) {
+  if (day.points > maxPoints) {
+    maxPoints = day.points;
+    bestDay = day;
+  }
+}
+```
+
+**Finding First Match Pattern:**
+This pattern searches for the first item that meets specific criteria and stops as soon as it's found.
+
+Key elements:
+1. Initialize result variable to null
+2. Check each item against criteria
+3. Use `break` to exit early when found (efficiency!)
+
+**Why use break?** 
+Once you find what you're looking for, there's no need to check the remaining items. This can save significant time with large datasets.
+
+**Variation for finding minimum:**
+```javascript
+let minValue = Infinity;
+let worstItem = null;
+for (const item of items) {
+  if (item.value < minValue) {
+    minValue = item.value;
+    worstItem = item;
+  }
+}
+```
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -387,6 +960,76 @@ for (const item of items) {
   names.push(item.name.toUpperCase());
 }
 ```
+
+<Notes>
+Building new collections from existing data is a fundamental programming pattern. These patterns help you create filtered subsets and transformed versions of your data.
+
+**Filtering Pattern:**
+This pattern creates a new array containing only items that meet specific criteria.
+
+Key elements:
+1. Create empty result array before the loop
+2. Test each item against your criteria
+3. Add matching items to the result array using `push()`
+
+**Habit tracker filtering examples:**
+```javascript
+// Get only active habits
+const activeHabits = [];
+for (const habit of allHabits) {
+  if (habit.isActive) {
+    activeHabits.push(habit);
+  }
+}
+
+// Get habits completed today
+const todaysHabits = [];
+for (const habit of habits) {
+  if (habit.completedToday) {
+    todaysHabits.push(habit);
+  }
+}
+
+// Get habits with streaks over 7 days
+const strongHabits = [];
+for (const habit of habits) {
+  if (habit.streak > 7) {
+    strongHabits.push(habit);
+  }
+}
+```
+
+**Transformation Pattern:**
+This pattern creates a new array where each item is modified or converted from the original.
+
+**Habit tracker transformation examples:**
+```javascript
+// Extract just the habit names
+const habitNames = [];
+for (const habit of habits) {
+  habitNames.push(habit.name);
+}
+
+// Create display strings
+const displayStrings = [];
+for (const habit of habits) {
+  displayStrings.push(`${habit.name} - ${habit.streak} days`);
+}
+
+// Calculate completion percentages
+const percentages = [];
+for (const habit of habits) {
+  const percentage = (habit.completed / habit.total) * 100;
+  percentages.push(percentage);
+}
+```
+
+**Key insight:** You're not modifying the original array - you're creating a new one. This is important for data integrity and avoiding side effects.
+
+**Performance note:** For large datasets, consider whether you need to create intermediate arrays or if you can process data in a single pass.
+
+Later, we'll learn about array methods like `filter()` and `map()` that provide cleaner syntax for these patterns!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -400,6 +1043,37 @@ You'll process a week's worth of habit data to:
 4. **List completed days** for reporting
 
 You'll practice different loop techniques for each task!
+
+<Notes>
+This exercise is designed to reinforce all the loop patterns we've covered. Each task uses a different loop technique to show when each approach is most appropriate.
+
+**Why different loop techniques for each task?**
+
+**Task 1 - Count completions (traditional for loop):** 
+We're using a traditional for loop to demonstrate index-based iteration. This could easily be done with for...of, but showing the traditional approach helps students understand the fundamentals.
+
+**Task 2 - Calculate total points (for...of loop):**
+Perfect use case for for...of since we just need the values. Clean and readable syntax for accumulating data.
+
+**Task 3 - Find best day (while loop):**
+While loops aren't the most common choice for this task, but it demonstrates how while loops can work with arrays when you manage the index manually. This reinforces while loop concepts.
+
+**Task 4 - List completed days (array methods):**
+We introduce functional programming concepts with filter() and map(). This shows students there are often multiple ways to solve the same problem.
+
+**Key learning objectives:**
+1. **Pattern recognition** - Students learn to identify which loop pattern fits each problem
+2. **Hands-on practice** - Multiple loop types in one exercise
+3. **Real-world context** - Processing actual habit tracker data
+4. **Comparison** - See how different approaches achieve the same results
+
+**Extension discussion points:**
+- Which approach is most readable?
+- Which would be most efficient for large datasets?
+- When might you choose one technique over another?
+
+This exercise bridges the gap between learning individual concepts and applying them in combination to solve real problems.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -509,6 +1183,52 @@ describe('Weekly Habit Processing', () => {
     
   </Tests>
 </CodeDisplay>
+
+<Notes>
+This comprehensive exercise demonstrates four different approaches to data processing. Walk through each solution carefully to highlight the different techniques:
+
+**Solution 1 - Traditional for loop (counting):**
+- Uses index-based iteration: `for (let i = 0; i < weeklyHabits.length; i++)`
+- Accesses items via bracket notation: `weeklyHabits[i]`
+- Classic counter pattern with conditional increment
+- Most verbose but gives full control
+
+**Solution 2 - for...of loop (accumulation):**
+- Clean, readable syntax: `for (const day of weeklyHabits)`
+- Direct access to values without index management
+- Perfect for accumulation pattern
+- Notice the guard condition `if (day.completed)` before adding points
+
+**Solution 3 - while loop (finding maximum):**
+- Demonstrates manual index management with while loops
+- Shows how to track both the value (highestPoints) and the source (bestDay)
+- Could be done more simply with for...of, but good while loop practice
+- Important: increment index inside the loop!
+
+**Solution 4 - Array methods (functional approach):**
+- Uses `filter()` to select completed days
+- Uses `map()` to extract just the day names
+- Method chaining for concise code
+- Preview of functional programming concepts
+
+**Key teaching points:**
+1. **Multiple solutions exist** - there's rarely just one way to solve a problem
+2. **Readability matters** - the for...of and array methods are cleaner for simple cases
+3. **Context matters** - sometimes you need the extra control of traditional for loops
+4. **Performance varies** - array methods create intermediate arrays, loops don't
+
+**Common student mistakes to watch for:**
+- Forgetting to initialize counters/accumulators
+- Off-by-one errors in traditional for loops
+- Forgetting to increment index in while loops
+- Trying to use array methods before understanding basic loops
+
+**Extension ideas:**
+- Calculate average points per day
+- Find the worst day (minimum points)
+- Group habits by points ranges
+- Create a summary report string
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -534,6 +1254,55 @@ switch (habitCategory) {
     break;
 }
 ```
+
+<Notes>
+The missing break statement is the #1 most common bug with switch statements. This pitfall catches even experienced developers sometimes!
+
+**What happens without break:**
+When you don't include a break statement, JavaScript continues executing code in all subsequent cases. This is called "fall-through" behavior.
+
+In the wrong example:
+- If habitCategory is "health", icon gets set to "💪"
+- BUT then execution continues to the next case
+- icon gets overwritten to "📚"
+- The final result is always "📚" regardless of the input!
+
+**Why does this happen?**
+Switch statements were designed this way to allow intentional grouping of cases (which we saw earlier with weekend days). However, most of the time you want each case to be independent.
+
+**Real-world debugging story:**
+Share this with students - this bug often manifests as "the switch always executes the last case" which can be very confusing. Students might think their conditions aren't working, when really it's just missing breaks.
+
+**Debugging tips:**
+1. If your switch seems to always pick the last option, check for missing breaks
+2. Use your debugger or console.log to see which cases are executing
+3. Consider using return statements in functions instead of break (they serve the same purpose)
+
+**Alternative solutions:**
+```javascript
+// Using return in a function (no breaks needed)
+function getHabitIcon(category) {
+  switch (category) {
+    case "health":
+      return "💪";
+    case "learning":
+      return "📚";
+    default:
+      return "📋";
+  }
+}
+
+// Using object lookup (no switch needed)
+const habitIcons = {
+  health: "💪",
+  learning: "📚",
+  default: "📋"
+};
+const icon = habitIcons[category] || habitIcons.default;
+```
+
+This is a perfect example of why attention to detail matters in programming!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -555,6 +1324,58 @@ for (let i = 0; i <= array.length; i++) {
   console.log(array[i]); // undefined on last iteration
 }
 ```
+
+<Notes>
+Off-by-one errors are among the most common programming mistakes, especially when working with loops and arrays. They're so common there's even a famous quote: "There are only two hard things in Computer Science: cache invalidation and off-by-one errors."
+
+**Understanding array indexing:**
+- Arrays start at index 0 (zero-based indexing)
+- An array with length 5 has indexes 0, 1, 2, 3, 4
+- The last valid index is always `length - 1`
+
+**Common off-by-one scenarios:**
+
+**1. Missing the last element (`i < array.length - 1`):**
+This happens when students think they need to subtract 1 from the length. The loop stops too early and misses the last element.
+
+**2. Going past the array end (`i <= array.length`):**
+Using `<=` instead of `<` causes the loop to run one extra time, trying to access `array[array.length]` which is undefined.
+
+**Habit tracker examples of these errors:**
+```javascript
+const habits = ["Exercise", "Read", "Meditate"]; // length = 3, indexes 0, 1, 2
+
+// ❌ Misses "Meditate" 
+for (let i = 0; i < habits.length - 1; i++) {
+  console.log(habits[i]); // Only logs "Exercise", "Read"
+}
+
+// ❌ Logs undefined at the end
+for (let i = 0; i <= habits.length; i++) {
+  console.log(habits[i]); // Logs "Exercise", "Read", "Meditate", undefined
+}
+```
+
+**Memory aids:**
+1. **Use `<` not `<=`** with `.length`
+2. **Remember: length is one more than the highest index**
+3. **When in doubt, use for...of loops** - they can't have off-by-one errors!
+
+**Debugging tips:**
+- Add console.log(i, array[i]) to see what's happening
+- Check if you're getting undefined values (sign you went too far)
+- Check if you're missing expected elements (sign you stopped too early)
+
+**Why for...of is safer:**
+```javascript
+// No chance of off-by-one errors!
+for (const habit of habits) {
+  console.log(habit);
+}
+```
+
+This is another great argument for using for...of loops when you don't need the index!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -578,6 +1399,73 @@ if (habit.streak > 0) {
 ```
 
 Remember: 0, "", null, undefined, false are all falsy!
+
+<Notes>
+Truthy and falsy values are one of JavaScript's most confusing features for beginners. Understanding this concept is crucial for writing correct conditional logic.
+
+**JavaScript's falsy values (there are only 6):**
+1. `false` - the boolean false
+2. `0` - the number zero
+3. `""` - empty string
+4. `null` - intentional absence of value
+5. `undefined` - unassigned or non-existent value
+6. `NaN` - "Not a Number"
+
+**Everything else is truthy!** Including:
+- `"0"` (string containing zero)
+- `[]` (empty array)
+- `{}` (empty object)
+- `"false"` (string containing "false")
+
+**The habit tracker problem:**
+In our example, if a habit has a streak of 0 days, the condition `if (habit.streak)` evaluates to false because 0 is falsy. This means we won't show "Has streak" even though the streak property exists and has a valid value!
+
+**Common scenarios where this trips up developers:**
+
+**1. Checking if a number exists:**
+```javascript
+const score = 0; // Valid score, but falsy
+if (score) {
+  console.log("User has a score"); // Never runs!
+}
+
+// Better approaches:
+if (score !== undefined) { /* runs */ }
+if (typeof score === 'number') { /* runs */ }
+if (score >= 0) { /* runs */ }
+```
+
+**2. Checking if a string has content:**
+```javascript
+const userInput = ""; // Empty but might be intentional
+if (userInput) {
+  processInput(userInput); // Never runs
+}
+
+// Better:
+if (userInput !== undefined) { /* check if provided */ }
+if (userInput.length > 0) { /* check if not empty */ }
+```
+
+**3. API responses with meaningful zeros:**
+```javascript
+const apiResponse = { completedHabits: 0 }; // Meaningful data!
+if (apiResponse.completedHabits) {
+  showProgress(); // Never runs, even though 0 is valid data
+}
+
+// Better:
+if (apiResponse.completedHabits !== undefined) { /* runs */ }
+```
+
+**Best practices:**
+1. **Be explicit** about what you're checking for
+2. **Use strict comparisons** (=== and !==) when possible
+3. **Consider whether 0 or empty string are valid values** in your context
+4. **Use specific checks** like `> 0` or `!== undefined` instead of relying on truthiness
+
+This is why many style guides recommend being explicit rather than relying on truthy/falsy coercion!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -597,6 +1485,59 @@ for (let i = 0; i < len; i++) {
 ```
 
 Most important for very large arrays
+
+<Notes>
+This performance tip is a classic optimization that's worth understanding, though modern JavaScript engines have made it less critical than it used to be.
+
+**The traditional concern:**
+In older JavaScript engines, accessing `array.length` was slower because it required a property lookup on the array object. When done thousands of times in a loop, this could add up to noticeable performance impact.
+
+**Modern reality:**
+Today's JavaScript engines (V8, SpiderMonkey, JavaScriptCore) are highly optimized and can usually optimize away the repeated length access. However, the pattern is still worth knowing because:
+
+1. **It's still technically faster** in some scenarios
+2. **It's a common pattern** you'll see in production code
+3. **It shows performance awareness** in code reviews
+4. **It's essential when length might change** during iteration
+
+**When this optimization matters most:**
+- **Very large arrays** (10,000+ elements)
+- **Performance-critical code** (real-time applications, games)
+- **Arrays that might grow during iteration** (though this is dangerous anyway)
+- **Older JavaScript environments** or embedded systems
+
+**Habit tracker context:**
+```javascript
+// For typical habit tracker data (< 100 habits), this won't matter much
+const userHabits = [...]; // Maybe 10-50 habits
+for (let i = 0; i < userHabits.length; i++) {
+  processHabit(userHabits[i]);
+}
+
+// But for processing large datasets, it could help
+const allUserData = [...]; // Maybe 100,000+ records
+const len = allUserData.length; // Cache it!
+for (let i = 0; i < len; i++) {
+  analyzeUserData(allUserData[i]);
+}
+```
+
+**Important caveat:**
+If you're modifying the array during iteration (adding/removing items), caching the length can cause bugs because the cached value becomes stale.
+
+**Alternative approaches:**
+```javascript
+// for...of doesn't have this concern at all
+for (const habit of habits) {
+  processHabit(habit);
+}
+
+// Array methods are usually optimized internally
+habits.forEach(processHabit);
+```
+
+**Bottom line:** Don't premature optimize, but be aware of this pattern. Profile your actual performance bottlenecks first!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -619,6 +1560,80 @@ const names = habits.map(h => h.name);
 // For filtering (functional)
 const active = habits.filter(h => h.isActive);
 ```
+
+<Notes>
+Choosing the right iteration method is more about code clarity and maintainability than performance, but there are some performance considerations worth understanding.
+
+**Performance hierarchy (generally):**
+
+1. **Traditional for loop** - Usually fastest for raw performance
+2. **for...of loop** - Very close to traditional for loop performance
+3. **Array methods** (map, filter, forEach) - Slightly slower due to function call overhead
+4. **for...in loop** - Slowest, avoid for arrays
+
+**But performance isn't the only consideration!**
+
+**Readability and maintainability often matter more:**
+
+**for...of - Best for simple iteration:**
+```javascript
+// Clear, readable, safe from off-by-one errors
+for (const habit of habits) {
+  if (habit.completed) {
+    showSuccessMessage(habit);
+  }
+}
+```
+
+**Traditional for loop - When you need index control:**
+```javascript
+// When position matters
+for (let i = 0; i < habits.length; i++) {
+  console.log(`${i + 1}. ${habits[i].name}`);
+}
+
+// When you need to iterate backwards
+for (let i = habits.length - 1; i >= 0; i--) {
+  processHabit(habits[i]);
+}
+```
+
+**Array methods - For functional transformations:**
+```javascript
+// Creating new data structures
+const habitNames = habits.map(h => h.name);
+const activeHabits = habits.filter(h => h.isActive);
+const totalPoints = habits.reduce((sum, h) => sum + h.points, 0);
+```
+
+**Real-world decision making:**
+
+For a habit tracker app with typical data sizes (< 1000 items), the performance difference is negligible. Choose based on:
+
+1. **Readability** - What's clearest to understand?
+2. **Purpose** - Are you transforming data or just iterating?
+3. **Team conventions** - What does your team prefer?
+4. **Error proneness** - for...of is safer than traditional for loops
+
+**When performance actually matters:**
+- Processing huge datasets (10,000+ items)
+- Real-time applications (games, animations)
+- Mobile devices with limited processing power
+- Code that runs very frequently (inside other loops)
+
+**Modern best practice:**
+Start with the most readable approach. Only optimize if profiling shows it's actually a bottleneck.
+
+**Habit tracker example:**
+```javascript
+// For 50 habits, all of these are fine:
+habits.forEach(processHabit);           // Functional
+for (const habit of habits) { ... }     // Iterative
+for (let i = 0; i < habits.length; i++) // Traditional
+```
+
+The difference in performance will be microseconds - not worth sacrificing readability!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -641,6 +1656,91 @@ for (const habit of habits) {
   }
 }
 ```
+
+<Notes>
+Breaking early is one of the most impactful performance optimizations you can make when searching through data. It's also a great example of algorithmic thinking.
+
+**The performance impact:**
+Without breaking early, you check EVERY item even after finding what you're looking for. With 1000 habits, if the target is the 2nd item, you still check 998 more items unnecessarily!
+
+**Real-world impact in a habit tracker:**
+
+```javascript
+// Searching for "Exercise" in a list of 100 habits
+const habits = [
+  { name: "Exercise", streak: 15 },
+  { name: "Read", streak: 8 },
+  // ... 98 more habits
+];
+
+// ❌ Always checks all 100 habits
+let found = null;
+for (const habit of habits) {
+  if (habit.name === "Exercise") {
+    found = habit; // Found it, but keeps going!
+  }
+}
+
+// ✅ Stops after checking just 1 habit
+for (const habit of habits) {
+  if (habit.name === "Exercise") {
+    found = habit;
+    break; // Done!
+  }
+}
+```
+
+**Best case vs worst case:**
+- **Best case:** Target is first item - 1 check vs 100 checks (100x faster!)
+- **Average case:** Target is in middle - 50 checks vs 100 checks (2x faster)
+- **Worst case:** Target is last item - no difference (but no penalty either)
+
+**When you can't use break:**
+Some built-in array methods don't support early termination:
+
+```javascript
+// ❌ Can't break early with forEach
+habits.forEach(habit => {
+  if (habit.name === searchName) {
+    found = habit;
+    // break; // This doesn't work in forEach!
+  }
+});
+
+// ✅ Use find() instead - it breaks early automatically!
+const found = habits.find(habit => habit.name === searchName);
+```
+
+**Other early exit strategies:**
+```javascript
+// Using return in functions
+function findHabit(habits, name) {
+  for (const habit of habits) {
+    if (habit.name === name) {
+      return habit; // Exits function and loop
+    }
+  }
+  return null; // Not found
+}
+
+// Multiple conditions
+for (const habit of habits) {
+  if (habit.completed && habit.category === "health") {
+    processHealthHabit(habit);
+    break; // Found what we needed
+  }
+}
+```
+
+**Array method alternatives:**
+- `find()` - finds first match, stops early
+- `some()` - checks if any match, stops early  
+- `every()` - checks if all match, stops on first false
+
+**Bottom line:** When searching for a single item, always break early. It's free performance that can make a huge difference with large datasets!
+
+This optimization applies to many other contexts too - database queries, API calls, file processing, etc.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -654,4 +1754,51 @@ for (const habit of habits) {
 
 ### Bridge to Objects & Arrays
 You can make decisions and repeat tasks. Now let's learn about the **data structures** that make JavaScript powerful!
+
+<Notes>
+This concluding slide ties together everything we've covered about control flow. Let's reinforce the key concepts:
+
+**1. Decision-making patterns:**
+- **if/else:** Perfect for binary choices and range checking (like streak milestones)
+- **switch:** Ideal for discrete categories (like habit types)
+- **Ternary:** Great for simple conditional assignments (active/inactive status)
+
+**2. Loop selection guide:**
+- **Traditional for:** When you need index control or non-standard iteration
+- **for...of:** When you just need values - cleaner and safer
+- **while:** When iteration count is unknown or condition-driven
+- **Array methods:** Functional approach for data transformation
+
+**3. Common patterns students should remember:**
+- Counting items that meet criteria
+- Accumulating totals
+- Finding maximum/minimum values
+- Building filtered or transformed collections
+- Searching with early exit
+
+**4. Critical debugging skills:**
+- Watch for missing break statements in switch
+- Avoid off-by-one errors in traditional for loops
+- Understand truthy/falsy behavior
+- Use explicit comparisons for clarity
+
+**5. Performance consciousness:**
+- Break early when searching
+- Choose readable code over micro-optimizations
+- Consider array methods for clarity
+- Profile before optimizing
+
+**Bridge to next section:**
+Now that students can make decisions and repeat tasks, they're ready to work with the data structures that hold their information. Objects and arrays are where control flow really shines - processing lists of habits, analyzing user data, and managing complex application state.
+
+The habit tracker examples throughout this lesson have shown glimpses of objects (habit.streak, habit.completed) and arrays (lists of habits, weekly data). The next section will formalize these concepts and show how control flow and data structures work together to build real applications.
+
+**Encourage students to:**
+- Practice identifying which control structure fits each problem
+- Start with readable code, then optimize if needed
+- Think about edge cases and error conditions
+- Connect these concepts to real-world application needs
+
+Control flow is the logic that brings applications to life!
+</Notes>
 </SlideLayout.Full>

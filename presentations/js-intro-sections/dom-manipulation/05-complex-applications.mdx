@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 
 <SlideLayout.Full>
 ## Understanding Complex DOM Applications
@@ -23,4 +23,13 @@ Building a full interactive application requires:
 4. Add styling and animations
 
 **For this exercise**: Build a complete habit tracker with adding, completing, and managing habits.
+<Notes>
+Building complex DOM applications requires a shift in thinking from individual manipulations to architectural patterns. This isn't just about knowing DOM methods - it's about organizing code for maintainability and scalability.
+
+HTML structure planning is crucial but often overlooked. Your HTML should anticipate the interactions you'll need. Use semantic elements that describe their purpose. Plan container elements for dynamic content. Add data attributes for storing information. The better your HTML structure, the easier your JavaScript becomes.
+
+JavaScript architecture separates beginners from intermediate developers. State management means deciding where your data lives - in JavaScript variables, not scattered across the DOM. Event handling should be centralized and delegated where possible. Dynamic content creation should use templates or helper functions, not inline string concatenation.
+
+Progressive enhancement is a professional approach. Start with a working form that could function without JavaScript. Layer on dynamic features. This ensures your application degrades gracefully and remains accessible. Each enhancement should add value without breaking existing functionality. This methodology leads to robust applications that work for all users in all conditions.
+</Notes>
 </SlideLayout.Full>

@@ -15,23 +15,116 @@ import {
 import { CodeDisplayContext } from './components/CodeDisplayContext';
 import CodeDisplay, { Version, File, Tests } from './components/CodeDisplayWithSlideTracking';
 import { ThemeProvider } from './components/ThemeContext';
+import { AudioSync } from './components/AudioSync';
 import './styles.css';
+import { createPortal } from 'react-dom';
+
+// Audio configuration type
+interface AudioConfig {
+  url: string;
+  slideTimings: number[];
+  transcript?: string; // Optional URL to SRT file
+}
+
+// Presentation type
+interface PresentationConfig {
+  title: string;
+  component: React.LazyExoticComponent<any>;
+  audio?: AudioConfig;
+}
 
 // Define presentation metadata
-const presentations = {
+const presentations: Record<string, Record<string, PresentationConfig>> = {
   js: {
-    'fullstack-introduction': { title: 'Fullstack Introduction', component: lazy(() => import('./js-intro-sections/fullstack-introduction.mdx')) },
-    'html-basics': { title: 'HTML Basics', component: lazy(() => import('./js-intro-sections/html-basics.mdx')) },
-    'css-fundamentals': { title: 'CSS Fundamentals', component: lazy(() => import('./js-intro-sections/css-fundamentals.mdx')) },
+    'fullstack-introduction': {
+      title: 'Fullstack Introduction',
+      component: lazy(() => import('./js-intro-sections/fullstack-introduction/index.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/fullstack-introduction.mp4',
+        slideTimings: [0, 35, 100, 154, 217, 262, 302, 398, 521, 610, 667, 717, 746],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/fullstack-introduction_otter_ai.vtt',
+      },
+    },
+    'html-basics': {
+      title: 'HTML Basics',
+      component: lazy(() => import('./js-intro-sections/html-basics.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/html-basics.mp3',
+        slideTimings: [0, 38, 120, 210, 292, 356, 429, 492, 514],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/html-basics.vtt'
+      }
+    },
+    'css-fundamentals': { title: 'CSS Fundamentals', component: lazy(() => import('./js-intro-sections/css-fundamentals.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/css-fundementals.mp3',
+        slideTimings: [0, 32, 120, 191, 273, 350, 423, 508, 562, 616, 672, 726, 780, 836, 852, 869, 952],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/css-fundementals.vtt'
+      }
+    },
     'introduction': { title: 'Introduction to JavaScript', component: lazy(() => import('./js-intro-sections/introduction.mdx')) },
-    'variables-and-types': { title: 'Variables and Types', component: lazy(() => import('./js-intro-sections/variables-and-types.mdx')) },
-    'functions': { title: 'Functions', component: lazy(() => import('./js-intro-sections/functions.mdx')) },
-    'control-flow': { title: 'Control Flow', component: lazy(() => import('./js-intro-sections/control-flow.mdx')) },
+    'variables-and-types': {
+      title: 'Variables and Types',
+      component: lazy(() => import('./js-intro-sections/variables-and-types.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/variables-and-types.mp4',
+        slideTimings: [0, 23, 73, 145, 211, 274, 358, 380, 456, 522, 620, 720, 814, 910, 980, 1066, 1124, 1162, 1236, 1306, 1376, 1448],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/variables-and-types_otter_ai.vtt'
+      }
+    },
+    'functions': {
+      title: 'Functions',
+      component: lazy(() => import('./js-intro-sections/functions.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/functions.mp4',
+        slideTimings: [0, 34, 88, 180, 260, 348, 444, 540, 716, 813, 908, 999, 1080, 1260, 1332, 1428, 1516],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/functions.vtt',
+      }
+    },
+    'control-flow': { 
+      title: 'Control Flow', 
+      component: lazy(() => import('./js-intro-sections/control-flow.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/control-flow.mp4',
+        slideTimings: [40, 112, 168, 230, 296, 376, 418, 450, 536, 610, 680, 788, 846, 922, 986, 1080, 1140, 1172, 1270, 1328, 1408, 1508, 1595, 1672. 1776, ],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/control-flow.vtt'
+      }
+    },
     'objects-and-arrays': { title: 'Objects and Arrays', component: lazy(() => import('./js-intro-sections/objects-and-arrays.mdx')) },
     'dom-manipulation': { title: 'DOM Manipulation', component: lazy(() => import('./js-intro-sections/dom-manipulation.mdx')) },
     'async-javascript': { title: 'Async JavaScript', component: lazy(() => import('./js-intro-sections/async-javascript.mdx')) },
     'error-handling': { title: 'Error Handling', component: lazy(() => import('./js-intro-sections/error-handling.mdx')) },
-    'advanced-functions': { title: 'Advanced Functions', component: lazy(() => import('./js-intro-sections/advanced-functions.mdx')) },
+    'advanced-functions': {
+      title: 'Advanced Functions',
+      component: lazy(() => import('./js-intro-sections/advanced-functions.mdx')),
+      // Example audio configuration - replace with actual audio file URL
+      audio: {
+        url: '/audio/advanced-functions.mp3',
+        // 21 slides total (0-20), with 30 seconds per slide as an example
+        slideTimings: [
+          0,    // 00-overview
+          30,   // 01-advanced-functions
+          60,   // 02-closures-concept
+          90,   // 03-how-closures-work
+          120,  // 04-data-privacy
+          150,  // 05-stateful-functions
+          180,  // 06-factory-pattern
+          210,  // 07-event-handlers
+          240,  // 08-closure-patterns
+          270,  // 09-habit-tracker-exercise
+          300,  // 10-higher-order-patterns
+          330,  // 11-function-enhancement
+          360,  // 12-points-calculator-exercise
+          390,  // 13-function-composition
+          420,  // 14-higher-order-examples
+          450,  // 15-pure-functions
+          480,  // 16-immutability
+          510,  // 17-fp-composition
+          540,  // 18-closure-pitfalls
+          570,  // 19-debugging
+          600   // 20-key-takeaways
+        ]
+      }
+    },
     'prototypes': { title: 'Prototypes', component: lazy(() => import('./js-intro-sections/prototypes.mdx')) },
     'modules': { title: 'Modules', component: lazy(() => import('./js-intro-sections/modules.mdx')) },
     'modern-features': { title: 'Modern Features', component: lazy(() => import('./js-intro-sections/modern-features.mdx')) },
@@ -108,50 +201,56 @@ const presentations = {
 
 
 // Custom template that includes navigation tracking
-function CustomTemplate({ 
+function CustomTemplate({
   activePresentation,
   onSlideInfo,
   getNextPresentation,
-  getPreviousPresentation
+  getPreviousPresentation,
+  audioDrawerOpen,
+  setAudioDrawerOpen,
 }: {
   activePresentation: { category: 'js' | 'ts' | 'react'; key: string } | null;
   onSlideInfo: (info: any) => void;
   getNextPresentation: () => { category: 'js' | 'ts' | 'react'; key: string } | null;
   getPreviousPresentation: () => { category: 'js' | 'ts' | 'react'; key: string } | null;
+  audioDrawerOpen: boolean;
+  setAudioDrawerOpen: (open: boolean) => void;
 }) {
   const deckContext = useContext(DeckContext);
-  
+
   useEffect(() => {
     if (deckContext) {
       const { slideCount, activeView } = deckContext;
       const slideIndex = activeView?.slideIndex ?? 0;
-      
+
       const info = {
         current: slideIndex,
         total: slideCount,
         isLast: slideIndex === slideCount - 1
       };
-      
+
       onSlideInfo(info);
     }
   }, [deckContext, onSlideInfo]);
 
   if (!deckContext) return <DefaultTemplate />;
-  
+
   const { slideCount, activeView } = deckContext;
   const slideIndex = activeView?.slideIndex ?? 0;
   const isFirstSlide = slideIndex === 0;
   const isLastSlide = slideIndex === slideCount - 1;
-  
+
   return (
     <>
       <DefaultTemplate />
-      
       {/* First slide indicator */}
       {activePresentation && isFirstSlide && (() => {
         const prev = getPreviousPresentation();
-        if (prev && presentations[prev.category] && presentations[prev.category][prev.key]) {
-          const prevTitle = presentations[prev.category][prev.key].title;
+        if (prev && presentations[prev.category] && prev.key in presentations[prev.category]) {
+          const prevTitle = presentations[prev.category][prev.key as keyof typeof presentations[typeof prev.category]].title;
+          // Check if we're in presenter mode
+          const search = window.location.search;
+          const inPresenterMode = search.includes('presenterMode');
           return (
             <div style={{
               position: 'fixed',
@@ -167,24 +266,90 @@ function CustomTemplate({
               alignItems: 'center',
               gap: '10px'
             }}>
-              <span style={{ 
+              <span style={{
                 color: prev.category === 'js' ? '#f7df1e' : '#3178c6',
                 fontWeight: 'bold'
               }}>
                 {prevTitle}
               </span>
               <span>← Press to go back</span>
+              {inPresenterMode && (
+                <span style={{
+                  background: '#4CAF50',
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                  fontSize: '12px'
+                }}>
+                  PRESENTER
+                </span>
+              )}
             </div>
           );
         }
         return null;
       })()}
-      
+      {(() => {
+        if (!activePresentation) return null;
+
+        const presentationConfig = presentations[activePresentation.category as 'js' | 'ts' | 'react'][activePresentation.key as keyof typeof presentations[typeof activePresentation.category]];
+        const audio = presentationConfig.audio as { url: string; slideTimings: number[] } | undefined;
+        if (audio) {
+          return (
+            createPortal(<>
+              {/* Toggle Button - Always visible */}
+              <button
+                onClick={() => setAudioDrawerOpen(!audioDrawerOpen)}
+                style={{
+                  position: 'fixed',
+                  bottom: '30px',
+                  right: audioDrawerOpen ? '470px' : '20px',
+                  width: '50px',
+                  height: '50px',
+                  background: 'rgba(0, 0, 0, 0.8)',
+                  border: '2px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '20px',
+                  color: 'white',
+                  zIndex: 2001,
+                  transition: 'right 0.3s ease',
+                  boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)'
+                }}
+                title={audioDrawerOpen ? 'Hide Audio Controls' : 'Show Audio Controls'}
+              >
+                {audioDrawerOpen ? '🎵' : '▶️'}
+              </button>
+
+              {/* Audio Drawer */}
+              <div style={{
+                position: 'fixed',
+                bottom: '20px',
+                right: audioDrawerOpen ? '20px' : '-450px',
+                transition: 'right 0.3s ease',
+                zIndex: 2000,
+                pointerEvents: 'auto',
+                width: '450px',
+              }}>
+                <AudioSync
+                  audioUrl={audio.url}
+                  slideTimings={audio.slideTimings}
+                  transcript={audio.transcript}
+                />
+              </div>
+            </>, document.body)
+            );
+        } else {
+          return null
+        }
+      })()}
       {/* Last slide indicator */}
       {activePresentation && isLastSlide && (() => {
         const next = getNextPresentation();
-        if (next && presentations[next.category] && presentations[next.category][next.key]) {
-          const nextTitle = presentations[next.category][next.key].title;
+        if (next && presentations[next.category] && next.key in presentations[next.category]) {
+          const nextTitle = presentations[next.category][next.key as keyof typeof presentations[typeof next.category]].title;
           return (
             <div style={{
               position: 'fixed',
@@ -201,7 +366,7 @@ function CustomTemplate({
               gap: '10px'
             }}>
               <span>Press → to continue</span>
-              <span style={{ 
+              <span style={{
                 color: next.category === 'js' ? '#f7df1e' : '#3178c6',
                 fontWeight: 'bold'
               }}>
@@ -212,89 +377,148 @@ function CustomTemplate({
         }
         return null;
       })()}
-      
+
     </>
   );
 }
 
 // Main App Component
 function App() {
-  // Parse URL parameters to get initial presentation
+  // Parse URL path to get initial presentation
   const getInitialPresentation = () => {
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get('category') as 'js' | 'ts' | 'react' | null;
-    const key = params.get('presentation');
-    
-    if (category && key && presentations[category] && key in presentations[category]) {
-      // Check if we have a slide number in the hash
-      const hash = window.location.hash;
-      const slideMatch = hash.match(/#\/(\d+)/);
-      if (slideMatch) {
-        // Store the initial slide position
-        sessionStorage.setItem('initialSlide', slideMatch[1]);
+    // Parse path like /js/advanced-functions or /react/components-props
+    const pathname = window.location.pathname;
+    // Remove base path if present
+    const basePath = import.meta.env.BASE_URL;
+    const adjustedPath = pathname.startsWith(basePath) 
+      ? pathname.slice(basePath.length) 
+      : pathname;
+    const pathSegments = adjustedPath.split('/').filter(Boolean);
+
+    // Expected format: /category/presentation
+    if (pathSegments.length >= 2) {
+      const [category, ...presentationParts] = pathSegments;
+      const key = presentationParts.join('-'); // Handle cases like 'components-props'
+
+      if ((category === 'js' || category === 'ts' || category === 'react') &&
+        presentations[category] &&
+        key in presentations[category]) {
+
+        // Check if we have a slide number in the hash
+        const hash = window.location.hash;
+        const slideMatch = hash.match(/#\/(\d+)(\?.*)?/);
+        if (slideMatch) {
+          // Store the initial slide position
+          sessionStorage.setItem('initialSlide', slideMatch[1]);
+        }
+
+        return { category: category as 'js' | 'ts' | 'react', key };
       }
-      return { category, key };
     }
+
     return null;
   };
-  
+
   const [activePresentation, setActivePresentation] = useState<{
     category: 'js' | 'ts' | 'react';
     key: string;
   } | null>(getInitialPresentation());
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [audioDrawerOpen, setAudioDrawerOpen] = useState(false);
   const slideInfoRef = useRef({ current: 0, total: 0, isLast: false });
 
-  // Update URL when presentation changes (but preserve hash)
+
+  // Update URL when presentation changes (but preserve hash and Spectacle params)
   useEffect(() => {
-    // Create fresh params with only the presentation info
-    const params = new URLSearchParams();
-    
-    if (activePresentation) {
-      params.set('category', activePresentation.category);
-      params.set('presentation', activePresentation.key);
-    }
-    
-    // Preserve the current hash (slide number)
-    const currentHash = window.location.hash;
-    const newUrl = params.toString() ? `${window.location.pathname}?${params.toString()}${currentHash}` : `${window.location.pathname}${currentHash}`;
-    window.history.replaceState({}, '', newUrl);
+    if (!activePresentation) return;
+
+    const updateUrl = () => {
+      // Build the expected path
+      const basePath = import.meta.env.BASE_URL;
+      const expectedPath = `${basePath}${basePath.endsWith('/') ? '' : '/'}${activePresentation.category}/${activePresentation.key}`;
+
+      // Only update if we're not already on the correct path
+      if (window.location.pathname !== expectedPath) {
+        const newUrl = `${expectedPath}${window.location.hash}`;
+        window.history.replaceState({}, '', newUrl);
+      }
+    };
+
+    // Initial update
+    updateUrl();
+
+    // Listen for hash changes to ensure path stays correct
+    const handleHashChange = () => {
+      updateUrl();
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, [activePresentation]);
 
-  const handlePresentationSelect = (category: 'js' | 'ts' | 'react', key: string, goToLastSlide = false) => {
-    // Update URL
-    const params = new URLSearchParams();
-    params.set('category', category);
-    params.set('presentation', key);
-    
+  const handlePresentationSelect = (category: 'js' | 'ts' | 'react', key: string, goToLastSlide = false, isArrowNavigation = false) => {
     // Check if we're selecting the same presentation (just opening menu)
     const isSamePresentation = activePresentation?.category === category && activePresentation?.key === key;
-    
-    // Get the slide number from URL if provided
-    let hash = window.location.hash;
-    
-    // If not same presentation and no explicit slide in URL, start at slide 0
-    if (!isSamePresentation && !hash.match(/#\/\d+/)) {
-      hash = '#/0';
+
+    if (isSamePresentation) {
+      setSidebarOpen(false);
+      return;
     }
-    
-    const newUrl = `${window.location.pathname}?${params.toString()}${hash}`;
-    
+
+    // Parse current hash to preserve Spectacle params
+    const currentHash = window.location.hash;
+    let spectacleParams = '';
+
+    if (currentHash) {
+      const match = currentHash.match(/#\/(\d+)(\?.*)?/);
+      if (match) {
+        // Keep Spectacle params (like ?presenter)
+        spectacleParams = match[2] || '';
+      }
+    }
+
     if (goToLastSlide) {
       // Store flag in sessionStorage to handle after deck loads
       sessionStorage.setItem('navigateToLastSlide', 'true');
     } else {
       sessionStorage.removeItem('navigateToLastSlide');
     }
-    
-    // Force a full page navigation to ensure clean state
+
+    // For arrow navigation in presenter mode, we need to preserve the mode
+    if (isArrowNavigation && spectacleParams) {
+      // Store that we need to reopen presenter mode
+      sessionStorage.setItem('reopenPresenterMode', 'true');
+
+      // Store the slide we want to go to
+      if (goToLastSlide) {
+        sessionStorage.setItem('navigateToLastSlide', 'true');
+      }
+    }
+
+    // Build path-based URL: /category/presentation
+    const basePath = import.meta.env.BASE_URL;
+    const newPath = `${basePath}${basePath.endsWith('/') ? '' : '/'}${category}/${key}`;
+
+    // Determine slide number
+    let slideNumber = '0';
+    if (goToLastSlide) {
+      // We'll handle this after load
+      slideNumber = '0';
+    }
+
+    const newUrl = `${newPath}#/${slideNumber}${spectacleParams}`;
+
+    // Navigate to the new URL
     window.location.href = newUrl;
   };
 
   // Handle slide info updates from NavigationTracker
   const handleSlideInfo = useCallback((info: { current: number; total: number; isLast: boolean }) => {
     slideInfoRef.current = info;
-    
+
     // Save current slide position to sessionStorage
     if (activePresentation) {
       const storageKey = `slide-position-${activePresentation.category}-${activePresentation.key}`;
@@ -306,76 +530,90 @@ function App() {
     ? presentations[activePresentation.category][activePresentation.key as keyof typeof presentations[typeof activePresentation.category]].component
     : null;
 
-  // Handle navigation to last slide after deck loads
+  // Handle navigation to last slide and presenter mode after deck loads
   useEffect(() => {
-    if (activePresentation && sessionStorage.getItem('navigateToLastSlide') === 'true') {
-      // Remove the flag
+    if (!activePresentation) return;
+
+    const reopenPresenter = sessionStorage.getItem('reopenPresenterMode') === 'true';
+    const navigateToLast = sessionStorage.getItem('navigateToLastSlide') === 'true';
+
+    if (reopenPresenter || navigateToLast) {
+      // Remove the flags
+      sessionStorage.removeItem('reopenPresenterMode');
       sessionStorage.removeItem('navigateToLastSlide');
-      
-      // Wait for deck to fully load and get slide count
+
+      // Wait for deck to fully load
       let attempts = 0;
-      const navigateToLast = () => {
+      const handlePostLoad = () => {
         // Try to find slide count from DOM
         const slideElements = document.querySelectorAll('[style*="transform: translateX"]');
         const slideCount = slideElements.length;
-        
+
         if (slideCount > 0) {
-          // Navigate to last slide
-          const lastSlideIndex = slideCount - 1;
-          window.location.hash = `#/${lastSlideIndex}`;
+          if (navigateToLast) {
+            // Navigate to last slide
+            const lastSlideIndex = slideCount - 1;
+            window.location.hash = `#/${lastSlideIndex}${reopenPresenter ? '?presenter' : ''}`;
+          } else if (reopenPresenter) {
+            // Just reopen presenter mode on current slide
+            const currentHash = window.location.hash;
+            const match = currentHash.match(/#\/(\d+)/);
+            const slideNumber = match ? match[1] : '0';
+            window.location.hash = `#/${slideNumber}?presenter`;
+          }
         } else if (attempts < 20) {
           // Keep trying for up to 4 seconds
           attempts++;
-          setTimeout(navigateToLast, 200);
+          setTimeout(handlePostLoad, 200);
         }
       };
-      
+
       // Start checking after a delay to let deck render
-      setTimeout(navigateToLast, 500);
+      setTimeout(handlePostLoad, 500);
     }
   }, [activePresentation]);
 
   // Get next presentation
   const getNextPresentation = () => {
     if (!activePresentation) return null;
-    
+
     const allPresentations = [
       ...Object.keys(presentations.js).map(key => ({ category: 'js' as const, key })),
       ...Object.keys(presentations.ts).map(key => ({ category: 'ts' as const, key })),
       ...Object.keys(presentations.react).map(key => ({ category: 'react' as const, key }))
     ];
-    
+
     const currentIndex = allPresentations.findIndex(
       p => p.category === activePresentation.category && p.key === activePresentation.key
     );
-    
+
     // Don't loop - return null if we're at the last presentation
     if (currentIndex === -1 || currentIndex === allPresentations.length - 1) {
       return null;
     }
-    
+
     return allPresentations[currentIndex + 1];
   };
 
   // Get previous presentation
   const getPreviousPresentation = () => {
     if (!activePresentation) return null;
-    
+
     const allPresentations = [
       ...Object.keys(presentations.js).map(key => ({ category: 'js' as const, key })),
       ...Object.keys(presentations.ts).map(key => ({ category: 'ts' as const, key })),
       ...Object.keys(presentations.react).map(key => ({ category: 'react' as const, key }))
     ];
-    
+
     const currentIndex = allPresentations.findIndex(
       p => p.category === activePresentation.category && p.key === activePresentation.key
     );
-    
+
     // Don't loop - return null if we're at the first presentation
     if (currentIndex === -1 || currentIndex === 0) {
       return null;
     }
-    
+
     return allPresentations[currentIndex - 1];
   };
 
@@ -387,21 +625,22 @@ function App() {
     const handleKeyDown = (e: KeyboardEvent) => {
       const { current, isLast } = slideInfoRef.current;
       const isFirst = current === 0;
-      
+
       if (e.key === 'ArrowRight' && isLast) {
         const next = getNextPresentation();
         if (next) {
           e.preventDefault();
           e.stopPropagation();
-          // Don't pass goToLastSlide parameter - we want to go to the first slide
-          handlePresentationSelect(next.category, next.key, false);
+          // Pass true for isArrowNavigation to preserve presenter mode
+          handlePresentationSelect(next.category, next.key, false, true);
         }
       } else if (e.key === 'ArrowLeft' && isFirst) {
         const prev = getPreviousPresentation();
         if (prev) {
           e.preventDefault();
           e.stopPropagation();
-          handlePresentationSelect(prev.category, prev.key, true); // true = go to last slide
+          // Pass true for isArrowNavigation to preserve presenter mode
+          handlePresentationSelect(prev.category, prev.key, true, true);
         }
       }
     };
@@ -483,7 +722,7 @@ function App() {
       )}
 
       {/* Sidebar */}
-      <nav 
+      <nav
         style={{
           position: 'fixed',
           top: 0,
@@ -516,15 +755,15 @@ function App() {
             onClick={() => {
               setActivePresentation(null);
               setSidebarOpen(false);
+              window.location.href = import.meta.env.BASE_URL;
             }}
           >
             🏠 Home
           </button>
-          
           <div style={{ marginTop: '20px' }}>
-            <h3 style={{ 
-              color: '#f7df1e', 
-              fontSize: '14px', 
+            <h3 style={{
+              color: '#f7df1e',
+              fontSize: '14px',
               fontWeight: 'bold',
               marginBottom: '10px',
               textTransform: 'uppercase',
@@ -570,11 +809,11 @@ function App() {
               </button>
             ))}
           </div>
-          
+
           <div style={{ marginTop: '30px' }}>
-            <h3 style={{ 
-              color: '#3178c6', 
-              fontSize: '14px', 
+            <h3 style={{
+              color: '#3178c6',
+              fontSize: '14px',
               fontWeight: 'bold',
               marginBottom: '10px',
               textTransform: 'uppercase',
@@ -620,11 +859,11 @@ function App() {
               </button>
             ))}
           </div>
-          
+
           <div style={{ marginTop: '30px' }}>
-            <h3 style={{ 
-              color: '#61dafb', 
-              fontSize: '14px', 
+            <h3 style={{
+              color: '#61dafb',
+              fontSize: '14px',
               fontWeight: 'bold',
               marginBottom: '10px',
               textTransform: 'uppercase',
@@ -673,14 +912,13 @@ function App() {
         </div>
       </nav>
 
-
       <div className="presentation-container">
         {ActiveComponent && activePresentation ? (
           <Suspense fallback={
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               height: '100%',
               fontSize: '2rem',
               color: '#666'
@@ -688,11 +926,13 @@ function App() {
               Loading presentation...
             </div>
           }>
-            <Deck 
+            <Deck
               key={`${activePresentation.category}-${activePresentation.key}`}
-              backgroundImage="url(https://ctp-presentation-media.s3.us-east-2.amazonaws.com/bg.gif)" 
+              backgroundImage="url(https://ctp-presentation-media.s3.us-east-2.amazonaws.com/bg.gif)"
               template={() => (
-                <CustomTemplate 
+                <CustomTemplate
+                  setAudioDrawerOpen={setAudioDrawerOpen}
+                  audioDrawerOpen={audioDrawerOpen}
                   activePresentation={activePresentation}
                   onSlideInfo={handleSlideInfo}
                   getNextPresentation={getNextPresentation}
@@ -708,8 +948,8 @@ function App() {
                 h4: ({ children }: PropsWithChildren) => <Heading fontSize="h4" style={{ paddingBottom: '5px', marginBottom: '5px' }}>{children}</Heading>,
                 ul: UnorderedList,
                 ol: OrderedList,
-                li: ({ children }: PropsWithChildren) => <ListItem fontSize="30px" margin="0">{children}</ListItem>,
-                p: ({ children }: PropsWithChildren) => <Text fontSize="30px" lineHeight="1.5" margin="0.5rem 0">{children}</Text>,
+                li: ({ children }: PropsWithChildren) => <ListItem fontSize="20px" margin="0">{children}</ListItem>,
+                p: ({ children }: PropsWithChildren) => <Text fontSize="20px" lineHeight="1.5" margin="0.5rem 0">{children}</Text>,
                 code: (props: PropsWithChildren<{ className?: string }>) => {
                   if (useContext(CodeDisplayContext)) {
                     return (
@@ -721,7 +961,7 @@ function App() {
                   if (props.className && typeof props.children === 'string') {
                     // Extract language from className (e.g., 'language-tsx' -> 'tsx')
                     let language = props.className.split('-')[1] || 'javascript';
-                    
+
                     // Map to CodePane supported languages
                     const languageMap: Record<string, string> = {
                       'tsx': 'typescript',
@@ -729,9 +969,9 @@ function App() {
                       'jsx': 'jsx',
                       'js': 'javascript'
                     };
-                    
+
                     language = languageMap[language] || language;
-                    
+
                     return (
                       <CodePane language={language}>
                         {props.children}
@@ -750,10 +990,10 @@ function App() {
             </Deck>
           </Suspense>
         ) : (
-            <div style={{ padding: '2rem', textAlign: 'center' }}>
-              <h1>CTP Presentations</h1>
-              <p>Select a presentation from the navigation bar above.</p>
-            </div>
+          <div style={{ padding: '2rem', textAlign: 'center' }}>
+            <h1>CTP Presentations</h1>
+            <p>Select a presentation from the navigation bar above.</p>
+          </div>
         )}
       </div>
     </div>

@@ -1,10 +1,18 @@
-import { SlideLayout, Image, FlexBox, Box } from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Functions
 
 Reusable blocks of code that power JavaScript applications
+
+<Notes>
+Welcome to our lesson on functions! This is one of the most important concepts in JavaScript programming. Functions are the building blocks that allow us to write clean, organized, and maintainable code.
+
+Think of functions like tools in a toolbox - each one has a specific purpose and can be used whenever you need it. Just like you wouldn't want to rebuild a hammer every time you need to drive a nail, you don't want to rewrite the same code over and over again.
+
+In the context of our habit tracker application, functions will help us organize all the different operations we need to perform - calculating streaks, checking completion status, awarding points, and much more. By the end of this lesson, students will understand how to create reusable, testable pieces of code that make their applications more robust and easier to maintain.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -15,6 +23,18 @@ Functions are reusable blocks of code that:
 - Group related operations together
 - Create reusable code that can be called multiple times
 - Accept inputs (parameters) and return outputs
+
+<Notes>
+Let's break down what functions really are and why they're so powerful.
+
+First, functions group related operations together. Instead of having scattered code that calculates a user's habit streak in multiple places, we can create one function that handles this logic. This makes our code more organized and easier to understand.
+
+Second, functions create reusable code. Once we write a function to calculate points from a streak, we can call it anywhere in our application - in the dashboard, in notifications, in reports. We write it once and use it everywhere.
+
+Third, functions can accept inputs (called parameters) and return outputs. Think of a function like a machine in a factory - you put raw materials in one end, the machine processes them, and a finished product comes out the other end. For example, we might put a streak count into our points calculation function and get back the total points earned.
+
+This input-process-output pattern is fundamental to programming and helps us break complex problems into smaller, manageable pieces.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -29,6 +49,18 @@ Functions are reusable blocks of code that:
 3. Enable Testing
     - Test individual components
     - Isolate bugs more easily
+
+<Notes>
+There are three major reasons why functions are essential in programming:
+
+1. **Encapsulate Logic**: Functions hide the complex details of how something works and provide a simple interface to use it. For example, when we create a function to calculate habit streaks, other parts of our code don't need to know about the complex date calculations involved - they just need to call the function and get the result. This is like using a car - you don't need to understand how the engine works to drive it.
+
+2. **Promote Organization**: Functions help us break down complex problems into smaller, manageable pieces. Instead of having one massive file with thousands of lines of code, we can organize our habit tracker into functions like `calculateStreak()`, `awardPoints()`, `checkCompletion()`, etc. Each function has a single responsibility, making the code much easier to read, understand, and maintain. When a new developer joins the project, they can quickly understand what each function does.
+
+3. **Enable Testing**: This is crucial for building reliable applications. When our code is organized into functions, we can test each piece individually. We can test that our streak calculation works correctly with different inputs, that our point system handles edge cases, and that our completion checker validates dates properly. If there's a bug, we can quickly isolate which function is causing the problem instead of hunting through thousands of lines of code.
+
+In our habit tracker, these benefits will become very apparent as we build more complex features.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -48,6 +80,25 @@ const points = calculatePoints(5); // 50
 - Hoisted to top of scope
 - Can be called before declaration
 - Has a name property
+
+<Notes>
+Function declarations are the traditional and most straightforward way to create functions in JavaScript. Let's break down this example:
+
+- We use the `function` keyword followed by the function name `calculatePoints`
+- In parentheses, we define the parameter `streak` - this is the input our function expects
+- Inside the curly braces is the function body - the code that runs when the function is called
+- The `return` statement specifies what value the function gives back
+
+Notice how we call the function: `calculatePoints(5)`. We pass the value `5` as an argument, which becomes the `streak` parameter inside the function.
+
+Function declarations have some unique characteristics:
+
+**Hoisting**: This is a JavaScript feature where function declarations are moved to the top of their scope during compilation. This means you can actually call a function before you declare it in your code! This is different from variables and other function types.
+
+**Named functions**: Function declarations always have a name, which is helpful for debugging. When you see an error stack trace, you'll see "calculatePoints" instead of "anonymous function".
+
+In our habit tracker, we might use function declarations for our main utility functions that need to be available throughout the application. For example, core functions like calculating streaks or determining point values are good candidates for function declarations.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -67,6 +118,26 @@ const points = calculatePoints(5); // 50
 - Not hoisted
 - Must be defined before use
 - Can be anonymous
+
+<Notes>
+Function expressions are another way to create functions, where we assign a function to a variable. This approach has some important differences from function declarations:
+
+**Not hoisted**: Unlike function declarations, function expressions are not hoisted. This means you must define the function before you try to use it. If you try to call `calculatePoints` before this line of code, you'll get an error. This can actually be a good thing because it makes your code more predictable and easier to follow.
+
+**Variable assignment**: Since we're assigning the function to a variable, we use `const` (or `let` or `var`). I recommend using `const` for functions because you typically don't want to reassign them later.
+
+**Anonymous functions**: The function itself doesn't have a name - it's anonymous. The variable `calculatePoints` holds the reference to the function, but the function itself is nameless. This is fine for most cases, but can make debugging slightly more difficult.
+
+**Semicolon**: Notice we end with a semicolon because this is a variable assignment statement.
+
+When should you use function expressions vs declarations? Function expressions are great when:
+- You want to control exactly when the function becomes available
+- You're passing a function as an argument to another function
+- You want to conditionally create functions
+- You're working with modules where order matters
+
+In our habit tracker, you might use function expressions for event handlers or callback functions that should only be available after certain conditions are met.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -87,6 +158,34 @@ const getBonus = streak => {
   return 0;
 };
 ```
+
+<Notes>
+Arrow functions are a modern ES6 feature that provides a more concise way to write functions. They're especially popular in modern JavaScript development. Let's examine the different forms:
+
+**Single parameter, implicit return**: `const calculatePoints = streak => streak * 10;`
+- When you have exactly one parameter, you can omit the parentheses
+- When the function body is a single expression, you can omit the curly braces and the `return` keyword
+- The expression is automatically returned
+
+**Multiple parameters**: `const add = (a, b) => a + b;`
+- With multiple parameters, you need parentheses around the parameter list
+- Still using implicit return here since it's a single expression
+
+**Block body with explicit return**: The `getBonus` example shows a more complex arrow function
+- When you need multiple statements, use curly braces
+- You must explicitly use the `return` keyword when using curly braces
+- This is useful for conditional logic or multi-step calculations
+
+**When to use arrow functions**:
+- Great for short, simple functions
+- Excellent for array methods like `map`, `filter`, `reduce`
+- Callback functions and event handlers
+- When you want concise, readable code
+
+**Important limitation**: Arrow functions don't have their own `this` context, which we'll discuss later. This makes them unsuitable for object methods in many cases.
+
+In our habit tracker, arrow functions are perfect for simple calculations, array operations, and functional programming patterns. For example, filtering completed habits or mapping streak data to point values.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -104,6 +203,26 @@ function greet(name) {    // name is parameter
 
 greet("Alice");          // "Alice" is argument
 ```
+
+<Notes>
+These four concepts are fundamental to understanding how functions work. Let's clarify each one:
+
+**Parameters vs Arguments**: This is a common source of confusion for new developers.
+- **Parameters** are the variable names in the function definition. In our example, `name` is a parameter. Think of parameters as placeholders or empty boxes waiting to be filled.
+- **Arguments** are the actual values you pass when calling the function. When we call `greet("Alice")`, "Alice" is the argument. Arguments fill the parameter boxes.
+
+**Return values**: Functions can send data back to the code that called them using the `return` statement. In our example, the function returns a greeting string. If you don't include a return statement, the function returns `undefined`. Always be explicit about what your functions return - it makes your code more predictable and easier to test.
+
+**Side effects**: This is a crucial concept for writing reliable code. A side effect is any change a function makes outside of itself - modifying global variables, changing the DOM, making network requests, logging to console, etc. 
+
+Functions without side effects are called "pure functions" and are generally preferred because:
+- They're easier to test (same input always produces same output)
+- They're easier to debug
+- They're safer to use in different contexts
+- They can be cached or optimized more easily
+
+In our habit tracker, we'll try to keep most of our utility functions pure. For example, a function that calculates points from a streak should only do that calculation and return the result, not also update the user interface or save to localStorage.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -116,6 +235,27 @@ You'll build utility functions for habit tracking:
 3. **getPoints()** - Calculate points based on streak
 
 Each function should do one thing well!
+
+<Notes>
+Now we're going to put our function knowledge into practice by building a utility library for our habit tracker application. This exercise demonstrates the "single responsibility principle" - each function should do one thing and do it well.
+
+Let's think about why we're breaking this into separate functions:
+
+**calculateStreak()**: This function will count how many days a habit has been completed. In a real application, this might involve complex date calculations, handling gaps in data, or even calculating consecutive streaks vs total completions. By isolating this logic in its own function, we can:
+- Test different streak scenarios easily
+- Modify the streak calculation algorithm without affecting other code
+- Reuse this logic in different parts of our app (dashboard, reports, notifications)
+
+**isHabitCompleted()**: This function checks whether a specific habit was completed on a specific date. This might seem simple, but it could involve:
+- Date format validation
+- Timezone considerations
+- Partial completion tracking
+- Data validation
+
+**getPoints()**: This calculates reward points based on streak length. The business logic here might change (different point multipliers, bonus thresholds, etc.), so keeping it separate allows for easy updates.
+
+Remember the principle: each function should do one thing well. This makes our code modular, testable, and maintainable. As we build these functions, think about what inputs they need, what they should return, and whether they have any side effects.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -193,6 +333,24 @@ describe('Habit Functions', () => {
     
   </Tests>
 </CodeDisplay>
+
+<Notes>
+This exercise puts our function concepts into practice. Let's walk through the solution and discuss the implementation choices:
+
+**Function Naming**: Notice how descriptive our function names are. `calculateStreak`, `isHabitCompleted`, and `getPoints` clearly communicate what each function does. Good function names are like good variable names - they should be self-documenting.
+
+**calculateStreak**: Our simple implementation just returns the length of the array. In a real application, this might be more complex - you might want to calculate consecutive days, handle date ranges, or exclude certain dates. But starting simple is always good.
+
+**isHabitCompleted**: This function uses a traditional for loop to search through the completions array. This is a basic but reliable approach. We'll see a more modern approach in the next slide. Note how we return `true` as soon as we find a match, and only return `false` if we've checked all items without finding a match.
+
+**getPoints**: This is the simplest function - just multiplication. But even simple functions benefit from being extracted because the business logic might change (different point values, bonus multipliers, etc.).
+
+**Testing**: Look at the tests carefully. They cover both the "happy path" (normal usage) and edge cases (like empty arrays). Good tests help us catch bugs early and document how our functions should behave. Notice how the tests verify both successful cases and boundary conditions.
+
+**Function Declarations**: We used function declarations here, which means these functions are hoisted and available throughout their scope. This is fine for utility functions like these.
+
+Give students time to implement their own versions before showing the solution. Encourage them to think about edge cases and test their functions thoroughly.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -226,6 +384,36 @@ const getStreakBonus = (streak) => {
     
   </File>
 </CodeDisplay>
+
+<Notes>
+Now let's modernize our functions and discuss when to use different function styles. This refactoring demonstrates how the same functionality can be expressed using different syntax patterns.
+
+**calculateStreak - Function Declaration**: We kept this as a function declaration because it's a core utility function that might be called from anywhere in the module. Function declarations are hoisted, making them available throughout their scope, which is useful for fundamental utility functions.
+
+**isHabitCompleted - Function Expression with Modern Array Method**: 
+- We switched to a function expression to control its availability
+- More importantly, we replaced the manual for loop with the `includes()` method
+- `includes()` is more readable, less error-prone, and expresses the intent more clearly
+- This is a great example of how modern JavaScript methods can make code more concise and maintainable
+
+**getPoints - Arrow Function**: Perfect use case for arrow functions:
+- Simple calculation with one input and one output
+- No need for `this` context
+- Very readable and concise
+- The function body is a single expression, so we get implicit return
+
+**getStreakBonus - Arrow Function with Block Body**: This shows how arrow functions can handle more complex logic:
+- Multiple conditional statements require curly braces
+- Must use explicit `return` statements
+- Still more concise than a traditional function for this type of logic
+
+**When to choose each style**:
+- **Function declarations**: Core utilities, functions that need hoisting, main application logic
+- **Function expressions**: When you want to control availability, storing functions in objects
+- **Arrow functions**: Simple calculations, callbacks, array methods, when you don't need `this`
+
+The key is consistency within your codebase and choosing the right tool for each situation.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -247,6 +435,38 @@ function createMultiplier(factor) {
   return (value) => value * factor;
 }
 ```
+
+<Notes>
+This is one of JavaScript's most powerful features - functions are "first-class citizens," meaning they can be treated like any other value. This enables some very elegant programming patterns.
+
+**Store in variables**: `const scorer = getPoints;`
+- We're not calling `getPoints()` here, we're storing a reference to the function itself
+- Now `scorer` and `getPoints` both point to the same function
+- This is useful for creating aliases, shorter names, or storing functions in data structures
+- In our habit tracker, you might store different scoring algorithms in an object and switch between them
+
+**Pass as arguments**: `function applyBonus(value, bonusFunc)`
+- Functions can be passed to other functions as parameters
+- This enables the "strategy pattern" - you can change behavior by passing different functions
+- Very common in JavaScript - think about `array.map(function)` or `setTimeout(function, delay)`
+- In our app, you might have different bonus calculation strategies that get passed to a general bonus application function
+
+**Return from functions**: `function createMultiplier(factor)`
+- Functions can create and return other functions
+- This is called a "factory function" or "higher-order function"
+- The returned function "remembers" the `factor` value (this is called closure)
+- Super useful for creating specialized functions on demand
+
+Example usage:
+```javascript
+const doubler = createMultiplier(2);
+const tripler = createMultiplier(3);
+console.log(doubler(5)); // 10
+console.log(tripler(5)); // 15
+```
+
+This concept enables functional programming patterns and makes JavaScript incredibly flexible. In our habit tracker, we might create different point multipliers, validation functions, or filtering functions dynamically.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -284,6 +504,33 @@ console.log(isGreatStreak(10)); // false
 ```
 </File>
 </CodeDisplay>
+
+<Notes>
+This example demonstrates advanced function concepts that showcase JavaScript's functional programming capabilities. Let's break down what's happening:
+
+**Higher-Order Functions**: `calculateTotal` is a higher-order function because it takes other functions as arguments. This pattern is incredibly powerful for creating flexible, reusable code.
+
+**Rest Parameters**: `...calculators` uses the rest parameter syntax to accept any number of calculator functions. This makes our function very flexible - we can pass 2 functions, 5 functions, or however many we need.
+
+**Array.reduce with Functions**: Inside `calculateTotal`, we use `reduce` to iterate through all the calculator functions, calling each one with the streak value and accumulating the results. This is a functional programming pattern that's very common in JavaScript.
+
+**Practical Example**: With a streak of 10:
+- `getPoints(10)` returns 100 (10 * 10)
+- `getBonus(10)` returns 25 (since 10 >= 7)
+- Total: 100 + 25 = 125
+
+**Function Factory Pattern**: `createThreshold` is a factory function that creates specialized comparison functions:
+- It takes a threshold value and returns a new function
+- The returned function "remembers" the threshold (closure)
+- We can create multiple threshold checkers with different values
+
+**Real-World Application**: In our habit tracker, this pattern could be used for:
+- Creating different achievement level checkers (beginner, intermediate, expert)
+- Building flexible scoring systems that combine multiple criteria
+- Creating reusable validation functions with different thresholds
+
+This demonstrates how functions as first-class citizens enable very elegant and flexible code architecture. Students don't need to master this immediately, but understanding the concept opens up many possibilities for clean, maintainable code.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -298,6 +545,25 @@ function analyzeHabit(action, habitData) {
 ```
 
 Use switch statements to handle different actions
+
+<Notes>
+This exercise introduces the concept of a multi-purpose function that can perform different operations based on an input parameter. This is a common pattern in software development where you want one function to handle related but different operations.
+
+**Why this pattern?** Instead of creating separate functions like `getHabitStreak()`, `getHabitPoints()`, `getHabitCompletionRate()`, etc., we can create one function that handles all habit analysis operations. This provides several benefits:
+
+1. **Consistency**: All habit analysis goes through one function, ensuring consistent data handling
+2. **Extensibility**: Easy to add new analysis types without creating new function names
+3. **Organization**: Related functionality is grouped together
+4. **API Design**: Cleaner interface for users of your code
+
+**Switch Statements**: This is a perfect use case for switch statements. When you have one value that determines which of several code blocks to execute, switch is often cleaner than multiple if-else statements.
+
+**Function Parameters**: Notice we're passing `habitData` as an object. This allows us to pass all the habit information (completions, name, settings, etc.) to the function, and the function can extract whatever it needs based on the action requested.
+
+**Design Considerations**: Think about what data structure `habitData` should have. What properties will you need for each type of analysis? This exercise also helps students think about data modeling - how should habit data be structured to support different operations?
+
+Give students time to think about the implementation before showing the solution. Encourage them to consider edge cases and error handling.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -344,6 +610,37 @@ console.log(analyzeHabit("completion-rate", myHabit)); // 43
     
   </File>
 </CodeDisplay>
+
+<Notes>
+Let's walk through this solution and discuss the implementation details:
+
+**Switch Statement Structure**: Each case handles a different type of analysis. The switch statement is perfect here because we're branching based on a single string value. Notice how each case returns a value directly - this keeps the code clean and ensures we don't accidentally fall through to other cases.
+
+**Streak Calculation**: Simple - just the length of the completions array. In a real app, you might want to calculate consecutive streaks vs. total completions.
+
+**Points Calculation**: Multiplies completions by points per day. This assumes a simple point system, but you could easily extend this with bonus calculations, multipliers, etc.
+
+**Completion Rate**: This is more complex math:
+- We calculate the percentage: (completions / total possible days) × 100
+- We use `Math.round()` to get a whole number percentage
+- This gives us a meaningful metric for habit consistency
+
+**Best Day**: This shows more complex logic:
+- First, we handle the edge case of no completions
+- We sort the completion dates (assuming they're in sortable format like 'YYYY-MM-DD')
+- We return the last item in the sorted array (most recent completion)
+- Note: `sort()` modifies the original array - in production code, you might want to create a copy first
+
+**Default Case**: Always include a default case for error handling. This prevents the function from returning `undefined` if an invalid action is passed.
+
+**Test Data Structure**: Notice how our `habitData` object contains all the information needed for different analyses. This is good API design - the function is flexible and can extract what it needs.
+
+**Extensibility**: Adding new analysis types is easy - just add a new case to the switch statement. You could add "average-gap", "longest-streak", "weekly-pattern", etc.
+
+**Error Handling**: In production, you might want more robust error handling - checking if required properties exist, validating data types, etc.
+
+This pattern is very common in JavaScript applications and demonstrates how functions can be both flexible and maintainable.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -364,6 +661,49 @@ const habitTracker = {
 ```
 
 Arrow functions inherit `this` from surrounding scope
+
+<Notes>
+This is one of the most common sources of bugs when developers start using arrow functions. Understanding `this` behavior is crucial for avoiding frustrating errors.
+
+**The Problem**: Arrow functions don't have their own `this` context. Instead, they inherit `this` from the enclosing scope (lexical scoping). In the example:
+- The arrow function `increment` inherits `this` from the global scope
+- In the global scope, `this` is either `window` (in browsers) or `undefined` (in strict mode)
+- So `this.count++` is trying to increment `window.count` or will throw an error
+
+**Why This Happens**: Arrow functions were designed this way intentionally. They're meant to be "lightweight" functions that don't create their own execution context. This makes them perfect for callbacks and functional programming, but unsuitable for object methods that need to access the object's properties.
+
+**When to Use Each**:
+- **Arrow functions**: Callbacks, array methods, functional programming, when you want to preserve the outer `this`
+- **Regular functions**: Object methods, constructors, when you need the function's own `this`
+
+**Real Example in Habit Tracker**:
+```javascript
+const habitManager = {
+  habits: [],
+  // ✅ Good: regular function for object method
+  addHabit: function(habit) {
+    this.habits.push(habit);
+  },
+  // ✅ Good: arrow function for array callback
+  getCompleted: function() {
+    return this.habits.filter(habit => habit.completed);
+    // Arrow function inherits 'this' from getCompleted
+  }
+};
+```
+
+**Modern Alternative**: You can use method shorthand syntax:
+```javascript
+const habitTracker = {
+  count: 0,
+  increment() {  // Shorthand method syntax
+    this.count++;
+  }
+};
+```
+
+This is a subtle but important distinction that trips up many developers. The key is understanding when you want lexical `this` (arrow functions) vs. dynamic `this` (regular functions).
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -383,6 +723,55 @@ const getPoints = (streak) => {
   return streak * 10;
 };
 ```
+
+<Notes>
+This is another very common mistake that causes subtle bugs. The issue is understanding when arrow functions have implicit vs. explicit returns.
+
+**The Problem**: In the first example, the function has curly braces `{}` but no `return` statement. This means:
+- The expression `streak * 10` is evaluated
+- But the result is not returned
+- The function returns `undefined` instead
+- This creates a silent bug that can be hard to track down
+
+**Arrow Function Return Rules**:
+1. **No braces = implicit return**: `(streak) => streak * 10`
+   - The expression result is automatically returned
+   - Only works with single expressions
+   - Clean and concise for simple functions
+
+2. **Braces = explicit return required**: `(streak) => { return streak * 10; }`
+   - You must use the `return` keyword
+   - Allows multiple statements
+   - Necessary for complex logic
+
+**Debugging Tip**: If your function is returning `undefined` when you expect a value, check if you're missing a `return` statement. This is especially common when refactoring from implicit to explicit return style.
+
+**Real-World Example**:
+```javascript
+// ❌ Bug: Missing return in habit checker
+const isStreakGood = (streak) => {
+  streak >= 7; // Returns undefined, not boolean!
+};
+
+// ✅ Fixed: Explicit return
+const isStreakGood = (streak) => {
+  return streak >= 7;
+};
+
+// ✅ Even better: Implicit return
+const isStreakGood = (streak) => streak >= 7;
+```
+
+**Best Practices**:
+- Use implicit return for simple, single-expression functions
+- Use explicit return for multi-statement functions
+- Be consistent within your codebase
+- When in doubt, use explicit return - it's always clear
+
+**Testing Helps**: This is another reason why testing your functions is important. A test would quickly catch a function returning `undefined` instead of the expected value.
+
+This mistake is so common that many linters and code formatters have rules to catch it automatically.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -403,6 +792,50 @@ const expressionFn = () => {
   return "I'm not hoisted!";
 };
 ```
+
+<Notes>
+Hoisting is a JavaScript behavior that can be confusing for developers, especially when mixing different function declaration styles. Understanding hoisting helps you avoid reference errors and write more predictable code.
+
+**What is Hoisting?**: Hoisting is JavaScript's behavior of moving declarations to the top of their scope during the compilation phase. However, only declarations are hoisted, not initializations.
+
+**Function Declaration Hoisting**: 
+- `function declaredFn() {}` is fully hoisted
+- Both the declaration and the function body are moved to the top
+- You can call the function before it's defined in your code
+- This is why `console.log(declaredFn())` works even though it appears before the function definition
+
+**Function Expression/Arrow Function Hoisting**:
+- `const expressionFn = () => {}` is NOT hoisted the same way
+- The variable `expressionFn` is hoisted, but it's initialized to `undefined` initially
+- The function assignment happens when the code execution reaches that line
+- Calling it before the assignment results in "Cannot access before initialization" or "expressionFn is not a function" errors
+
+**What JavaScript Actually Sees**:
+```javascript
+// How JavaScript interprets the code:
+function declaredFn() { 
+  return "I'm hoisted!"; 
+}
+let expressionFn; // hoisted but undefined
+
+console.log(declaredFn()); // Works - function is available
+console.log(expressionFn()); // Error - undefined is not a function
+
+expressionFn = () => {
+  return "I'm not hoisted!";
+};
+```
+
+**Best Practices**:
+1. **Be consistent**: Choose one style and stick with it throughout your module
+2. **Define before use**: Even with hoisting, it's clearer to define functions before calling them
+3. **Use function declarations for utilities**: Functions that need to be available throughout the scope
+4. **Use expressions/arrows for specific contexts**: Callbacks, conditional functions, or when you want to control availability
+
+**Modern Development**: Many developers prefer function expressions and arrow functions specifically because they're not hoisted - this makes code more predictable and easier to follow.
+
+In our habit tracker, this matters when organizing utility functions and ensuring they're available when needed.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -430,6 +863,51 @@ function complexCalc(data) {
 ```javascript
 const myFunc = () => console.log(myFunc.name);
 ```
+
+<Notes>
+Debugging functions effectively is a crucial skill that will save students hours of frustration. Let's discuss practical debugging strategies:
+
+**1. Strategic console.log()**:
+This is often the quickest way to debug function issues:
+- **Log inputs**: Always check what data is actually coming into your function. Often bugs are caused by unexpected input formats or missing properties.
+- **Log intermediate values**: In complex calculations, log the results of each step. This helps you identify exactly where things go wrong.
+- **Log outputs**: Verify that your function is returning what you expect.
+
+**Best Practices for Logging**:
+- Use descriptive messages: `console.log('Streak calculation result:', result)`
+- Use `console.table()` for objects and arrays - much more readable
+- Use `console.group()` and `console.groupEnd()` to organize related logs
+- Remember to remove console.logs before committing code!
+
+**2. Debugger Statement**:
+- `debugger;` is like setting a breakpoint in your code
+- When the browser DevTools are open, execution will pause at this line
+- You can then step through code line by line, inspect variables, and see the call stack
+- Much more powerful than console.log for complex issues
+- Works in all modern browsers and Node.js
+
+**Using DevTools Effectively**:
+- Use "Step Over" to execute the current line
+- Use "Step Into" to dive into function calls
+- Use "Step Out" to finish the current function
+- Watch panel lets you monitor specific variables
+- Call stack shows you how you got to this point
+
+**3. Function Names Help with Stack Traces**:
+- Named functions appear in error stack traces
+- Anonymous functions show as "(anonymous)"
+- This makes debugging much easier when errors occur
+- Arrow functions don't have names by default, but you can assign them to named variables
+
+**Additional Debugging Tips**:
+- **Use meaningful function names**: `calculateHabitPoints` is better than `calc`
+- **Keep functions small**: Easier to debug and test
+- **Use unit tests**: Catch bugs before they reach production
+- **Validate inputs**: Check for null, undefined, wrong types
+- **Use TypeScript**: Catches many errors at compile time
+
+In our habit tracker, good debugging practices will help us catch issues with date calculations, point systems, and data validation early in development.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -443,4 +921,37 @@ const myFunc = () => console.log(myFunc.name);
 
 ### Bridge to Control Flow
 Functions organize code into reusable blocks. Next, let's learn how to make those blocks **smart** with conditional logic and loops!
+
+<Notes>
+Let's wrap up our functions lesson by reinforcing the key concepts that students should remember:
+
+**1. Functions reduce repetition and make code reusable**: This is the fundamental benefit. Instead of copying and pasting code, we create functions that can be called multiple times. In our habit tracker, functions like `calculateStreak()` and `getPoints()` can be used throughout the application.
+
+**2. Three ways to create functions**: Each has its place:
+- **Function declarations**: Hoisted, great for utility functions, traditional syntax
+- **Function expressions**: Not hoisted, good for controlled availability
+- **Arrow functions**: Concise, great for callbacks and simple operations, but be careful with `this`
+
+**3. Hoisting behavior**: Only function declarations are fully hoisted. This affects when you can call functions and how you organize your code. Understanding this prevents "function is not defined" errors.
+
+**4. First-class citizens**: Functions can be stored in variables, passed as arguments, and returned from other functions. This enables powerful patterns like higher-order functions, callbacks, and functional programming.
+
+**5. Pure functions are easier to test and debug**: Functions that don't have side effects and always return the same output for the same input are more predictable and reliable. Aim for pure functions when possible.
+
+**Bridge to Control Flow**: Functions give us the ability to organize and reuse code, but they're still relatively "dumb" - they execute the same sequence of steps every time. Control flow (conditionals and loops) is what makes our functions "smart" by allowing them to make decisions and handle different scenarios.
+
+Next, we'll learn how to add logic to our functions so they can:
+- Make decisions based on input (if/else statements)
+- Handle different cases (switch statements)
+- Repeat operations (loops)
+- Process collections of data (array methods)
+
+This combination of functions + control flow is where programming becomes really powerful and where students will start building truly dynamic applications.
+
+**Homework/Practice Suggestions**:
+- Create more utility functions for the habit tracker
+- Practice converting between different function syntaxes
+- Build functions that use other functions (composition)
+- Write tests for their functions
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import EfficientDOMUpdatesExercise from '../dom-exercises/efficient-dom-updates.mdx'
 
 <SlideLayout.Full>
@@ -27,6 +27,15 @@ habits.forEach(habit => {
 });
 list.appendChild(fragment); // Single DOM update
 ```
+<Notes>
+DOM performance is often the bottleneck in web applications. Every DOM manipulation triggers browser work - style calculations, layout, and painting. Understanding how to minimize this work separates amateur from professional developers.
+
+The key principle is batching updates. Each time you touch the DOM, the browser might recalculate styles and layout. If you're adding 100 items to a list, that could mean 100 recalculations. Using DocumentFragment or building a complete HTML string and inserting it once reduces this to a single operation.
+
+The example shows a 100x performance difference! With individual appends, each insertion triggers layout recalculation for the entire list. The browser has to figure out where everything goes after each new item. With DocumentFragment, all items are added in one operation, triggering layout once.
+
+This pattern is essential for any dynamic list - search results, social media feeds, or data tables. The performance difference becomes more dramatic with larger datasets. Users notice when scrolling stutters or interactions lag. Smooth performance requires understanding and respecting the browser's rendering pipeline.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -58,6 +67,15 @@ function updateHabit(id, name) {
   elements.status.textContent = 'Active';
 }
 ```
+<Notes>
+Caching DOM selections is a simple optimization with significant impact. Each querySelector call traverses the DOM tree looking for matches. For frequently accessed elements, this repeated searching wastes CPU cycles and can cause noticeable lag in complex applications.
+
+The cached approach queries once and reuses references. This is especially important in event handlers or animation loops that run frequently. A mousemove handler that queries the DOM on every pixel movement can bring a page to its knees.
+
+The pattern extends beyond simple caching. Consider creating a DOM reference object at initialization that holds all your important elements. This serves as documentation (you can see all elements your code interacts with) and ensures consistent performance. Some developers even create getter functions that lazy-load and cache elements on first access.
+
+Event delegation takes this further by using a single listener on a parent element instead of many listeners on children. This works perfectly with dynamically added content and uses less memory. Understanding when to cache versus when to query fresh is key to building performant applications.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -84,10 +102,28 @@ element.style.height = height + 50 + 'px';
 // Better: Use CSS transforms
 element.style.transform = 'scale(1.1)';
 ```
+<Notes>
+Reflow and repaint are the browser's most expensive operations. Reflow recalculates element positions and sizes - triggered by changes to layout properties like width, height, or position. Repaint redraws pixels - triggered by visual changes like color or visibility. Understanding what triggers these helps write faster code.
+
+The read-write pattern is subtle but important. When you read layout properties (offsetHeight, scrollTop, clientWidth), the browser must ensure calculations are up-to-date, potentially forcing a reflow. If you alternate reads and writes, you force multiple reflows. Batching reads together, then writes together, allows the browser to optimize.
+
+CSS transforms are a performance superpower. They're handled by the GPU and don't trigger reflow or repaint on other elements. For animations or dynamic positioning, transform: translate() is far superior to changing left/top. Similarly, opacity changes are GPU-accelerated, while visibility changes trigger reflow.
+
+Modern browsers are smart about optimizing, but understanding these fundamentals helps you write naturally performant code. Tools like Chrome DevTools' Performance panel can visualize reflows and repaints, helping you identify and fix bottlenecks.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Exercise: Efficient DOM Updates
 
 <EfficientDOMUpdatesExercise />
+<Notes>
+This exercise challenges students to apply performance optimization techniques to a real scenario - rendering a large dataset efficiently. Students often start with naive implementations that work for small datasets but fail at scale.
+
+The exercise reveals performance problems viscerally. When rendering 1000 items inefficiently, users see the browser freeze, items appear one by one, and scrolling becomes choppy. After optimization, the same operation feels instant. This dramatic difference motivates students to care about performance.
+
+Key techniques students implement include: using DocumentFragment for batch insertions, building HTML strings and using innerHTML for massive datasets, implementing virtual scrolling for infinite lists, debouncing rapid updates, and using requestAnimationFrame for smooth animations. Each technique has its place, and students learn to choose based on the use case.
+
+This hands-on experience with performance optimization is invaluable. Students develop an intuition for what makes DOM operations slow and how to fix them. They learn to profile their code and measure improvements objectively. Most importantly, they understand that performance isn't premature optimization - it's respecting users' time and devices.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -25,4 +25,19 @@ const completedNames = habits
   
 console.log(completedNames); // ['Exercise', 'Meditation']
 ```
+<Notes>
+These functional array methods are game-changers for JavaScript development. They represent a shift from imperative programming (telling the computer how to do something) to declarative programming (telling the computer what you want).
+
+**map()** is your transformation workhorse. Every time you need to convert data from one format to another, think map(). Converting objects to strings, numbers to formatted currency, or raw data to UI components - map() handles it all. The key insight: map() always returns a new array with the same length as the original.
+
+**filter()** is your data selector. It's like a sieve that only lets through elements that match your criteria. filter() can return an array with fewer, the same, or even zero elements. Common use cases: getting completed habits, finding users above a certain age, or selecting items within a price range.
+
+**reduce()** is the most powerful but also the most confusing method for beginners. It can replicate map(), filter(), and many other operations. Think of reduce() as a way to 'boil down' an array to a single value - whether that's a sum, an object, or even another array. The accumulator pattern takes practice to master.
+
+**find()** stops at the first match, making it efficient for finding specific items. Unlike filter() which returns an array, find() returns the actual element or undefined.
+
+The example shows method chaining - a powerful pattern where operations flow from left to right. First we filter to get only completed habits, then we map to extract just the names. This reads like English: 'from habits, filter completed ones, then map to their names.'
+
+These methods don't modify the original array - they return new data. This prevents accidental mutations and makes your code more predictable and debuggable.
+</Notes>
 </SlideLayout.Full>

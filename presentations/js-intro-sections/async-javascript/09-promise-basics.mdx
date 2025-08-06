@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -33,11 +33,29 @@ myPromise
     
   </File>
 </CodeDisplay>
+<Notes>
+Understanding Promise states is crucial for debugging async code. A Promise starts in the pending state - it's neither fulfilled nor rejected yet. This is when the async operation is still running. Once the operation completes, the Promise transitions to either fulfilled (success) or rejected (failure). This transition is permanent - a Promise can only settle once.
+
+The Promise constructor takes an executor function with two parameters: resolve and reject. These are functions you call to settle the Promise. Call resolve with the successful result, or reject with an error. The beauty is that you don't need to worry about when these functions are called - the Promise handles all the timing.
+
+The .then(), .catch(), and .finally() methods let you handle these different outcomes. .then() runs for fulfilled Promises, .catch() for rejected ones, and .finally() runs regardless of the outcome - perfect for cleanup operations. Each of these methods returns a new Promise, enabling the chaining pattern.
+
+This example uses Math.random() to simulate the uncertainty of real async operations - network requests might fail, file operations might encounter permissions issues, etc. Understanding these states helps you write robust code that handles both success and failure gracefully.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
   ## Common Async Patterns
   - Real-world scenarios in habit tracking:
+<Notes>
+In real applications, we often encounter specific async patterns that go beyond simple Promise chains. In habit tracking applications, these patterns are everywhere: fetching user data, saving progress, syncing with servers, and handling offline scenarios.
+
+Common patterns include parallel operations (fetch multiple habits at once), sequential dependencies (authenticate user, then load their data), timeout handling (don't wait forever for a slow server), and retry logic (network requests can fail temporarily). Each pattern has established solutions using Promises.
+
+Understanding these patterns helps you recognize similar situations in your own code. When you need to load multiple independent resources, use Promise.all(). When you need to handle the first response from multiple sources, use Promise.race(). When you need to handle mixed results (some succeed, some fail), use Promise.allSettled().
+
+These patterns form the building blocks of robust async applications. They're not just theoretical - you'll use them constantly when building real web applications that interact with APIs, databases, and external services.
+</Notes>
   - Fetching user habits from API
     - Saving completion to database
     - Syncing data across devices

@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -14,6 +14,17 @@ Ask these questions when designing objects:
 
 3. **How will other code interact with this object?**
    - Call methods, read properties, pass to functions
+<Notes>
+Designing good objects is like architecting a building - you need to plan the structure before you start building. These three questions form a systematic approach to object design that prevents common pitfalls.
+
+The first question - "What properties does this thing have?" - helps identify the state your object needs to track. Think like a detective gathering facts about your entity. For a habit, we need to know its name (what are we tracking?), category (how do we organize it?), streak count (how many consecutive days?), and status (is it active?). Don't overthink this initially - you can always add properties later. Start with the obvious ones.
+
+The second question - "What actions can this thing perform?" - identifies the object's behavior. This is where objects become more than just data containers. Methods represent what the object can do to itself or how it can respond to external events. A habit can be completed (updating its streak), reset (clearing progress), or queried for status (reporting current state). These aren't just functions that use habit data - they're capabilities that belong to the habit itself.
+
+The third question - "How will other code interact with this object?" - ensures your design fits into the larger application. Will you pass habits to display functions? Store them in arrays? Send them to a server? This question helps you design appropriate interfaces. If other code needs to sort habits by category, make sure category is easily accessible. If you'll serialize habits to JSON, avoid complex nested structures that don't translate well.
+
+Remember: good object design reduces complexity elsewhere. If designing your object properly means the rest of your code becomes simpler and more intuitive, you're on the right track.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -33,4 +44,17 @@ const habit = {
 ```
 
 Properties store state, methods provide behavior
+<Notes>
+This example demonstrates the planning questions in action. Let's walk through how each element serves the object's purpose.
+
+The properties section shows our object's state - the data it needs to remember. We have name (string) and streak (number). Notice we kept it simple initially. We could add category, lastCompleted date, or target frequency later, but starting with essential properties helps us focus on core functionality first.
+
+The methods section shows the object's capabilities. Each method has a clear purpose and maintains the object's internal consistency. The complete() method doesn't just increment a number - it represents the real-world action of completing a habit. The reset() method provides a clean way to start over. The getStatus() method gives us a formatted view of the object's current state.
+
+Pay attention to the 'this' keyword in the methods. This is how methods access and modify the object's own properties. When we call habit.complete(), 'this' refers to that specific habit object. This creates a clear boundary - each habit manages its own state.
+
+This design pattern - properties for state, methods for behavior - is fundamental to object-oriented programming. Properties answer "what is this object?" Methods answer "what can this object do?" Together, they create a self-contained unit that models a real-world concept.
+
+The beauty of this approach is that using the object becomes intuitive: habit.complete() reads like English. Compare this to a procedural approach: incrementHabitStreak(habit). The object-oriented version puts the action where it belongs - with the object itself.
+</Notes>
 </SlideLayout.Full>

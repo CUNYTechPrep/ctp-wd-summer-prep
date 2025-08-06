@@ -1,4 +1,4 @@
-import { SlideLayout, FlexBox } from 'spectacle'
+import { SlideLayout, FlexBox, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -28,6 +28,15 @@ console.log(habit.streak); // 5
     
   </File>
 </CodeDisplay>
+<Notes>
+This comparison reveals why objects are essential for managing complexity. The "without objects" approach quickly becomes a nightmare as your application grows. Imagine managing 10 habits with 10 properties each - that's 100 separate variables with no clear relationships!
+
+The variable proliferation problem gets worse with multiple entities. You might have habitName, userName, and projectName. Which name belongs to what? Without objects, you rely on naming conventions and hope. With objects, the relationship is explicit: habit.name, user.name, project.name.
+
+Objects provide namespace isolation. In the flat variable approach, all variables exist in the same scope, increasing the chance of naming conflicts and accidental overwrites. Objects create their own namespace, so habit.isActive and user.isActive can coexist without confusion.
+
+Most importantly, objects make code self-documenting. When you see habit.streak, you immediately understand this is the streak property of a habit. This clarity reduces bugs, speeds up development, and makes code maintenance much easier. The small extra syntax of creating an object pays massive dividends in code organization.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -40,4 +49,15 @@ console.log(habit.streak); // 5
         - Dot notation: object.property
         - Bracket notation: object["property"]
   </FlexBox>
+<Notes>
+JavaScript provides flexible ways to work with objects, each with specific use cases. Understanding when to use each syntax pattern is key to writing clean, effective code.
+
+Object literal notation ({}) is the most common and readable way to create objects. It's perfect for creating single objects with known properties. Constructor notation (new Object()) is rarely used for simple objects but becomes important when working with classes and prototypes.
+
+Dot notation (object.property) is the cleaner, more readable syntax for accessing properties. Use it whenever possible. It clearly shows the relationship between object and property, making code self-documenting.
+
+Bracket notation (object["property"]) is more versatile. Use it when: property names contain spaces or special characters, property names are dynamic (stored in variables), or you're iterating through properties. For example, object[propertyName] lets you access properties dynamically, essential for flexible code.
+
+The choice between dot and bracket notation isn't just stylistic - it affects what your code can do. Master both to handle any situation effectively.
+</Notes>
 </SlideLayout.Full>

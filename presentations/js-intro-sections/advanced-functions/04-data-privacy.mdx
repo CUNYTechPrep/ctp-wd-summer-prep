@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -21,4 +21,12 @@ const mySecret = createSecret("hidden");
 // No way to access 'secret' directly
 console.log(mySecret.reveal()); // "hidden"
 ```
+
+<Notes>
+Data privacy through closures is a fundamental pattern for creating secure JavaScript code. In this example, the secret variable is truly private - there's no way to access it except through the methods we explicitly provide. This is different from conventions like prefixing variables with underscore, which is just a social contract that can be violated.
+
+This pattern mimics private fields in class-based languages but predates JavaScript classes. It's still widely used because it provides true privacy, not just convention-based privacy. The secret variable exists in the closure's scope, accessible only to the functions defined within createSecret.
+
+This technique is essential for library authors and anyone building APIs. It ensures that internal implementation details can't be accessed or modified by external code, preventing bugs and maintaining a clean interface. Modern JavaScript has private class fields (#fieldName), but closure-based privacy remains important for functional programming patterns and is still seen throughout codebases.
+</Notes>
 </SlideLayout.Full>

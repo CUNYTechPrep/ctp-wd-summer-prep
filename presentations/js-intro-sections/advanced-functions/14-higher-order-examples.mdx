@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -20,4 +20,14 @@ button.addEventListener('click', handleClick);
 // Decorator example
 const loggedFunction = withLogging(myFunction);
 ```
+
+<Notes>
+This slide connects the concept of higher-order functions to everyday JavaScript code that students have likely already used. Understanding that map, filter, and addEventListener are higher-order functions helps demystify the concept.
+
+Array methods like map are perfect examples - map takes a transformation function and applies it to each element. This abstraction lets us focus on what we want to do (transform each element) rather than how to iterate. It's declarative rather than imperative programming.
+
+The addEventListener example shows how the browser APIs use higher-order functions. When we pass handleClick, we're not calling it immediately - we're giving the browser a function to call later when the event occurs. This delayed execution is a key characteristic of higher-order functions.
+
+The decorator pattern, shown with withLogging, is widely used in modern JavaScript. React's higher-order components, Redux's connect function, and many testing utilities follow this pattern. Recognizing these patterns helps developers read and understand modern JavaScript codebases more effectively.
+</Notes>
 </SlideLayout.Full>

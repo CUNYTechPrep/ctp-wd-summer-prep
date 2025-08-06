@@ -1,4 +1,5 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
+import { CodeDisplay, File, Tests } from '../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## 🧬 Prototypes and Inheritance
@@ -8,6 +9,20 @@ import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
 - Creating inheritance relationships  
 - Constructor functions and classes
 - Sharing methods efficiently
+
+<Notes>
+Welcome to one of JavaScript's most fundamental and often misunderstood concepts: prototypes and inheritance. Unlike classical object-oriented languages that use classes as blueprints, JavaScript uses prototypes for inheritance, creating a more flexible but initially confusing system.
+
+Prototypes are the mechanism by which JavaScript objects inherit features from one another. Every object in JavaScript has a hidden link to another object called its prototype, and this creates a chain of inheritance that enables code reuse and polymorphism.
+
+Understanding prototypes is crucial for several reasons. First, it explains how JavaScript's object system really works under the hood, even when you're using modern class syntax. Second, it enables you to create efficient, memory-friendly object hierarchies. Third, it helps you debug mysterious behavior when objects seem to have methods or properties they never explicitly received.
+
+In our habit tracker context, prototypes will help us create efficient object hierarchies. We might have a base Habit prototype with common functionality, and specialized types like TimedHabit or SocialHabit that inherit from it while adding their own specific behaviors.
+
+We'll explore how the prototype chain works, how to set up inheritance relationships manually with Object.create(), the traditional constructor function pattern, and how modern ES6 classes provide syntactic sugar over the same prototype system.
+
+This isn't just academic knowledge - understanding prototypes makes you a better JavaScript developer and helps you write more efficient, maintainable code.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -22,6 +37,26 @@ import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
     - A habit template that specific habits inherit from
     - All habits share common behaviors
   </FlexBox>
+
+<Notes>
+Let's demystify prototypes by understanding what they are and why they exist in JavaScript.
+
+Every JavaScript object has a hidden internal property called [[Prototype]] (note the double brackets - this indicates an internal property you can't directly access in code). This property contains a reference to another object, which is that object's prototype.
+
+When you try to access a property or method on an object, JavaScript first looks at the object itself. If the property isn't found, it looks at the object's prototype. If it's still not found, it looks at the prototype's prototype, and so on, creating what we call the prototype chain.
+
+This chain continues until either the property is found or we reach an object with a null prototype (typically Object.prototype, which is the root of most prototype chains in JavaScript).
+
+The key insight is that this enables inheritance without copying code. Instead of each habit object having its own copy of common methods like 'complete()' or 'reset()', they can all share the same methods through the prototype chain. This is memory efficient and means you can add or modify methods in one place and have all instances benefit.
+
+The habit template analogy is perfect: imagine you have a template for habits that defines common behaviors like "how to mark complete" or "how to calculate streak". Individual habits don't need their own copy of these instructions - they can refer back to the template when they need to perform these actions.
+
+For example, if you have 100 habit objects, they don't each need their own copy of the 'complete' method. Instead, they all share one copy through the prototype chain, saving memory and ensuring consistency.
+
+This system is more flexible than traditional class-based inheritance because you can modify prototypes at runtime, add methods to existing objects, and create complex inheritance hierarchies without formal class declarations.
+
+The beauty of JavaScript's prototype system is its simplicity and flexibility, though this same flexibility can make it confusing for developers coming from class-based languages.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -42,6 +77,39 @@ const child = Object.create(parent);
 
 **Key insight:** This is how we manually set up the prototype relationship that classes do automatically.
 
+<Notes>
+Object.create() is the most direct way to create objects with specific prototypes, and understanding it is key to understanding how JavaScript inheritance works at the most fundamental level.
+
+When you create an object with `const obj = {}` or `new Object()`, that object automatically gets Object.prototype as its prototype. Object.prototype contains methods like toString(), hasOwnProperty(), and valueOf() that are available on all objects.
+
+Object.create() lets you bypass this default and specify exactly what you want as the prototype. This gives you explicit control over the inheritance hierarchy, which is powerful for creating custom inheritance patterns.
+
+The syntax `Object.create(parent)` creates a new, empty object whose prototype is set to the parent object. The comment `child.__proto__ === parent` shows the relationship that's established (__proto__ is a deprecated way to access the prototype, but it's useful for understanding).
+
+This manual prototype setup is exactly what ES6 classes do behind the scenes. When you write `class Child extends Parent`, JavaScript is essentially doing `Child.prototype = Object.create(Parent.prototype)` plus some additional setup.
+
+For our habit tracker, you might use Object.create() like this:
+
+```javascript
+// Create a base habit prototype
+const habitPrototype = {
+  complete() { this.streak++; },
+  reset() { this.streak = 0; }
+};
+
+// Create specific habits that inherit from it
+const exerciseHabit = Object.create(habitPrototype);
+exerciseHabit.name = 'Exercise';
+exerciseHabit.streak = 0;
+
+// Now exerciseHabit can use methods from habitPrototype
+exerciseHabit.complete(); // streak becomes 1
+```
+
+Object.create() also accepts a second parameter for property descriptors, allowing you to define properties with specific characteristics (writable, enumerable, configurable), but we'll focus on the basic usage for now.
+
+Understanding Object.create() helps you understand that prototype relationships are explicit and controllable, not magic. This foundation will make constructor functions and classes much clearer.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -71,6 +139,31 @@ exerciseHabit.complete();              // "Morning Run completed!" (inherited me
     
   </File>
 </CodeDisplay>
+
+<Notes>
+This example demonstrates the prototype chain in action, showing how objects can inherit properties and methods from their prototypes.
+
+We start by creating a baseHabit object that contains common properties and methods. This acts as our "template" or "prototype" that other habit objects can inherit from. Notice that it has an isActive property and a complete method.
+
+Using Object.create(baseHabit), we create a new object whose prototype is baseHabit. This establishes the inheritance relationship. The exerciseHabit object starts empty but is linked to baseHabit through the prototype chain.
+
+We then add specific properties to exerciseHabit: name and category. These are "own properties" - they belong directly to the exerciseHabit object, not inherited from anywhere.
+
+When we access properties, the prototype chain comes into play:
+
+1. `exerciseHabit.name` returns "Morning Run" - this is found directly on the exerciseHabit object
+2. `exerciseHabit.isActive` returns true - this isn't found on exerciseHabit, so JavaScript looks at its prototype (baseHabit) and finds it there
+3. `exerciseHabit.complete()` calls the complete method - again, not found on exerciseHabit, so JavaScript finds it on baseHabit
+
+The crucial insight is in the complete method: when it executes, `this` refers to exerciseHabit (the object that called the method), not baseHabit (where the method is defined). This is why `this.name` correctly returns "Morning Run" even though the complete method is defined on baseHabit.
+
+This demonstrates the power of prototypes:
+- Memory efficiency: The complete method exists only once on baseHabit, but can be used by any number of habit objects
+- Shared behavior: All habits inherit the same complete behavior
+- Contextual execution: Inherited methods still operate on the correct object instance
+
+For our habit tracker, this means we can define common functionality once and share it across all habit types, while still allowing each habit to have its own specific data and behavior.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -87,6 +180,52 @@ exerciseHabit.complete();              // "Morning Run completed!" (inherited me
     - Dynamic - changes to prototype affect all instances
     - Flexible inheritance patterns
   </FlexBox>
+
+<Notes>
+Let's break down exactly how the prototype chain works and why this system is so powerful.
+
+The property lookup process is deterministic and follows these exact steps:
+
+1. **Check own properties first**: JavaScript looks directly at the object to see if it has the requested property. This includes properties added directly to the object or defined in its constructor.
+
+2. **Walk up the prototype chain**: If the property isn't found, JavaScript follows the prototype link and checks the prototype object. This process repeats - if the prototype doesn't have the property, JavaScript checks the prototype's prototype.
+
+3. **Continue until resolution**: This continues up the chain until either the property is found or we reach an object with a null prototype (usually Object.prototype for most objects).
+
+4. **Return undefined for missing properties**: If the entire chain is traversed without finding the property, JavaScript returns undefined.
+
+This lookup process happens every time you access a property or method, but it's highly optimized by modern JavaScript engines.
+
+The benefits of this system are significant:
+
+**Memory efficiency** is huge - imagine having 1000 habit objects. Without prototypes, each would need its own copy of every method, wasting enormous amounts of memory. With prototypes, all 1000 objects share the same method definitions.
+
+**Dynamic behavior** means you can modify prototypes at runtime and all instances immediately benefit. If you add a new method to a prototype, every existing object that inherits from it suddenly has that method available.
+
+**Flexible inheritance patterns** allow for complex hierarchies without the rigidity of classical inheritance. You can change an object's prototype, create multiple inheritance paths, or add methods to built-in objects (though this last one should be done carefully).
+
+For our habit tracker:
+
+```javascript
+// All habit objects share methods efficiently
+const habits = [];
+for (let i = 0; i < 1000; i++) {
+  const habit = Object.create(habitPrototype);
+  habit.name = `Habit ${i}`;
+  habits.push(habit);
+}
+// Only one copy of each method exists, shared by all 1000 objects
+
+// Dynamic behavior - add method to all habits at once
+habitPrototype.archive = function() {
+  this.isActive = false;
+  this.archivedDate = new Date();
+};
+// Now all 1000 habit objects have the archive method!
+```
+
+Understanding this lookup process helps you debug issues, optimize performance, and design better object hierarchies.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -119,6 +258,72 @@ console.log(morningRun.getStatus()); // Should work!
     
   </File>
 </CodeDisplay>
+
+<Notes>
+This exercise gives you hands-on practice with prototype-based inheritance, building a practical system for our habit tracker application.
+
+The goal is to create a hierarchy where all habits share common functionality through a base prototype, while specific habit types can add their own specialized properties and behaviors.
+
+Here's a sample solution approach:
+
+```javascript
+// Base habit prototype with common functionality
+const habitPrototype = {
+  complete() {
+    this.isCompleted = true;
+    this.completedToday = new Date().toDateString();
+    this.streak = (this.streak || 0) + 1;
+    return `${this.name} completed! Streak: ${this.streak}`;
+  },
+  
+  reset() {
+    this.isCompleted = false;
+    this.completedToday = null;
+    this.streak = 0;
+    return `${this.name} reset`;
+  },
+  
+  getStatus() {
+    return {
+      name: this.name,
+      completed: this.isCompleted || false,
+      streak: this.streak || 0,
+      lastCompleted: this.completedToday
+    };
+  }
+};
+
+// Create specific habit types
+const exerciseHabit = Object.create(habitPrototype);
+exerciseHabit.name = 'Morning Run';
+exerciseHabit.duration = 30; // minutes
+exerciseHabit.category = 'fitness';
+
+const studyHabit = Object.create(habitPrototype);
+studyHabit.name = 'JavaScript Study';
+studyHabit.subject = 'Programming';
+studyHabit.category = 'learning';
+
+const healthHabit = Object.create(habitPrototype);
+healthHabit.name = 'Drink Water';
+healthHabit.target = 8; // glasses
+healthHabit.category = 'health';
+```
+
+This exercise demonstrates several key concepts:
+
+1. **Shared behavior**: All habits can complete(), reset(), and getStatus() through inheritance
+2. **Specialized data**: Each habit type has its own specific properties (duration, subject, target)
+3. **Memory efficiency**: Methods exist only once on the prototype
+4. **Flexible design**: Easy to add new habit types or modify shared behavior
+
+You could extend this further by:
+- Adding habit-specific methods (e.g., exerciseHabit.logWorkout())
+- Creating sub-prototypes for related habit types
+- Adding validation logic to the base prototype
+
+This pattern is the foundation of how JavaScript's inheritance works, even when hidden behind class syntax. Understanding it gives you the power to create flexible, efficient object hierarchies.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -131,6 +336,52 @@ console.log(morningRun.getStatus()); // Should work!
     - Prototype property holds shared methods
     - Capital letter convention (e.g., Habit)
   </FlexBox>
+
+<Notes>
+Constructor functions were JavaScript's primary way to create object hierarchies before ES6 classes arrived. Understanding them is important because much existing code uses this pattern, and it reveals how JavaScript's object system really works.
+
+A constructor function is just a regular function that's designed to be called with the 'new' keyword. When you call a function with 'new', several things happen automatically:
+
+1. A new empty object is created
+2. The function's 'this' is set to point to this new object
+3. The new object's prototype is set to the constructor function's prototype property
+4. The function executes, typically setting properties on 'this'
+5. The new object is returned (unless the function explicitly returns a different object)
+
+The capital letter naming convention (Habit, not habit) signals that a function is intended as a constructor. This isn't enforced by JavaScript, but it's a strong convention that helps avoid bugs.
+
+The key insight is the prototype property: every function has a prototype property that becomes the prototype of objects created with that constructor. This is where you put shared methods.
+
+For our habit tracker:
+
+```javascript
+// Constructor function
+function Habit(name, category) {
+  this.name = name;
+  this.category = category;
+  this.streak = 0;
+}
+
+// Shared methods go on prototype
+Habit.prototype.complete = function() {
+  this.streak++;
+  return `${this.name} completed!`;
+};
+
+// Create instances
+const exercise = new Habit('Exercise', 'health');
+const reading = new Habit('Reading', 'learning');
+
+// Both instances share the same method
+console.log(exercise.complete === reading.complete); // true
+```
+
+This pattern creates the same prototype chain as Object.create(), but provides a more structured way to initialize objects with specific properties.
+
+The beauty of constructor functions is their simplicity and explicitness. You can see exactly what happens during object creation, and the prototype relationships are clear. Many JavaScript libraries and frameworks were built using this pattern.
+
+While ES6 classes provide cleaner syntax, they're essentially syntactic sugar over constructor functions and prototypes. Understanding constructor functions helps you understand what classes are really doing behind the scenes.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -168,6 +419,43 @@ console.log(exercise.complete()); // Methods are shared!
     
   </File>
 </CodeDisplay>
+
+<Notes>
+This example shows the complete constructor function pattern in action, demonstrating how to create a reusable object template with shared methods.
+
+The constructor function Habit serves as a template for creating habit objects. Inside the function, we use 'this' to set instance properties - these are unique to each object created. When called with 'new', 'this' refers to the newly created object.
+
+Instance properties (name, category, streak, isActive) are set directly on each object. These are "own properties" - each habit object gets its own copy. This is appropriate for data that varies between instances.
+
+Shared methods are added to Habit.prototype, not inside the constructor function. This is crucial for memory efficiency - if we put methods inside the constructor, each instance would get its own copy of the functions, which wastes memory.
+
+The methods complete() and reset() demonstrate how prototype methods work. They can access and modify instance properties through 'this', but the method definition itself is shared among all instances.
+
+When we create instances with 'new Habit()', several things happen:
+1. A new object is created
+2. Its prototype is set to Habit.prototype
+3. The Habit function runs with 'this' bound to the new object
+4. Instance properties are set
+5. The new object is returned
+
+The prototype chain looks like this:
+exercise → Habit.prototype → Object.prototype → null
+
+When exercise.complete() is called:
+1. JavaScript looks for 'complete' on exercise (not found)
+2. Looks on Habit.prototype (found!)
+3. Calls the method with 'this' = exercise
+
+This pattern was the standard way to create object hierarchies in JavaScript for many years. It's still valid and sometimes preferred for its explicitness and performance characteristics.
+
+For our habit tracker, this enables:
+- Consistent object creation with proper initialization
+- Shared behavior across all habit instances
+- Memory-efficient method storage
+- Clear separation between instance data and shared behavior
+
+The constructor function pattern forms the foundation for understanding how ES6 classes work under the hood.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -204,6 +492,34 @@ meditation.complete(20); // Complete with 20 minutes
     
   </File>
 </CodeDisplay>
+<Notes>
+  This exercise builds on the previous one by introducing constructor functions - the traditional way to create objects with shared behavior before ES6 classes. Understanding constructor functions is crucial because they're still widely used and help explain how classes work under the hood.
+  
+  **Key concepts to reinforce:**
+  
+  1. **Constructor Functions**: Regular functions that create and initialize objects when called with `new`. By convention, they start with capital letters.
+  
+  2. **The 'new' keyword**: Does four things:
+     - Creates a new empty object
+     - Sets the prototype of that object to the constructor's prototype
+     - Calls the constructor with 'this' bound to the new object
+     - Returns the new object (unless the constructor explicitly returns something else)
+  
+  3. **Prototype Methods**: Methods added to `Habit.prototype` are shared by all instances, saving memory compared to defining methods inside the constructor.
+  
+  4. **Inheritance Pattern**: The traditional way involves:
+     - Calling the parent constructor from the child: `Habit.call(this, name, category, points)`
+     - Setting up the prototype chain: `TimedHabit.prototype = Object.create(Habit.prototype)`
+     - Fixing the constructor property: `TimedHabit.prototype.constructor = TimedHabit`
+  
+  **Common mistakes to watch for:**
+  - Forgetting to use `new` when calling constructors
+  - Not properly setting up the prototype chain for inheritance
+  - Defining methods inside the constructor instead of on the prototype
+  - Forgetting to call the parent constructor with the correct context
+  
+  This exercise prepares students to understand ES6 classes by showing what's happening behind the syntactic sugar. When they see `class` and `extends`, they'll understand it's just a cleaner syntax for the same prototype-based inheritance.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -245,6 +561,42 @@ console.log(meditation instanceof Habit); // true
     
   </File>
 </CodeDisplay>
+
+<Notes>
+ES6 classes provide a much cleaner syntax for creating object hierarchies, but it's important to understand that they're "syntactic sugar" over the same prototype system we've been exploring.
+
+The class syntax looks familiar to developers from other languages, but JavaScript classes work differently than traditional classes. They're still based on prototypes, not true class-based inheritance.
+
+The constructor method is equivalent to a constructor function - it initializes instance properties when objects are created with 'new'. Methods defined in the class body automatically go on the prototype, just like manually adding them to Constructor.prototype.
+
+Inheritance with 'extends' creates the prototype chain automatically. When TimedHabit extends Habit, JavaScript sets up TimedHabit.prototype to inherit from Habit.prototype. This is equivalent to:
+
+```javascript
+// What 'extends' does behind the scenes
+TimedHabit.prototype = Object.create(Habit.prototype);
+TimedHabit.prototype.constructor = TimedHabit;
+```
+
+The 'super' keyword provides access to the parent class. In the constructor, super() calls the parent constructor. In methods, super.methodName() calls the parent's version of the method.
+
+Method overriding works through the prototype chain. TimedHabit's complete method "shadows" Habit's complete method, but can still call the parent version with super.complete().
+
+The instanceof check proves that this is still prototype-based inheritance. meditation is an instance of TimedHabit, but because TimedHabit extends Habit, it's also an instance of Habit.
+
+For our habit tracker, classes provide several advantages:
+- Cleaner, more readable syntax
+- Built-in inheritance with extends
+- Easier method overriding with super
+- More familiar to developers from other languages
+
+However, they don't change the fundamental prototype-based nature of JavaScript objects. Understanding prototypes helps you:
+- Debug class-based code more effectively
+- Understand performance characteristics
+- Work with older codebases that use constructor functions
+- Appreciate what classes are really doing
+
+The key insight is that classes are a more convenient way to write the same prototype patterns we've been exploring. Under the hood, it's still the same prototype chain, same property lookup, same inheritance mechanism.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -260,6 +612,40 @@ console.log(meditation instanceof Habit); // true
     - Built on top of prototypes
     - Better for complex hierarchies
   </FlexBox>
+
+<Notes>
+Understanding when to use constructor functions versus ES6 classes helps you make informed decisions and work effectively with different codebases.
+
+**Constructor Functions** represent the traditional JavaScript approach that was used for decades. They're more explicit about what's happening - you can see exactly how objects are created, how prototypes are set up, and how inheritance works. This explicitness can be educational and sometimes necessary for complex inheritance patterns.
+
+Constructor functions are also more flexible. You can easily modify them at runtime, create complex initialization patterns, or implement multiple inheritance patterns. They give you direct access to the prototype system without abstraction.
+
+Many existing libraries and frameworks use constructor functions, so understanding them is essential for maintenance and contributing to open-source projects.
+
+**ES6 Classes** provide cleaner, more familiar syntax that's easier to read and write, especially for developers coming from other languages. The class syntax clearly expresses intent and reduces boilerplate code.
+
+Classes are better for complex hierarchies because the 'extends' and 'super' keywords make inheritance relationships explicit and easier to manage. Error handling and initialization are also more straightforward with classes.
+
+Classes also provide better tooling support - IDEs can more easily understand class structures for autocomplete, refactoring, and static analysis.
+
+For our habit tracker, the choice might depend on:
+
+**Use constructor functions when:**
+- Working with legacy codebases
+- Need maximum flexibility in object creation
+- Learning how JavaScript inheritance really works
+- Performance is critical (minimal overhead)
+
+**Use ES6 classes when:**
+- Starting new projects
+- Working in teams (more readable)
+- Creating complex inheritance hierarchies
+- Want better tooling support
+
+In practice, most modern JavaScript development uses classes for their clarity and developer experience benefits. But understanding constructor functions gives you deeper insight into how JavaScript objects work and helps you debug and maintain older code.
+
+The key insight is that both approaches create the same underlying prototype structures. Your choice is primarily about syntax preference, team standards, and project requirements, not fundamental differences in functionality.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -273,4 +659,31 @@ console.log(meditation instanceof Habit); // true
 
 ### Coming Up Next: Modules
 Organizing code into reusable components!
+
+<Notes>
+Let's consolidate the essential concepts about JavaScript prototypes that will serve you throughout your development career.
+
+**Every object has a prototype chain** - this is fundamental to how JavaScript works. Even when you're not thinking about prototypes, they're there, enabling inheritance and method sharing. Understanding this helps you predict how property access works and debug mysterious behavior.
+
+**Property lookup traverses the chain** - when you access a property, JavaScript follows a predictable path up the prototype chain. This lookup process is the mechanism that makes inheritance work. It's also why you can call methods like toString() on any object, even though you never explicitly added them.
+
+**Constructor functions create objects with shared methods** - this was JavaScript's original object-oriented pattern and it's still valid today. Understanding constructor functions helps you work with legacy code and understand what's happening behind the scenes with classes.
+
+**ES6 classes are syntactic sugar** - this is crucial to understand. Classes don't change how JavaScript objects work; they just provide a cleaner syntax for the same prototype-based inheritance. When you use classes, you're still using prototypes under the hood.
+
+**The prototype pattern enables efficient memory usage** - this is why prototypes exist. Instead of each object having its own copy of methods, objects share methods through the prototype chain. This is memory efficient and allows dynamic behavior modification.
+
+For your habit tracker and future projects, these concepts enable:
+- Efficient object hierarchies (base Habit class with specialized subclasses)
+- Shared behavior across object instances
+- Dynamic method modification (adding methods to all instances at once)
+- Memory-efficient applications
+- Understanding of how libraries and frameworks implement their object systems
+
+Prototypes are one of JavaScript's most distinctive features. While they can seem confusing at first, they provide incredible flexibility and power once you understand them. They're also the foundation for understanding more advanced topics like mixins, decorators, and metaprogramming patterns.
+
+As you continue learning JavaScript, you'll see prototypes everywhere - in built-in objects, libraries, frameworks, and design patterns. Having a solid understanding of how they work will make you a more effective JavaScript developer.
+
+Next, we'll explore modules, which help us organize our prototype-based objects and other code into maintainable, reusable components. Modules and prototypes work together to create scalable JavaScript applications.
+</Notes>
 </SlideLayout.Full>

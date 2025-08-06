@@ -1,4 +1,4 @@
-import { SlideLayout, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -32,6 +32,15 @@ document
     
   </File>
 </CodeDisplay>
+<Notes>
+This visualization shows how HTML transforms into the DOM tree structure. Every HTML element becomes a node in the tree, maintaining the hierarchical relationships from your HTML. Understanding this tree structure is crucial for effective DOM manipulation.
+
+Notice how the tree preserves parent-child relationships. The div#app is the parent of both the h1 and ul elements. The ul is the parent of two li elements. Even text content becomes nodes - "My Habits", "Exercise", and "Read" are text nodes that are children of their respective elements.
+
+This tree structure enables powerful traversal methods. You can move up the tree (parentNode), down the tree (children, firstChild, lastChild), or sideways (nextSibling, previousSibling). These relationships remain consistent as you manipulate the DOM - if you move an element, all its children move with it.
+
+The hierarchical nature also affects CSS styling (inheritance flows down the tree) and event handling (events bubble up the tree). When you understand the DOM as a tree, concepts like event bubbling, CSS inheritance, and efficient element selection become much clearer. This mental model is fundamental to thinking about web pages programmatically.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>

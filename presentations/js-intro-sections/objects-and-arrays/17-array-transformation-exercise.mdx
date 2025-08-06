@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -22,6 +22,34 @@ const BONUS_RATE = 0.20;
     
   </File>
 </CodeDisplay>
+<Notes>
+This exercise demonstrates a common real-world scenario: taking raw numerical data and transforming it through multiple steps to create formatted output for display. This type of data pipeline is essential in web applications.
+
+The three-step transformation teaches several important concepts:
+
+**Step 1 - Add 20% bonus**: This is mathematical transformation using map(). Students learn that map() isn't just for extracting properties - it can apply any transformation function. The calculation (point * (1 + BONUS_RATE)) or (point * 1.20) introduces percentage calculations that are common in business applications.
+
+**Step 2 - Format as strings**: This demonstrates type conversion and string interpolation. Students see how data often needs to be formatted for presentation. Template literals (\`\$\{points\} pts\`) or string concatenation (points + " pts") both work here.
+
+**Step 3 - Filter high values**: After transforming the data, we select only items that meet our criteria. This shows that filtering can happen at any point in the pipeline, not just at the beginning.
+
+The expected solution involves method chaining:
+```javascript
+const result = dailyPoints
+  .map(points => points * (1 + BONUS_RATE))  // [36, 54, 72, 24, 90, 48, 108]
+  .map(points => `${points} pts`)            // ["36 pts", "54 pts", ...]
+  .filter(pointsStr => parseInt(pointsStr) >= 50); // ["72 pts", "90 pts", "108 pts"]
+```
+
+Alternatively, they could combine the first two steps:
+```javascript
+const result = dailyPoints
+  .map(points => `${points * (1 + BONUS_RATE)} pts`)
+  .filter(pointsStr => parseInt(pointsStr) >= 50);
+```
+
+This exercise teaches students that array transformations can be complex, multi-step processes, but method chaining keeps the code readable and maintainable. It also introduces the concept of data formatting for UI display, which is crucial in frontend development.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -37,4 +65,41 @@ const BONUS_RATE = 0.20;
     - Each habit is an object with properties
     - Completion history is array of dates
   </FlexBox>
+<Notes>
+This slide addresses a crucial concept that beginners often struggle with: real applications don't use objects OR arrays - they use objects AND arrays together in sophisticated data structures.
+
+**Arrays of objects** is probably the most common pattern in web development. Think of any list in an application: users, products, comments, habits. Each item is an object with multiple properties, and the collection is an array. This enables both individual item manipulation and collection-wide operations.
+
+**Objects containing arrays** represent entities that have multiple related items. A user might have an array of friends, a product might have an array of reviews, or a habit might have an array of completion dates. This nesting allows rich data relationships.
+
+**Nested structures** can go several levels deep. A user might have an array of habits, each habit has an array of daily records, and each record has an array of tags. While complex, these structures accurately model real-world relationships.
+
+For the habit tracker example:
+```javascript
+const user = {
+  name: "Alice",
+  habits: [  // Array of objects
+    {
+      name: "Exercise",
+      category: "health",
+      completionDates: ["2024-01-01", "2024-01-02"], // Object containing array
+      streak: 2
+    },
+    {
+      name: "Reading",
+      category: "learning", 
+      completionDates: ["2024-01-01"],
+      streak: 1
+    }
+  ]
+};
+```
+
+Working with nested structures requires combining object property access with array methods:
+- `user.habits.length` - How many habits?
+- `user.habits.filter(h => h.category === 'health')` - Which health habits?
+- `user.habits[0].completionDates.length` - How many times did they exercise?
+
+This complexity is why mastering both objects and arrays is essential. Students need to be comfortable navigating and manipulating these nested structures to build real applications.
+</Notes>
 </SlideLayout.Full>

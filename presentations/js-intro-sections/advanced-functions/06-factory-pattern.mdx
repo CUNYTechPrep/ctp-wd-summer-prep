@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -22,4 +22,14 @@ function createHabitTracker(name) {
   };
 }
 ```
+
+<Notes>
+The factory pattern with closures is a powerful way to create objects with private state and public methods. This habit tracker example shows how we can create multiple tracker instances, each maintaining its own private completions and streak variables.
+
+Notice how the returned object contains methods that access and modify the private variables. This creates a clean API where users can only interact with the data through controlled methods. They can't accidentally set streak to a negative number or modify completions directly.
+
+This pattern predates ES6 classes and is still valuable because it provides true privacy without any special syntax. It's also more flexible than classes in some ways - we can dynamically decide which methods to expose based on conditions, and we don't have to worry about the complexities of 'this' binding.
+
+In modern applications, you'll see this pattern in libraries, SDKs, and anywhere that needs to create multiple instances with encapsulated state. It's the foundation for understanding more complex patterns like the revealing module pattern.
+</Notes>
 </SlideLayout.Full>

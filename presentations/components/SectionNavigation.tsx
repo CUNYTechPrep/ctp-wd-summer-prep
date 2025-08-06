@@ -55,7 +55,7 @@ export const SectionNavigation: React.FC<SectionNavigationProps> = ({
               Use arrow keys to navigate slides
             </p>
             <a 
-              href="/sections.html"
+              href="./"
               style={{
                 color: '#999',
                 textDecoration: 'none',

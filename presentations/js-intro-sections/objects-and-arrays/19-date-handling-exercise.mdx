@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -42,6 +42,64 @@ console.log("Longest streak:", streakCalculator.getLongestStreak(dates));
     
   </File>
 </CodeDisplay>
+<Notes>
+This exercise tackles one of the most challenging aspects of habit tracking applications: calculating streaks. Date manipulation is notoriously tricky in JavaScript, and streak calculation requires careful logic to handle edge cases correctly.
+
+The three methods build on each other, from simple date comparison to complex streak analysis:
+
+**isConsecutive(date1, date2)** is the foundation. It needs to determine if two dates are exactly one day apart. The approach:
+```javascript
+isConsecutive(date1, date2) {
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+  const diffTime = d2.getTime() - d1.getTime();
+  const diffDays = diffTime / (1000 * 60 * 60 * 24);
+  return diffDays === 1;
+}
+```
+
+This converts date strings to Date objects, calculates the difference in milliseconds, then converts to days. The comparison checks for exactly one day difference.
+
+**calculateStreak(completionDates)** finds the current streak. This requires:
+1. Sort dates in descending order (most recent first)
+2. Start from the most recent date and count consecutive days
+3. Stop when you find a gap
+
+```javascript
+calculateStreak(completionDates) {
+  if (completionDates.length === 0) return 0;
+  
+  const sorted = [...completionDates].sort().reverse();
+  let streak = 1;
+  
+  for (let i = 1; i < sorted.length; i++) {
+    if (this.isConsecutive(sorted[i], sorted[i-1])) {
+      streak++;
+    } else {
+      break;
+    }
+  }
+  
+  return streak;
+}
+```
+
+**getLongestStreak(completionDates)** finds the maximum streak in the entire history. This requires tracking both current and maximum streaks as you iterate through sorted dates.
+
+Key concepts this exercise teaches:
+
+**Date arithmetic**: Working with JavaScript Date objects and time calculations. Students learn about millisecond timestamps and date conversion.
+
+**Array sorting**: Dates need to be sorted for streak calculation. Using [...dates].sort() creates a copy to avoid mutating the original array.
+
+**Algorithm design**: Streak calculation is a classic programming problem that requires careful state management and loop control.
+
+**Edge case handling**: What if the array is empty? What if there are duplicate dates? What if dates are out of order?
+
+**Method composition**: Complex functionality built from simpler methods (getLongestStreak uses isConsecutive).
+
+This exercise bridges the gap between simple array operations and real-world application logic, showing how fundamental programming concepts combine to solve practical problems.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -64,4 +122,40 @@ console.log("Longest streak:", streakCalculator.getLongestStreak(dates));
     - Provide defaults for missing data
     - Sanitize user input
   </FlexBox>
+<Notes>
+This summary slide reinforces that the techniques students have been learning aren't just academic exercises - they're essential skills for building professional-quality applications. Real applications require sophisticated data handling across multiple dimensions.
+
+**Data Transformation** is the heart of any dynamic application. Raw data rarely matches the format needed for display or calculation. Students need to be comfortable reshaping data:
+- map() transforms each item (user objects to display names)
+- filter() selects relevant subsets (active users, completed habits)
+- reduce() combines data into summaries (total points, average scores)
+
+These operations often chain together: get users, filter active ones, map to their names, reduce to a count. This pipeline approach makes complex transformations manageable.
+
+**Data Persistence** is what makes applications useful beyond a single session. Users expect their data to be saved:
+- JSON.stringify() converts JavaScript objects to strings for storage
+- JSON.parse() converts stored strings back to objects
+- Error handling prevents crashes when data is corrupted or unavailable
+
+LocalStorage is the simplest persistence method, but the same principles apply to databases and APIs.
+
+**Data Validation** prevents bugs and security issues. Never trust data, whether from users, APIs, or storage:
+- Type checking ensures data matches expectations (is age a number?)
+- Structure validation confirms required properties exist
+- Default values handle missing data gracefully
+- Input sanitization prevents malicious code injection
+
+Example validation pattern:
+```javascript
+function validateHabit(habit) {
+  return {
+    name: typeof habit.name === 'string' ? habit.name : 'Unnamed Habit',
+    streak: typeof habit.streak === 'number' ? habit.streak : 0,
+    category: habit.category || 'general'
+  };
+}
+```
+
+These three pillars - transformation, persistence, and validation - form the foundation of robust data handling in web applications. Students who master these concepts can build applications that are both powerful and reliable.
+</Notes>
 </SlideLayout.Full>

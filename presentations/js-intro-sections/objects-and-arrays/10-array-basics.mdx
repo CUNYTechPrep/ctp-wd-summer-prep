@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -27,6 +27,21 @@ habits.pop();           // Remove from end
     
   </File>
 </CodeDisplay>
+<Notes>
+This slide covers the fundamental array operations that form the foundation of all array manipulation. Understanding these basics is crucial before moving to more advanced array methods.
+
+**Array creation** uses square bracket notation with comma-separated values. The habits array shows a typical homogeneous array - all elements are the same type (strings). The points array shows numeric data, which is common for measurements, scores, or counts. The mixed array demonstrates JavaScript's flexibility - arrays can contain different data types, including objects.
+
+**Element access** uses bracket notation with the index number. Remember zero-indexing: habits[0] gets the first element, habits[2] gets the third element. This is different from object property access, where you use names (keys) instead of positions. If you try to access an index that doesn't exist (like habits[10] in a 3-element array), JavaScript returns undefined rather than throwing an error.
+
+**The length property** is incredibly useful and automatically maintained by JavaScript. It always equals the number of elements in the array. You can use it to find the last element: habits[habits.length - 1]. Length updates automatically when you add or remove elements.
+
+**Direct index assignment** (habits[1] = "Study") replaces the element at that position. This is different from objects where you can add new properties by assignment - with arrays, you're replacing existing elements or creating sparse arrays if you assign to an index beyond the current length.
+
+**The push() method** adds elements to the end of the array and returns the new length. It's the most common way to add elements. The pop() method removes and returns the last element. These two methods treat the array like a stack (last in, first out). There are also unshift() (add to beginning) and shift() (remove from beginning) for queue-like behavior (first in, first out).
+
+**Common beginner mistake:** Trying to use negative indices like Python. JavaScript doesn't support negative indexing - habits[-1] doesn't get the last element; it creates or accesses a property named "-1".
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -42,4 +57,25 @@ habits.pop();           // Remove from end
     - some() - check if any element matches
     - every() - check if all elements match
   </FlexBox>
+<Notes>
+Array methods are where arrays truly shine. These methods enable functional programming patterns and make complex data transformations simple and readable. Each method serves a specific purpose and can be combined for powerful data processing.
+
+**Transformation methods** create new arrays from existing ones without modifying the original array. This immutable approach is crucial for modern JavaScript development, especially in frameworks like React.
+
+**map()** transforms each element and returns a new array of the same length. It's perfect for converting data formats or applying calculations. For example, `habits.map(h => h.toUpperCase())` would create a new array with all habit names in uppercase. The original habits array remains unchanged.
+
+**filter()** creates a new array containing only elements that pass a test function. If you want only health-related habits, you might use `habits.filter(h => h.category === 'health')`. The resulting array might be shorter than the original, containing only matching elements.
+
+**reduce()** is the most powerful but complex method. It processes all elements to produce a single result. You might use it to sum all streak days: `habits.reduce((total, habit) => total + habit.streak, 0)`. The second parameter (0) is the initial value. Reduce can create any data structure, making it incredibly versatile.
+
+**Search methods** help you find specific elements or test conditions across the array.
+
+**find()** returns the first element that matches your criteria, or undefined if none match. Use it when you need a specific item: `habits.find(h => h.name === 'Exercise')`.
+
+**some()** returns true if any element passes the test, false otherwise. It's like asking "Is there at least one...?" For example: `habits.some(h => h.streak > 7)` checks if any habit has a streak longer than 7 days.
+
+**every()** returns true only if all elements pass the test. It's like asking "Do all of them...?" For example: `habits.every(h => h.isActive)` checks if all habits are currently active.
+
+These methods can be chained together for complex operations: `habits.filter(h => h.category === 'health').map(h => h.name)` gets the names of all health habits.
+</Notes>
 </SlideLayout.Full>

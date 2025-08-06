@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -32,4 +32,13 @@ async function handleData() {
   - Better error handling with try/catch
   - Easier debugging and stack traces
   - Less nesting and callback complexity
+<Notes>
+This comparison shows why async/await has become the preferred pattern for asynchronous JavaScript. Both examples accomplish the same task - running three async operations in sequence - but the readability difference is striking.
+
+With Promise chains, each operation is a separate .then() call. While this is much better than callback hell, it still requires mental gymnastics to follow the data flow. Each .then() creates a new scope, and passing data between steps can become awkward. Error handling with a single .catch() at the end catches all errors, but you lose granularity about where the error occurred.
+
+The async/await version reads like a story: get data, process it, save it. The try/catch block provides familiar error handling that any JavaScript developer understands. Debugging is also much easier - you can set breakpoints on individual lines and step through the code naturally.
+
+However, Promise chains aren't obsolete. They're still useful for certain patterns, especially when you need to transform data through multiple steps or when working with libraries that return Promises. The key is knowing both patterns and choosing the one that makes your code most readable and maintainable.
+</Notes>
 </SlideLayout.Full>

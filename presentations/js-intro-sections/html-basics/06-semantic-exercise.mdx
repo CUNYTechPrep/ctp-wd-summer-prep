@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -179,4 +179,13 @@ describe('Semantic HTML Tests', () => {
 ```
   </File>
 </CodeDisplay>
+<Notes>
+This exercise challenges students to transform poorly structured HTML into semantic, accessible markup. The starting code represents common mistakes developers make when focusing only on visual appearance rather than document structure.
+
+The exercise reveals several anti-patterns. Generic divs are used for everything, making the document structure meaningless to assistive technologies and search engines. Clickable spans with onclick handlers exclude keyboard users and aren't announced as interactive by screen readers. The lack of heading hierarchy makes navigation difficult for screen reader users.
+
+Students must identify each element's purpose and choose appropriate semantic replacements. The "top-section" should become a header element. The "site-title" needs to be an h1 heading. The navigation menu requires nav element with proper links, not clickable spans. Blog posts should use article elements with proper heading hierarchy.
+
+This hands-on practice reinforces that HTML isn't just about visual structure - it's about creating meaningful documents. Students learn to think about their users: Can a screen reader user navigate this? Can a keyboard user interact with everything? Does the document make sense without CSS? These questions lead to better, more inclusive web development practices.
+</Notes>
 </SlideLayout.Full>

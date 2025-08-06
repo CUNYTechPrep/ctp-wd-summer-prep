@@ -1,8 +1,15 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 
 <SlideLayout.Full>
 ## DOM Manipulation
 ### Making Web Pages Interactive
+<Notes>
+Welcome to DOM Manipulation! This is where JavaScript truly shines - taking static HTML pages and making them interactive. The DOM is the bridge between your JavaScript code and the web page, enabling you to create dynamic user experiences.
+
+Think of a web page like a house. HTML provides the structure - walls, rooms, doors. CSS adds the style - paint, decorations, layout. But JavaScript and the DOM add life - doors that open, lights that turn on, rooms that change based on who enters. Without DOM manipulation, websites would be static documents. With it, we can create rich, interactive applications.
+
+In this section, we'll explore how to select elements, modify content, handle user interactions, and create dynamic interfaces. We'll build practical examples including an interactive habit tracker that responds to user actions. By the end, you'll understand how modern web applications create seamless, responsive user experiences without page reloads.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -17,4 +24,13 @@ import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
       - CSS = Style (appearance)
       - JavaScript/DOM = Behavior (muscles)
   </FlexBox>
+<Notes>
+The Document Object Model (DOM) is a programming interface that represents your HTML document as a tree structure. Each HTML element becomes a node in this tree, with relationships like parent, child, and sibling. JavaScript can traverse and manipulate this tree, changing what users see and how they interact with the page.
+
+The browser automatically creates the DOM when it loads an HTML page. This process happens behind the scenes - the browser parses your HTML and builds a tree structure in memory. JavaScript then has access to this tree through the global 'document' object.
+
+The analogy of HTML as skeleton, CSS as appearance, and JavaScript as muscles is powerful. Just as muscles enable movement and response in a body, JavaScript enables your web page to respond to user actions, update content dynamically, and create interactive experiences. Without JavaScript and DOM manipulation, web pages are like statues - beautiful perhaps, but static and unresponsive.
+
+Understanding the DOM is crucial because it's the foundation of every interactive web feature: form validation, dynamic content updates, animations, single-page applications, and more. Master the DOM, and you can build anything.
+</Notes>
 </SlideLayout.Full>

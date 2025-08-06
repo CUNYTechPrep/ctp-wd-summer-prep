@@ -1,12 +1,28 @@
-import { SlideLayout, Image, FlexBox, Box, CodePane } from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, CodePane, Notes } from 'spectacle'
 
-<SlideLayout.VerticalImage
-  title="CSS Fundamentals"
-  src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmgxeGY1MnRyMHgzZzN4MzJwamZrNHplN3lkZnQ5NnRxZWdyNGQzbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yYSSBtDgbbRzq/giphy.gif"
-  listItems={[
-    'CSS adds style and layout to HTML',
-    'Selectors, properties, and values',
-    'Box model and positioning',
-    'Modern layout with Flexbox and Grid'
-  ]}
-/>
+<SlideLayout.Full>
+  <FlexBox height="100%" flexDirection="column" justifyContent="center" alignItems="center">
+    <h2>CSS Fundamentals</h2>
+    <Image 
+      src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmgxeGY1MnRyMHgzZzN4MzJwamZrNHplN3lkZnQ5NnRxZWdyNGQzbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/yYSSBtDgbbRzq/giphy.gif"
+      width="400px"
+      height="300px"
+    />
+    <ul style={{ marginTop: '2rem', fontSize: '1.2rem', textAlign: 'left' }}>
+      <li>CSS adds style and layout to HTML</li>
+      <li>Selectors, properties, and values</li>
+      <li>Box model and positioning</li>
+      <li>Modern layout with Flexbox and Grid</li>
+    </ul>
+  </FlexBox>
+  <Notes>
+  Welcome to CSS Fundamentals! CSS, or Cascading Style Sheets, is what transforms plain HTML documents into beautiful, engaging web experiences. While HTML provides structure and content, CSS brings that content to life with colors, layouts, animations, and responsive designs.
+
+  Think of HTML as the skeleton of a house - the walls, rooms, and doors. CSS is everything that makes it livable and beautiful: the paint, furniture arrangement, lighting, and decorations. Together, they create the visual web we interact with every day.
+
+  In this section, we'll explore CSS from the ground up. We'll start with basic syntax and selectors - how to target specific elements. Then we'll dive into the box model, which is fundamental to understanding how elements are sized and spaced. We'll master modern layout techniques with Flexbox and Grid, making complex layouts simple. Finally, we'll add polish with transitions, animations, and responsive design.
+
+  By the end, you'll have the skills to create professional, accessible, and beautiful web interfaces. CSS might seem overwhelming at first with its hundreds of properties, but we'll focus on the core concepts that you'll use every day.
+  </Notes>
+</SlideLayout.Full>
+

@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -162,4 +162,13 @@ import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking
 ```
   </File>
 </CodeDisplay>
+<Notes>
+CSS Grid is the most powerful layout system in CSS. While Flexbox is one-dimensional (row or column), Grid is two-dimensional, handling both rows and columns simultaneously. It's perfect for page layouts and any design that requires precise placement of elements.
+
+Think of Grid like a spreadsheet. You define rows and columns, then place items in specific cells or span them across multiple cells. The grid-template-areas property even lets you name regions and place items using those names, making your layout code incredibly readable.
+
+The killer features of Grid include: fractional units (fr) that distribute space proportionally, the repeat() function for creating regular patterns, auto-fit and auto-fill for responsive grids that adapt to content, and gap properties for consistent spacing. Grid also handles overlapping elements naturally, something that was complex with older techniques.
+
+Grid and Flexbox complement each other perfectly. Use Grid for overall page layout - headers, sidebars, main content areas. Use Flexbox for component layout within those areas. Modern CSS is about choosing the right tool for the job, and Grid excels at creating complex, responsive layouts with minimal code.
+</Notes>
 </SlideLayout.Full>

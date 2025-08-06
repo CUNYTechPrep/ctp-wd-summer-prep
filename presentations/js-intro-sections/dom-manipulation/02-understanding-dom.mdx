@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 
 <SlideLayout.Full>
 ## Understanding DOM Selection and Manipulation
@@ -21,6 +21,15 @@ Before building interactive pages, understand the fundamentals:
    - Event object contains information about what happened
 
 **The Pattern**: Select → Read/Write → Handle Events
+<Notes>
+These core DOM operations form the foundation of all web interactivity. Master these three patterns, and you can build any interactive feature. Let's explore each in detail.
+
+Selection is your starting point. querySelector and querySelectorAll use CSS selector syntax, making them intuitive if you know CSS. querySelector returns the first match or null, while querySelectorAll returns a NodeList (similar to an array) of all matches. Always check if elements exist before manipulating them - trying to access properties on null is a common source of errors.
+
+Reading and writing properties is how you interact with elements. textContent is for text, innerHTML for HTML (be careful with user input!), value for form inputs, and style for CSS. The style property uses camelCase (backgroundColor, not background-color). For complex styling, adding/removing CSS classes is often cleaner than inline styles.
+
+Event handling brings it all together. addEventListener is superior to onclick attributes because you can attach multiple handlers and remove them later. The event object passed to your handler contains crucial information: which element was clicked, mouse position, which key was pressed, and more. Understanding event flow (capturing and bubbling) helps you write more efficient handlers.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -47,4 +47,13 @@ function getLocalHabitData(habitId) {
     
   </File>
 </CodeDisplay>
+<Notes>
+This exercise presents a real-world scenario: syncing local habit data with a server. The original Promise chain shows a common pattern - fetch local data, send it to the server, process the response, and update local storage. Each step depends on the previous one, making this a perfect candidate for async/await conversion.
+
+When converting, students should notice how each .then() becomes a separate line with await. The error handling moves from .catch() to a try/catch block. The result is code that reads like a synchronous procedure: get data, send it, receive response, save it.
+
+The exercise teaches several important concepts: how to handle the fetch API with async/await (remember to await both the fetch and the .json() call), how to maintain the same error handling behavior, and how to ensure the function still returns a Promise (which async functions do automatically).
+
+This pattern - read local data, sync with server, update local storage - is incredibly common in modern web apps. Whether building offline-capable apps, implementing optimistic updates, or handling conflict resolution, this sync pattern appears everywhere. Mastering this conversion helps students work with real application code.
+</Notes>
 </SlideLayout.Full>

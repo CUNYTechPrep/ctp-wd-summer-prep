@@ -1,10 +1,19 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Core Array Operations
 
 Arrays are essential for managing collections of data
+<Notes>
+Arrays are one of the most fundamental data structures in programming. While objects group related properties together, arrays organize data in ordered lists. This makes them perfect for collections of similar items - like a list of habits, user comments, or daily records.
+
+Think of arrays as containers for multiple values of the same type. In our habit tracker, we might have an array of habit names, an array of completion dates, or an array of daily point totals. Arrays maintain the order of items, which is crucial for time-series data like tracking progress over days.
+
+Understanding core array operations is essential because they form the foundation for all data manipulation in JavaScript. Whether you're displaying a list in the UI, calculating statistics, or storing user input, you'll use these four fundamental operations constantly.
+
+Most importantly, arrays in JavaScript are incredibly powerful - they come with built-in methods that make complex data operations simple and readable. Master these basics, and you'll be able to handle any data collection task.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -14,6 +23,17 @@ Arrays are essential for managing collections of data
 - **Modify**: Change elements or add/remove items  
 - **Search**: Find elements that match criteria
 - **Transform**: Convert data from one format to another
+<Notes>
+These four operations represent everything you can do with array data. Every complex array manipulation ultimately breaks down into combinations of these basic operations.
+
+**Access** is the foundation - you need to get data before you can work with it. JavaScript arrays use zero-based indexing, so the first element is at index 0. This is a common source of off-by-one errors for beginners. Remember: arrays[0] is the first item, arrays[length-1] is the last.
+
+**Modify** operations change the array's contents. Some methods like push() and pop() modify the original array, while others like map() return a new array. Understanding this distinction prevents subtle bugs. Mutating methods change the original data, while non-mutating methods preserve it.
+
+**Search** operations help you find specific data. You might search for a habit by name, find all completed days, or check if a certain value exists. Modern JavaScript provides powerful search methods that make these operations elegant and efficient.
+
+**Transform** operations convert your data into different formats. This is where arrays really shine - you can convert an array of objects into an array of strings, numbers into formatted text, or raw data into chart-ready information. Transformation is key to presenting data to users in meaningful ways.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -35,4 +55,17 @@ const found = habits.find(h => h.startsWith('E')); // 'Exercise'
 // Transform
 const upper = habits.map(h => h.toUpperCase()); // ['EXERCISE', ...]
 ```
+<Notes>
+Let's break down each operation with practical examples that you'll use in real applications.
+
+**Access Example**: habits[0] gets the first element. Notice the square bracket syntax - this is different from object dot notation. Common mistake: trying to use habits.0 (invalid syntax). Always use brackets with array indices.
+
+**Modify Examples**: We see two patterns here. habits.push('Journaling') adds a new element to the end - push() is probably the most commonly used array method. The direct assignment habits[1] = 'Study' changes an existing element. Important note: this modifies the original array.
+
+**Search Example**: find() returns the first element that matches the condition. The arrow function h => h.startsWith('E') is a predicate - it returns true/false. find() stops at the first match, which is efficient. If no match is found, find() returns undefined.
+
+**Transform Example**: map() creates a new array by applying a function to each element. The original habits array is unchanged - map() returns a new array. This is a functional programming pattern that prevents accidental data mutations.
+
+Notice how each operation has a clear purpose and predictable behavior. This consistency makes arrays powerful and reliable for data management.
+</Notes>
 </SlideLayout.Full>

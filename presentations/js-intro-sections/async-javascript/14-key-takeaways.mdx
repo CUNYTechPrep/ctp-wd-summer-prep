@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -20,4 +20,13 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 
 ### Bridge to Error Handling
 Async code can fail. Let's learn how to **handle errors gracefully** and build robust applications!
+<Notes>
+As we wrap up asynchronous JavaScript, let's reinforce the key concepts. JavaScript's single-threaded nature isn't a limitation when we understand async patterns. The evolution from callbacks to Promises to async/await shows how the community has worked to make async code more manageable and readable.
+
+The most common mistakes in async code stem from misunderstanding these patterns. Forgetting to await an async function means you're working with a Promise object instead of its resolved value. Not handling rejections can crash your application. Writing sequential code when operations could run in parallel makes applications unnecessarily slow.
+
+Remember that async programming is everywhere in modern JavaScript: fetching data from APIs, reading files in Node.js, handling user interactions, animating elements, and managing timers. Master these patterns and you'll write faster, more responsive applications.
+
+The transition to error handling is natural - async operations can fail for many reasons: network issues, invalid data, server errors, or timeout. Our next section will explore how to build applications that gracefully handle these failures, providing users with helpful feedback instead of cryptic errors.
+</Notes>
 </SlideLayout.Full>

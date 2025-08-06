@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -33,4 +33,13 @@ return await logActivity(ui);
 ```
 
 **For the exercise**: Convert a complex promise chain into clean async/await code.
+<Notes>
+Converting between async patterns is a common real-world task. Many legacy codebases use callbacks, while modern APIs use Promises. Understanding these conversions helps you work with any codebase and modernize old code.
+
+The callback-to-Promise conversion wraps the callback pattern in a Promise constructor. The key insight is that resolve and reject replace the callback. Where callbacks use error-first convention (callback(error, result)), Promises separate these concerns - reject for errors, resolve for success.
+
+Converting Promise chains to async/await is usually straightforward but requires attention to detail. Each .then() becomes an await, but you need to ensure proper variable scoping. In Promise chains, each .then() creates a new scope, while async/await uses the same scope throughout the function.
+
+One gotcha: in Promise chains, returning a value automatically wraps it in a Promise. With async/await, you might need to explicitly return values. Also, Promise.all() for parallel operations doesn't have a direct async/await equivalent - you still use Promise.all() but await its result. These conversions are essential skills for maintaining and upgrading JavaScript applications.
+</Notes>
 </SlideLayout.Full>

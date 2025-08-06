@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -19,4 +19,16 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
       - How all the pieces work together
     </Box>
   </FlexBox>
+
+  <Notes>
+    Full stack web development means understanding the entire journey of data through a web application - from the moment a user clicks a button to when information is stored in a database and back again. It's about seeing the complete picture of how modern web applications work.
+
+    The frontend is what users see and interact with - the buttons, forms, animations, and layouts. This typically involves HTML for structure, CSS for styling, and JavaScript for interactivity. Modern frontend development often uses frameworks like React, Vue, or Angular to manage complex user interfaces efficiently.
+
+    The backend is the engine behind the scenes. It processes requests, enforces business rules, handles authentication, and communicates with databases. Backend developers work with languages like JavaScript (Node.js), Python, Ruby, or Java, creating APIs that serve data to the frontend.
+
+    The database layer stores and organizes your application's data. Whether it's user profiles, product information, or transaction records, databases ensure data persists beyond a single session. You'll work with SQL databases like PostgreSQL or MySQL, or NoSQL options like MongoDB.
+
+    The magic happens when these layers work together seamlessly. A user submits a form (frontend), which sends a request to a server (backend), which queries a database, processes the results, and sends back a response that updates what the user sees. Understanding this flow is what makes you a full stack developer.
+  </Notes>
 </SlideLayout.Full>

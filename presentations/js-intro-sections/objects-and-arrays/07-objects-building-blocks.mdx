@@ -1,8 +1,17 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Objects: JavaScript's Building Blocks
+<Notes>
+This exercise represents a crucial milestone in your JavaScript journey. We're moving from passive learning - watching code examples - to active construction - building objects that actually work. This hands-on approach solidifies the concepts we've discussed and reveals the practical power of object-oriented thinking.
+
+The exercise is structured in progressive steps, each building on the previous one. This scaffolded approach mirrors how you'll approach real development projects: start with basic structure, then add functionality, then refine and extend. By the end, you'll have created a fully functional habit object that demonstrates all the key concepts.
+
+Pay attention to the tests as you work through this exercise. They're not just validation - they're specifications that define what "working" means. In professional development, tests like these guide implementation and prevent regressions. Learning to read and understand tests is as important as writing the code they test.
+
+The progression from simple data structure to complex behavioral object represents the essence of object-oriented programming. You'll see how objects evolve from passive data containers to active entities that manage their own state and behavior.
+</Notes>
 
 <CodeDisplay >
   <File name="habit.js">
@@ -132,4 +141,17 @@ describe('Habit Object', () => {
     - Methods can modify object state
     - Methods enable object-oriented programming
   </FlexBox>
+<Notes>
+The concept of 'this' is one of the most important and sometimes confusing aspects of JavaScript objects. Let's demystify it completely.
+
+**Methods are functions that belong to objects.** When you define a function inside an object literal, it becomes a method of that object. The syntax `complete() { ... }` is shorthand for `complete: function() { ... }`. The method becomes a property of the object, just like name or streakDays, but its value is a function instead of a primitive value.
+
+**The 'this' keyword creates context.** Inside a method, 'this' refers to the object that the method was called on. This is determined at call time, not definition time. When you write `habit.complete()`, JavaScript automatically sets 'this' to refer to the habit object inside the complete method. This allows the method to access and modify that specific object's properties.
+
+**'this' enables object autonomy.** Each object can have its own methods that work with its own data. If you have multiple habit objects, each one's complete() method will increment its own streakDays property. This is the foundation of object-oriented programming - objects that encapsulate both data and the operations that work on that data.
+
+**Common 'this' mistake:** Arrow functions don't have their own 'this' binding. If you use an arrow function for a method (`complete: () => { this.streakDays++; }`), 'this' won't refer to the object. Always use regular function syntax for object methods.
+
+**Mental model:** Think of 'this' as a pronoun. When you say "habit.complete()", inside the method, 'this' means "the habit that called this method". Just as "I" in a sentence refers to the speaker, 'this' in a method refers to the object that invoked the method.
+</Notes>
 </SlideLayout.Full>

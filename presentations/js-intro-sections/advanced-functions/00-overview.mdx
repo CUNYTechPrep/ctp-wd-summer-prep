@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -9,4 +9,14 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 - Higher-order functions that transform code
 - Function composition patterns
 - Building powerful abstractions
+
+<Notes>
+Advanced functions in JavaScript unlock powerful programming patterns that you'll encounter in every modern JavaScript application. These concepts form the foundation of how JavaScript frameworks like React, Vue, and Angular work under the hood.
+
+Closures are one of JavaScript's most distinctive features. When a function is created, it permanently remembers the variables from its surrounding scope, even after that scope has finished executing. This isn't just a quirk - it's what makes JavaScript's event handling, module patterns, and data privacy possible.
+
+Higher-order functions - functions that operate on other functions - transform the way we write code. Instead of writing loops and conditional logic repeatedly, we can abstract patterns into reusable functions. Methods like map, filter, and reduce aren't just convenient; they represent a fundamentally different way of thinking about data transformation.
+
+Function composition is about building complex functionality from simple, focused functions. Like building with LEGO blocks, we combine small pieces to create sophisticated behavior. This approach leads to code that's easier to test, debug, and reason about.
+</Notes>
 </SlideLayout.Full>

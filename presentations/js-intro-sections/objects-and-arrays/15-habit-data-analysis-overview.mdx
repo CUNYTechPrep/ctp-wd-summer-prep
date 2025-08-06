@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -6,16 +6,35 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 
 You'll work with an array of daily habit records to:
 
-1. - Filter completed days** to get success rate
+1. **Filter completed days** to get success rate
 2. **Calculate total points** across all days
 3. **Find completion percentage** for progress tracking
 4. **Extract specific data** like just the dates
 
-**Array Concepts You'll Apply:
+**Array Concepts You'll Apply:**
 - `filter()` to find matching records
-  - `reduce()` to calculate totals
-  - `map()` to extract specific values
-  - Method chaining for complex operations
+- `reduce()` to calculate totals
+- `map()` to extract specific values
+- Method chaining for complex operations
 
 **Goal**: Transform raw daily data into meaningful insights
+<Notes>
+This exercise represents a real-world scenario that you'll encounter in almost every application: taking raw data and converting it into meaningful information for users. Data analysis is one of the most practical applications of array methods.
+
+The four tasks listed here are fundamental data operations that appear in countless applications:
+
+**Filtering for success rate** teaches you to subset data based on criteria. This is essential for dashboards, reports, and user interfaces that need to show specific segments of data.
+
+**Calculating totals** demonstrates aggregation - combining many values into summary statistics. Whether it's total sales, average ratings, or sum of points, aggregation provides the 'big picture' from detailed data.
+
+**Finding percentages** introduces calculated fields - deriving new insights from existing data. Percentages, ratios, and rates help users understand performance and trends.
+
+**Extracting specific data** shows data transformation - reshaping information for different purposes. You might extract dates for a calendar, names for a dropdown, or IDs for API calls.
+
+The array concepts listed here are your toolkit for data analysis. filter() answers 'which items?', reduce() answers 'what total?', map() answers 'what values?', and chaining combines these questions for complex analysis.
+
+The goal - transforming raw data into meaningful insights - is the essence of programming. Raw data is just numbers and text. Insights answer questions like 'How am I doing?' and 'What should I focus on?' This transformation creates value for users.
+
+As you work through this exercise, notice how array methods make complex analysis surprisingly simple. What would require dozens of lines with traditional loops becomes just a few chained method calls.
+</Notes>
 </SlideLayout.Full>

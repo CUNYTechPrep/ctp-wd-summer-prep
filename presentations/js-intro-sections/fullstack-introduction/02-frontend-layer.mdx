@@ -1,25 +1,28 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Frontend Layer - The User Interface
 
-<FlexBox justifyContent="space-between" alignItems="flex-start">
-  <Box width="48%">
-    **Technologies:**
-    - HTML (Structure)
-    - CSS (Styling)
-    - JavaScript (Interactivity)
-    - React/Vue/Angular (Frameworks)
-  </Box>
-  <Box width="48%">
-    **Responsibilities:**
-    - Display information
-    - Handle user interactions
-    - Send requests to backend
-    - Manage client-side state
-  </Box>
+<FlexBox justifyContent="space-around" alignItems="flex-start">
+  <Image 
+    src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Full+Stack+Web+Development+-+visual+selection+(1).svg"
+  />
+  <Image 
+    src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Full+Stack+Web+Development+-+visual+selection+(2).svg"
+    height="65vh"
+  />
 </FlexBox>
+
+<Notes>
+The frontend layer is where users directly interact with your application. It's responsible for everything the user sees and experiences. Understanding frontend development means mastering three core technologies that work together.
+
+HTML provides the structure - it's the skeleton of your web page, defining what content exists and how it's organized. CSS adds the visual design - colors, layouts, animations, and responsive behavior for different screen sizes. JavaScript brings interactivity - handling clicks, updating content dynamically, and communicating with the backend.
+
+Modern frontend development often uses frameworks like React, Vue, or Angular. These frameworks help manage complexity as applications grow, providing structure for component organization, state management, and efficient rendering. They don't replace HTML, CSS, and JavaScript but build upon them.
+
+The frontend's key responsibility is creating a smooth user experience while efficiently communicating with the backend. This involves validating user input, providing immediate feedback, managing loading states, and handling errors gracefully.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -46,4 +49,14 @@ function handleFormSubmit(event) {
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+This example demonstrates a typical frontend interaction pattern. When a user submits a form, the frontend captures that event, prevents the default browser behavior, and prepares the data for sending to the backend.
+
+The FormData API provides a convenient way to extract form values. We then use the fetch API to send this data to the backend. Notice how we specify the HTTP method (POST), convert the data to JSON, and set the appropriate headers.
+
+This is asynchronous communication - the frontend doesn't wait for the backend to respond before continuing. In a complete implementation, we'd handle the response with .then() or async/await, updating the UI to show success or error messages.
+
+This pattern appears throughout modern web applications. Whether you're submitting a form, loading data, or updating information, the frontend acts as an intermediary between the user and the backend, formatting requests and handling responses appropriately.
+</Notes>
 </SlideLayout.Full>

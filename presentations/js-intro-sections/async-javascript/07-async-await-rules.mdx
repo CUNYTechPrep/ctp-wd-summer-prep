@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -21,4 +21,13 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 
 **Real benefit:** Write asynchronous code that reads like synchronous code!
 
+<Notes>
+These rules are fundamental to using async/await correctly. The async keyword transforms a regular function into one that always returns a Promise. This is important - even if you return a string or number, it gets wrapped in a Promise. This consistency means async functions integrate seamlessly with Promise-based code.
+
+The await keyword is more restrictive - it can only be used inside async functions. This is because await pauses execution, and only async functions have the machinery to handle this pausing. If you try to use await in a regular function, you'll get a syntax error.
+
+A common beginner mistake is forgetting that await actually pauses execution. If you have multiple independent async operations, awaiting them sequentially is inefficient. Instead, start them all, then await their results - or use Promise.all() for true parallel execution.
+
+The try/catch pattern with async/await is particularly elegant. Unlike Promise chains where errors bubble through .catch() methods, async/await lets you handle errors exactly like synchronous code. Any error in the try block - whether from synchronous code or rejected Promises - gets caught in the same catch block. This unified error handling is one of async/await's biggest advantages.
+</Notes>
 </SlideLayout.Full>

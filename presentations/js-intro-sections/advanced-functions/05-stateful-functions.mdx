@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -23,4 +23,14 @@ console.log(counter1()); // 1
 console.log(counter1()); // 2
 console.log(counter2()); // 1 (independent!)
 ```
+
+<Notes>
+Stateful functions demonstrate how closures enable us to create functions that remember information between calls. Each counter function maintains its own count variable, creating what's essentially a lightweight object with private state.
+
+The key insight here is that counter1 and counter2 are completely independent. When we call createCounter twice, we create two separate execution contexts, each with its own count variable. This is like having two separate instances of a class, but implemented using only functions and closures.
+
+This pattern is the foundation for many JavaScript patterns, including the module pattern and factory functions. It's also conceptually similar to React's useState hook, which uses closures to maintain component state across re-renders. Understanding this pattern helps developers create more modular, reusable code without the complexity of classes or prototypes.
+
+The independence of each counter shows how closures create new scope instances, not shared references. This is crucial for avoiding bugs in applications with multiple components or modules.
+</Notes>
 </SlideLayout.Full>

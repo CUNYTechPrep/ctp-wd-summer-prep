@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Notes } from 'spectacle'
 
 <SlideLayout.Full>
 ## Best Practices
@@ -11,6 +11,26 @@ import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
 - Use modern ES6+ features
 - Lint and format your code consistently
 - Write tests for your code
+
+<Notes>
+Welcome to JavaScript Best Practices - the principles that separate professional developers from beginners. These aren't just suggestions; they're battle-tested guidelines that will make your code more reliable, maintainable, and performant.
+
+Let's start with variable declarations. Using `const` by default forces you to think about mutability - most values in your code shouldn't change after creation. When you do need to reassign, `let` provides block scoping that prevents many common bugs. Avoid `var` entirely - its function scoping and hoisting behavior leads to confusing bugs.
+
+Strict equality (`===`) is non-negotiable. JavaScript's type coercion with `==` causes unpredictable behavior. Always compare both value and type.
+
+Descriptive naming isn't just about being polite to other developers - it's about creating self-documenting code. In our habit tracker, `updateHabitStreak(habitId, isCompleted)` is infinitely better than `update(h, c)`.
+
+Keep functions small and focused - the single responsibility principle. Each function should do one thing well. This makes testing easier, debugging simpler, and code more reusable.
+
+Error handling with try/catch isn't optional in production code. Users will enter unexpected data, networks will fail, and storage will be unavailable. Handle these gracefully.
+
+Modern ES6+ features aren't just syntactic sugar - they often perform better and express intent more clearly. Arrow functions, destructuring, and template literals make code more readable.
+
+Linting and formatting tools like ESLint and Prettier aren't just nice-to-have - they catch bugs before they reach production and ensure consistent code style across teams.
+
+Finally, tests aren't just for large applications. Even simple functions benefit from tests that document expected behavior and catch regressions.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -22,6 +42,24 @@ import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
 - **Type Annotations**: Optional static types
 - **Pipeline Operator**: Functional composition
 - **Decorators**: Metaprogramming capabilities
+
+<Notes>
+JavaScript's evolution never stops, and exciting features are coming that will make the language even more powerful and expressive. Understanding these upcoming features helps you prepare for the future and sometimes informs current architectural decisions.
+
+The Temporal API will finally solve JavaScript's date/time problems. No more complex calculations to handle timezones or leap years. For our habit tracker, imagine clean code like `habit.lastCompleted.until(Temporal.now(), { unit: 'days' })` instead of complex Date arithmetic.
+
+Records and Tuples bring immutable data structures to JavaScript. These are deeply immutable - changing any nested property creates a new object. This eliminates entire classes of bugs and makes state management predictable.
+
+Pattern Matching will transform how we handle complex conditionals. Instead of nested if-else chains, we'll have expressive match expressions that handle multiple scenarios elegantly.
+
+Type Annotations are particularly exciting - they bring optional static typing directly to JavaScript without needing TypeScript compilation. You'll be able to add type hints that help with tooling and catching errors.
+
+The Pipeline Operator enables clean functional composition. Instead of nested function calls, you can chain operations left-to-right, making complex data transformations readable.
+
+Decorators provide clean metaprogramming capabilities. Think of them as functions that modify classes or methods, enabling powerful patterns like logging, validation, or performance monitoring with clean syntax.
+
+These features are in various stages of the proposal process, but they represent JavaScript's continued evolution toward being a more expressive, safe, and powerful language.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.HorizontalImage 
@@ -33,4 +71,21 @@ import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
     'Practice, practice, practice!',
     'The community is here to help'
   ]}
-/>
+>
+
+<Notes>
+We've covered the essential best practices that will guide your JavaScript development journey. These principles aren't just theoretical - they're practical guidelines that will make you a more effective developer.
+
+JavaScript is indeed powerful and flexible, but with great power comes great responsibility. The flexibility that makes JavaScript amazing can also lead to confusing code if you don't follow good practices.
+
+Starting with the basics and mastering them well is crucial. Don't rush to learn the latest framework before understanding core JavaScript concepts. A solid foundation in vanilla JavaScript will make you better at React, Vue, Node.js, or any other JavaScript technology.
+
+Practice is absolutely essential. These concepts only become second nature through repetition. Build projects, solve coding challenges, and experiment with different approaches. Our habit tracker project is a perfect vehicle for practicing these concepts.
+
+The JavaScript community is incredibly welcoming and helpful. Don't hesitate to ask questions on Stack Overflow, join JavaScript Discord servers, or participate in local meetups. Everyone was a beginner once, and the community remembers that.
+
+Remember: becoming proficient at JavaScript is a journey, not a destination. The language continues to evolve, new patterns emerge, and there's always more to learn. Embrace that journey, follow these best practices, and you'll build amazing things.
+
+As you continue building your habit tracker and other projects, refer back to these principles. They'll serve you well throughout your development career.
+</Notes>
+</SlideLayout.HorizontalImage>

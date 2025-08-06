@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -13,4 +13,14 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
     - A habit tracker that remembers your personal goals
     - Even after the setup is complete
   </FlexBox>
+
+  <Notes>
+    Closures are perhaps the most misunderstood feature in JavaScript, yet they're everywhere in modern code. At its core, a closure is simply a function that has access to variables in its outer (enclosing) scope even after the outer function has returned.
+
+    Think of a closure like a backpack. When a function is created, it packs up all the variables it might need from its surrounding scope and carries them along wherever it goes. Even if the original scope is gone, the function still has its backpack with all those variables safely stored inside.
+
+    The habit tracker analogy is particularly useful here. When you set up a habit tracker, you configure it with your personal goals - maybe "drink 8 glasses of water" or "exercise for 30 minutes." The tracker remembers these goals permanently, even after the initial setup is complete. Similarly, a closure remembers the variables from when it was created, maintaining that state throughout its lifetime.
+
+    This isn't just a theoretical concept - closures power many features we use daily: event handlers remember which element they're attached to, React components remember their props and state, and module patterns use closures to create private variables. Understanding closures unlocks your ability to write more sophisticated JavaScript applications.
+  </Notes>
 </SlideLayout.Full>

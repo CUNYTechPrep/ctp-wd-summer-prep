@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -7,6 +7,14 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 **Pure Functions**
 - Same input → same output
 - No side effects
+
+<Notes>
+Pure functions are the foundation of functional programming. A pure function is like a mathematical function - given the same inputs, it always produces the same output, with no surprises or hidden behaviors.
+
+The two rules are simple but powerful. "Same input, same output" means the function is deterministic - calling calculatePoints(5, 2) will always return 10, whether it's the first call or the thousandth. "No side effects" means the function doesn't change anything outside itself - no modifying global variables, no console logs, no network requests.
+
+These constraints might seem limiting, but they enable powerful guarantees. Pure functions are the building blocks of reliable, maintainable software. They're like LEGO blocks - predictable, composable, and reusable.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Why Pure Functions Matter
@@ -14,6 +22,16 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 - Predictable behavior
 - Can be optimized by compilers
 - Enable functional programming patterns
+
+<Notes>
+The benefits of pure functions extend far beyond theoretical purity. In practice, they make our lives as developers much easier.
+
+Testing becomes trivial - no need to mock dependencies or set up complex environments. Just call the function with inputs and assert on outputs. Debugging is straightforward because the function's behavior depends only on its inputs, not on hidden state or timing.
+
+Compilers and JavaScript engines can optimize pure functions aggressively. They can cache results (memoization), run them in parallel, or even eliminate redundant calls. React leverages pure functions for performance optimizations in rendering.
+
+Pure functions also enable powerful patterns like function composition, time-travel debugging, and undo/redo functionality. They're the foundation for libraries like Redux and patterns like event sourcing.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Example of Pure vs Impure Functions
@@ -35,4 +53,14 @@ function calculateNewPoints(currentPoints, completions) {
   return currentPoints + (completions * 10);
 }
 ```
+
+<Notes>
+This example clearly illustrates the difference between pure and impure functions. The impure version has two side effects: it modifies external state (totalPoints) and performs I/O (console.log). These make the function unpredictable and hard to test.
+
+The pure version takes all needed data as parameters and returns a new value without modifying anything. Notice how the pure version explicitly takes currentPoints as a parameter rather than relying on external state. This makes dependencies clear and the function self-contained.
+
+In real applications, we often need side effects - we need to update displays, save to databases, or log information. The key is to isolate these effects at the edges of our program, keeping the core logic pure. This separation makes our code more modular and easier to reason about.
+
+The pure approach also makes the code more flexible. We can easily calculate hypothetical points without affecting the actual state, enabling features like "preview" or "what-if" scenarios.
+</Notes>
 </SlideLayout.Full>

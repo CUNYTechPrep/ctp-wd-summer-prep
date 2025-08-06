@@ -1,7 +1,14 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Asynchronous JavaScript
 ### Handling Time and External Resources
+<Notes>
+Welcome to Asynchronous JavaScript! This is one of the most important concepts in modern web development. Today we'll explore how JavaScript handles operations that take time - like fetching data from a server, reading files, or waiting for user input.
+
+Think of async programming like ordering at a coffee shop. You don't stand at the counter waiting for your coffee to brew - you place your order, get a number, and continue with other activities. When your coffee is ready, they call your number. That's exactly how async JavaScript works - we start an operation, continue with other code, and handle the result when it's ready.
+
+We'll cover three major async patterns: callbacks (the traditional approach), Promises (the modern standard), and async/await (the newest and cleanest syntax). By the end, you'll understand not just how to use these patterns, but why JavaScript needs them and when to choose each approach.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -25,4 +25,22 @@ const habit = {
   - Method definition and the `this` keyword
   - Dynamic property access with variables
   - Adding and modifying properties after creation
+<Notes>
+Object syntax in JavaScript is elegantly simple, but understanding the nuances makes the difference between writing functional code and writing professional code.
+
+**Object literal syntax** - the curly braces notation - is JavaScript's most direct way to create objects. Each property is defined with a key-value pair, separated by commas. This syntax is clean, readable, and immediately shows the object's structure. Notice the trailing comma after isActive - this is good practice because it makes adding new properties easier without syntax errors.
+
+**Property naming follows JavaScript identifier rules** - use camelCase for multi-word properties (streakDays, not streak_days or streak-days). Property names should be descriptive but concise. Avoid abbreviations that aren't immediately clear - 'streakDays' is better than 'strkDys'.
+
+**Method definition syntax** has evolved in JavaScript. The shorthand `complete() { ... }` is cleaner than the older `complete: function() { ... }`. Both work, but the shorthand is more readable and is the modern standard.
+
+**The 'this' keyword** is crucial for object methods. Inside a method, 'this' refers to the object that the method was called on. When you call `habit.complete()`, 'this' inside the complete method refers to that specific habit object. This allows methods to access and modify the object's properties. Without 'this', the method would have no way to know which object's properties to access.
+
+**Property access patterns** offer flexibility:
+- Dot notation (`habit.name`) is cleaner and more common when you know the property name at write-time
+- Bracket notation (`habit["name"]`) is necessary when the property name is in a variable or contains special characters
+- Bracket notation enables dynamic property access - you can use variables to specify which property to access
+
+**Best practice: Start with immutable-style thinking** - prefer const for objects to prevent reassignment, even though the object's properties can still be modified. This prevents accidental bugs where you assign a completely different object to your variable.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 
 <SlideLayout.Full>
 ## Working with Forms and Input
@@ -8,6 +8,15 @@ import { SlideLayout } from 'spectacle'
   - Listen for 'submit' event on forms
   - Prevent default behavior with preventDefault()
   - Validate input before processing
+<Notes>
+Forms are the primary way users input data into web applications. Understanding form handling is crucial because almost every interactive application needs user input - login forms, search bars, comment sections, and more.
+
+The key concept is preventing the default form submission. By default, forms reload the page when submitted, losing all JavaScript state. event.preventDefault() stops this, allowing you to handle the submission with JavaScript. This enables modern single-page application behavior where the page never reloads.
+
+Accessing form values through the value property seems simple, but there are nuances. Different input types return different value types. Checkboxes use the checked property. Select elements have a value, but also selectedOptions. Radio buttons require finding the checked one. Understanding these differences prevents bugs and frustration.
+
+Validation is where forms get interesting. Client-side validation provides instant feedback, improving user experience. But never trust client-side validation alone - it's for UX, not security. Always validate on the server too. Good validation is specific about what's wrong: "Password must be at least 8 characters" is better than "Invalid password".
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -41,4 +50,13 @@ function handleFormSubmit(event) {
   submitButton.disabled = false;
 }
 ```
+<Notes>
+These form handling best practices come from real-world experience and prevent common issues that frustrate users and developers alike.
+
+Trimming input is crucial - users often accidentally add spaces, especially on mobile devices. A login failing because of a trailing space is incredibly frustrating. Always trim() text inputs before validation or storage. This simple step prevents countless support tickets.
+
+Error handling must be user-friendly. Generic errors like "Invalid input" don't help users fix the problem. Be specific: "Email must include @", "Username already taken", "Password must include a number". Display errors near the relevant field, not in a generic alert box. Consider using aria-live regions to announce errors to screen reader users.
+
+Disabling the submit button during processing prevents duplicate submissions - a common issue that can create duplicate records or charges. Show a loading indicator so users know something is happening. After successful submission, reset the form to signal completion and prepare for the next entry. These small touches create professional, polished applications that users trust.
+</Notes>
 </SlideLayout.Full>

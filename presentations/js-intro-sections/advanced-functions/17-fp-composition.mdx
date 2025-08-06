@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -22,4 +22,14 @@ const createCompleteHabit = pipe(
   addId
 );
 ```
+
+<Notes>
+This example beautifully demonstrates function composition in practice. We start with simple, focused functions - each doing exactly one thing. addPoints adds points to a habit, addTimestamp adds the current time, and addId generates and adds a unique identifier.
+
+The nested function calls show manual composition, but they read backwards - we have to start from the innermost call to understand the flow. This is why the pipe utility is so valuable - it lets us read the transformations in the order they occur, making the code match our mental model.
+
+Notice how each function returns a new object using the spread operator, maintaining immutability. This ensures that our composition is pure - no function modifies its input, making the entire pipeline predictable and testable.
+
+This pattern scales to complex data transformations. In production code, you might compose dozens of small transformations to process API responses, transform user input, or prepare data for display. Each step remains simple and testable, but their composition handles sophisticated requirements.
+</Notes>
 </SlideLayout.Full>
