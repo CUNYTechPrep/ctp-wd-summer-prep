@@ -20,7 +20,7 @@
         <form id="habitForm" class="habit-form">
           <div class="form-group">
             <label for="habitName">Habit Name</label>
-            <input type="text" id="habitName" placeholder="e.g., Drink 8 glasses of water" required>
+            <input type="text" id="habitName" placeholder="e.g. Drink 8 glasses of water" required>
           </div>
           
           <div class="form-group">
@@ -55,9 +55,9 @@
   </div>
 
 
-  <div id="editModal" class="modal hidden">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div id="editDialog" class="dialog hidden">
+    <div class="dialog-content">
+      <div class="dialog-header">
         <h3>Edit Habit</h3>
         <button class="close-btn" type="button">&times;</button>
       </div>
@@ -82,7 +82,7 @@
           <input type="number" id="editCustomDays" min="1" max="7">
         </div>
         
-        <div class="modal-actions">
+        <div class="dialog-actions">
           <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
           <button type="submit" class="btn btn-primary">Update Habit</button>
         </div>
@@ -93,6 +93,6 @@
 
   <div id="toast" class="toast hidden"></div>
 
-  <script src="main.js"></script>
+  <script src="src/main.js"></script>
 </body>
 </html>

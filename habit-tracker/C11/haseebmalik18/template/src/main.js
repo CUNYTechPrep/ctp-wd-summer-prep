@@ -11,9 +11,9 @@ function bindEvents() {
   document.getElementById('habitFrequency').addEventListener('change', handleFrequencyChange);
   document.getElementById('editHabitFrequency').addEventListener('change', handleEditFrequencyChange);
   document.getElementById('editForm').addEventListener('submit', handleEditHabit);
-  document.querySelector('.close-btn').addEventListener('click', closeModal);
-  document.querySelector('.cancel-btn').addEventListener('click', closeModal);
-  document.getElementById('editModal').addEventListener('click', handleModalClick);
+  document.querySelector('.close-btn').addEventListener('click', closeDialog);
+  document.querySelector('.cancel-btn').addEventListener('click', closeDialog);
+  document.getElementById('editDialog').addEventListener('click', handleDialogClick);
 }
 
 function handleAddHabit(e) {
@@ -76,18 +76,18 @@ function handleEditHabit(e) {
     };
     saveHabits();
     render();
-    closeModal();
+    closeDialog();
     showToast('Habit updated successfully!');
   }
 }
 
-function handleModalClick(e) {
-  if (e.target === document.getElementById('editModal')) {
-    closeModal();
+function handleDialogClick(e) {
+  if (e.target === document.getElementById('editDialog')) {
+    closeDialog();
   }
 }
 
-function openEditModal(habitId) {
+function openEditDialog(habitId) {
   const habit = habits.find(h => h.id === habitId);
   if (!habit) return;
 
@@ -102,11 +102,11 @@ function openEditModal(habitId) {
     document.getElementById('editCustomFrequencyGroup').classList.add('hidden');
   }
 
-  document.getElementById('editModal').classList.remove('hidden');
+  document.getElementById('editDialog').classList.remove('hidden');
 }
 
-function closeModal() {
-  document.getElementById('editModal').classList.add('hidden');
+function closeDialog() {
+  document.getElementById('editDialog').classList.add('hidden');
   currentEditId = null;
 }
 
@@ -240,7 +240,7 @@ function render() {
             <div class="habit-frequency">${getFrequencyText(habit)}</div>
           </div>
           <div class="habit-actions">
-            <button class="btn btn-secondary btn-small" onclick="openEditModal('${habit.id}')">Edit</button>
+            <button class="btn btn-secondary btn-small" onclick="openEditDialog('${habit.id}')">Edit</button>
             <button class="btn btn-danger btn-small" onclick="deleteHabit('${habit.id}')">Delete</button>
           </div>
         </div>

@@ -285,7 +285,7 @@ body {
 }
 
 
-.modal {
+.dialog {
   position: fixed;
   top: 0;
   left: 0;
@@ -298,7 +298,7 @@ body {
   justify-content: center;
 }
 
-.modal-content {
+.dialog-content {
   background: white;
   padding: 2rem;
   border-radius: 8px;
@@ -307,14 +307,14 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.modal-header {
+.dialog-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
 }
 
-.modal-header h3 {
+.dialog-header h3 {
   margin: 0;
   color: #1f2937;
 }
@@ -337,7 +337,7 @@ body {
   color: #343a40;
 }
 
-.modal-actions {
+.dialog-actions {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
@@ -413,16 +413,16 @@ body {
     flex: 1;
   }
 
-  .modal-content {
+  .dialog-content {
     margin: 1rem;
     width: calc(100% - 2rem);
   }
 
-  .modal-actions {
+  .dialog-actions {
     flex-direction: column;
   }
 
-  .modal-actions .btn {
+  .dialog-actions .btn {
     width: 100%;
   }
 }
