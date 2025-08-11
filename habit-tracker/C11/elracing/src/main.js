@@ -2,41 +2,11 @@ const HabitCategory = {
   HEALTH: "health",
   PRODUCTIVITY: "productivity",
   LEARNING: "learning",
+  RELAXATION: "relaxation"
 };
 
-// const habit = {
-//   id: "abc123",
-//   name: "Read Books",
-//   description: "Read at least 10 pages daily",
-//   category: HabitCategory.LEARNING,
-//   targetFrequency: "daily",
-//   targetCount: 1,
-//   difficulty: "medium",
-//   color: "#ff9900",
-//   createdAt: new Date(),
-//   isActive: true,
-//   completions: []
-// };
 
 let habits = []
-
-
-const HabitEntry = {
-  id: string,
-  habitId: string,
-  date: string, // YYYY-MM-DD format
-  completed: boolean,
-  notes: string,
-  completedAt: Date,
-};
-
-const UserStats = {
-  totalHabits: number,
-  activeStreaks: number,
-  longestStreak: number,
-  completionRate: number,
-  pointsEarned: number,
-};
 
 function calculatePoints(streak) {
   return streak * 10;
@@ -70,37 +40,39 @@ function isHabitCompleted(habit, date) {
 
 const form = document.getElementById('habitform')
 form.addEventListener('submit', (event) => {
-  event.preventDefault()
+  event.preventDefault();
   
-  const data = new FormData(event.target)
+  const data = new FormData(event.target);
 
-  //console.log(Array.from(data.keys()))
+  console.log(Array.from(data.keys()));
 
   const habit = ({
     habitName: data.get('habitName'),
-    //targetStreak:
-  })
+    targetStreak: data.get('targetStreak'),
+    category: data.get('category')
+  });
 
-  habits.push(habit)
+  habits.push(habit);
 
-  console.log(JSON.stringify(habits))
-  renderHabits(habits)
+  console.log(JSON.stringify(habits));
+  renderHabits(habits);
 })
 
 const renderHabits = (habits) => {
-  const habitlist = document.getElementById('habit_List')
+  const habitlist = document.getElementById('habit_list')
+  habitlist.innerHTML = ""; //clear list
 
   for (let i = 0; i < habits.length; i++) {
     const habit  = habits[i]
 
-    const li = document.createElement('label')
-    li.textContent = `${habit.name} Target Streak : ${habit.targetStreak}`
-    habitList.appendChild(li)
+    const li = document.createElement('li')
+    li.textContent = `${habit.habitName}, category: ${habit.category}, target streak : ${habit.targetStreak}`
+    habitlist.appendChild(li)
 
   }
 }
 
-//still working on files
+
 
 
 

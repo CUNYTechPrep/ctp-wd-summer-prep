@@ -4,39 +4,37 @@
   <title> Form </title>
 </head>
 <body>
-  <div id="habitform"></div>
-  <label for = "habitName"> Habit Name:</label>
-  <input type="text" id="habitName" name="habitName" required>
+    <form id="habitform">
+      <fieldset>
+        <label for = "habitName"> Habit Name:</label>
+        <input type="text" id="habitName" name="habitName" required>
 
 <!-- Select Dropdown -->
-        <label for="category">Category:</label>
-        <select id="category" name="category">
-            <option value="health">Health</option>
-            <option value="productivity">Productivity</option>
-            <option value="learning">Learning</option>
-        </select>
         
-        <!-- Radio Buttons -->
-        <fieldset>
-            <legend>Frequency:</legend>
-            <input type="radio" id="daily" name="frequency" value="daily" checked>
-            <label for="daily">Daily</label>
-            
-            <input type="radio" id="weekly" name="frequency" value="weekly">
-            <label for="weekly">Weekly</label>
+          <label for="category">Category:</label>
+          <select id="category" name="category">
+              <option value="health">Health</option>
+              <option value="productivity">Productivity</option>
+              <option value="learning">Learning</option>
+              <option value="relaxation">Relaxation</option>
+          </select>
         </fieldset>
         
-        <!-- Checkbox -->
-        <input type="checkbox" id="reminder" name="reminder">
-        <label for="reminder">Enable reminders</label>
-        
-        <!-- Buttons -->
-        <button type="submit">Create Habit</button>
-        <button type="reset">Clear Form</button>
+        <!-- slider -->
+        <fieldset>
+          <label for="targetStreak">Target streak: 
+            <span id="streakValue"> 1 </span>
+          </label> 
+          <input type="range" id = "targetStreak" name = "targetStreak" min= "1" max= "9" value = "1" oninput="document.getElementById('streakValue').innerText = this.value">
+          <button type="submit">Create Habit</button>
+        </fieldset>  
     </form>
 
     <ul id= "habit_list">
       
     </ul>
+
+    
+  <script src="src/main.js"></script>
 </body>
 </html>
