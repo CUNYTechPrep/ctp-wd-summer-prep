@@ -1,8 +1,50 @@
 /* Style your habit card here */
-.habit-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px 0;
-    background-color: #f9f9f9;
+body {
+    padding: 0; /* needed this to get out whitespace on top of header, figure out later why */
+    margin: 0;
+    background-color: #c5e4f7;
+}
+
+#habit_form {
+    font-family: 'Montserrat';
+    margin: 25px
+}
+
+#submit_habits {
+    font-family: 'Montserrat';
+}
+
+.site-header {
+    background-color: #156a9b;
+    text-align: center;
+    margin: 0px 0px 10px 0px;
+    padding: 3px;
+    font-family: 'Montserrat';
+    color: white;
+}
+
+.habit_card {
+    background-color: white;
+    border: solid;
+    border-color: #156a9b;
+    padding: 25px 0px 50px 25px;
+    margin: 25px;
+    width: 250px;
+    font-family: 'Montserrat';
+}
+
+.habit_header {
+    font-family: 'Montserrat';
+}
+
+.habit_mark_complete {
+    font-family: 'Montserrat';
+}
+
+.habit_view_details {
+    font-family: 'Montserrat';
+}
+
+.habit_list {
+    display: flex;
 }

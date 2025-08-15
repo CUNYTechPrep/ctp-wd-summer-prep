@@ -4,46 +4,35 @@
   <meta charset="UTF-8">
   <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vite + React + TS</title>
 </head>
 <body>
+  <header class="site-header">
+    <h1>Track Your Habits!</h1>
+  </header>
+
   <div id="root">
       <form id="habit_form">
         <label for="habit_name">Habit Name:</label>
         <input id="habit_name" name="habit_name" type="text" required/>
-        <label for="target_streak">Target Streak</label>
+        <label for="target_streak">Target Streak:</label>
         <input id="target_streak" required name="target_streak" min="0" max="10" type="number"/>
         <button type="submit" id="submit_habits">Submit</button>
       </form>
-      <ul id="habit_list">
+      <article id="habit_list">
+
+      </article>
 
       </ul>
 
   </div>
-  <script type="module" src="/src/main.js"></script>
-
-  <!-- <header class="site-header">
-    <h1>Track Your Habits!</h1>
-  </header> -->
-
-  <!-- <article class="habit-summary">
-      <header>
-          <h2>Morning Exercise</h2>
-          <time datetime="2024-01-15">Started Jan 15, 2024</time>
-      </header>
-      <section>
-          <p>Current streak: <strong>15 days</strong></p>
-          <progress value="15" max="30">50%</progress>
-      </section>
-      <footer>
-          <button>Mark Complete</button>
-          <button>View Details</button>
-      </footer>
-  </article>
 
   <footer>
     <p>Copyright</p>
-  </footer> -->
+  </footer>
+
+  <script type="module" src="/src/main.js" defer></script>
 </body>
 </html>
