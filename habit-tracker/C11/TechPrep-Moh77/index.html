@@ -3,12 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vite + React + TS</title>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <form id="habit_form">
+      <label for="habit_name">Habit Name:</label>
+      <input id="habit_name" name="habit_name" type="text" required/>
+      <!-- <label for="target_streak">Target Streak</label>
+      <input id="target_streak" required name="target_streak" min="0" max="10" type="number" /> -->
+      <button type="submit" id="submit_habit">Submit</button>
+    </form>
+    <ul id="habit_list">
+
+
+</ul>
+  </div>
   <script type="module" src="/src/main.js"></script>
 
   <div class="firstbox">
@@ -22,8 +34,13 @@
     </div>
     <div class="title">
     <ul class="list">
-      <li><a href='#'>Add habit</a></li>
-      <li><a href='#'>Remove habit</a></li>
+      <li>
+        <!-- <a href='#'>Add habit</a> -->
+      <label for="habit_name2">Habit name:</label>
+       <input id="habit_name2" name="habit_name2" type="text" required/>
+        <button type="submit" id="submit_habit2">Add Habit</button>  
+      </li>
+      <!-- <li><a href='#'>Remove habit</a></li> -->
     </ul>
 </div>
 
@@ -71,18 +88,19 @@
 <div class="secondbox">
 
 <div class="head2">
-  Fitness tracker
+  Habit tracker
 </div>
 
-<div class="container">
+<div class="container" id="container">
   <div class="boxes">
         <div class="text">
       Morning Run
     </div>
-    <p class="streak">Day(s) Completed: 0</p>
+    <p class ='streak' id="streak">Day(s) Completed: 0</p>
     <img class="boximg1" src="./images/123457.jpg"></img>
     <div class="button">
-    <button>Complete</button>
+    <button class="complete" onclick="updateStreak(this)">Complete</button>
+    <button class="remove" onclick='removeHabit(this)'>Remove Habit</button>
   </div>
   </div>
 
@@ -93,7 +111,9 @@
     <p class="streak">Day(s) Completed: 0</p>
     <img class="boximg" src="./images/789.jpg">
         <div class="button">
-    <button>Complete</button>
+    <!-- <button>Complete</button> -->
+    <button class="complete" onclick="updateStreak(this)">Complete</button>
+    <button class="remove" onclick='removeHabit(this)'>Remove Habit</button>
   </div>
 
   </div>
@@ -105,7 +125,8 @@
     <p class="streak">Day(s) Completed: 0</p>
     <img class="boximg3" src="./images/Screenshot_10.jpg">
         <div class="button">
-    <button>Complete</button>
+    <button class="complete" onclick="updateStreak(this)">Complete</button>
+    <button class="remove" onclick='removeHabit(this)'>Remove Habit</button>
   </div>
 
   </div>
@@ -120,9 +141,6 @@
 
 
 
-
-
-
-
+ <script src="main.js"></script>
 </body>
 </html>

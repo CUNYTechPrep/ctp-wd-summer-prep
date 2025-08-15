@@ -47,13 +47,31 @@ a
     color: #E5E7EB;
 }
 
+ #submit_habit2{
+    border: none;
+    background-color: inherit;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+        text-decoration: none;
+    font-size: 15px;
+    color: #E5E7EB;
+}
+#submit_habit2:hover{
+    text-decoration: underline;
+    color: orange;
+}
 a:hover
 {
     text-decoration: underline;
     color: orange;
 }
 
-
+label{
+    font-size: 16px;
+    margin-right: 5px;
+}
 /* now for css */
 /* Flex container for habit cards */
 /* .habit-container {
@@ -99,18 +117,39 @@ a:hover
     cursor: pointer;
 } */
 
-button
+.complete
 {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 8px 16px;
-    background-color: #4CAF50;
+    /* background-color: #4CAF50;
+    color: white; */
+    background-color: white;
+    color: black;
+    /* border: 10px solid red; */
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.complete:hover{
+    background-color: greenyellow;
+    border: solid black;
+}
+.remove
+{
+    
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */ */
+    padding: 8px 16px;
+    background-color: red;
     color: white;
     /* border: 10px solid red; */
     border-radius: 4px;
     cursor: pointer;
 }
+
 .button
 {
     display: flex;
