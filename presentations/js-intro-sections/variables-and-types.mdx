@@ -1,10 +1,17 @@
-import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Variables and Types
 
 Understanding how JavaScript stores and manages data
+<Notes>
+  Variables and types are fundamental to any programming language, but JavaScript handles them in unique ways. In this section, we'll explore how JavaScript stores data, the different types available, and the critical concept of type coercion that makes JavaScript both flexible and sometimes surprising.
+  
+  We'll start with variable declarations - understanding the difference between var, let, and const is crucial for writing modern JavaScript. Then we'll dive into JavaScript's type system, including both primitive types and objects. Finally, we'll tackle type coercion - one of JavaScript's most misunderstood features.
+  
+  By the end of this section, you'll understand how to work with JavaScript's dynamic type system effectively and avoid common pitfalls.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -19,6 +26,15 @@ let userName = "Alice";
 let currentStreak = 42;
 const MAX_HABITS = 10;
 ```
+<Notes>
+  Think of variables as labeled boxes in your computer's memory. Just like you might label boxes when moving house - "Kitchen Utensils" or "Winter Clothes" - variables give meaningful names to pieces of data in your program.
+  
+  The three examples here show different types of data we might store in our habit tracker: userName is text (a string), currentStreak is a number, and MAX_HABITS is a constant that won't change. Notice how the variable names are descriptive - you can immediately understand what each one contains.
+  
+  The key insight is that variables aren't just storage - they're communication tools. Good variable names make your code self-documenting. Instead of seeing random letters and numbers, other developers (including future you) can understand what the code is doing.
+  
+  We'll explore the different ways to declare variables next, but remember: the goal is always clarity and correctness.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -33,6 +49,17 @@ const preferred = "I cannot be reassigned and have block scope";
 - `var` - Old way, function-scoped (avoid in modern code)
 - `let` - Block-scoped, can be reassigned
 - `const` - Block-scoped, cannot be reassigned (preferred)
+<Notes>
+  JavaScript has evolved over time, and so have the ways we declare variables. Understanding these three keywords is crucial for writing modern JavaScript.
+  
+  `var` is the original way to declare variables, dating back to JavaScript's early days. It has function scope, which means it's visible throughout the entire function where it's declared. This often leads to unexpected behavior and bugs, which is why we avoid it in modern code.
+  
+  `let` was introduced in ES6 (2015) and provides block scope - the variable is only visible within the nearest set of curly braces. This is much more predictable and matches how variables work in most other programming languages.
+  
+  `const` is also from ES6 and creates constants - variables that cannot be reassigned. This doesn't mean the value can't change (we'll see this with objects), but the variable name can't point to something else.
+  
+  The general rule: start with `const`, use `let` when you need to reassign, never use `var`. This approach leads to more predictable, bug-free code.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -50,6 +77,17 @@ const habit = { streak: 5 };
 habit.streak = 6;  // ✅ This works!
 habit = {};        // ❌ Error - can't reassign const
 ```
+<Notes>
+  This is one of the most important concepts for new JavaScript developers to understand. `const` doesn't mean "immutable" - it means "constant reference".
+  
+  Think of it like this: if you have a const box labeled "habit", you can't throw away the box and get a new one, but you can change what's inside the box. The reference (the box itself) stays the same, but the contents can change.
+  
+  This is particularly important in our habit tracker app. When we create a habit object with `const habit = { name: "Read", streak: 0 }`, we can still update the streak: `habit.streak = 5`. What we can't do is completely replace the habit: `habit = { different: "object" }` would cause an error.
+  
+  Using `const` by default is a best practice because it signals your intent - this variable reference won't change. It also helps prevent bugs where you accidentally reassign a variable. Most of the time, you're creating objects, arrays, or values that you don't intend to completely replace.
+  
+  This concept trips up many beginners, so make sure you understand the difference between reassigning a variable and modifying its contents.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -63,6 +101,21 @@ let status = "active";  // May change to "inactive"
 currentStreak++;
 status = "completed";
 ```
+<Notes>
+  While `const` should be your default choice, there are legitimate times when you need to reassign a variable entirely. This is where `let` comes in.
+  
+  In our habit tracker example, `currentStreak` is a perfect use case for `let`. We start with 0 and expect to increment it as the user maintains their habit. Similarly, `status` might change from "active" to "completed" or "failed" as the user progresses.
+  
+  The key is intention. When you use `let`, you're explicitly signaling that this variable will be reassigned. This makes your code more readable and helps prevent bugs.
+  
+  Common patterns where you'll use `let`:
+  - Counter variables that increment or decrement
+  - Status strings that change based on conditions  
+  - Variables that get reassigned in loops
+  - Values that change based on user input or calculations
+  
+  Remember: if you find yourself using `let` everywhere, step back and ask "does this really need to be reassigned?" Often, you can restructure your code to use `const` instead, which leads to more predictable, functional programming patterns.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -80,6 +133,19 @@ if (true) {
 }
 console.log(leaked); // Still accessible! 😱
 ```
+<Notes>
+  This is a strong statement, but it's based on years of JavaScript developers struggling with `var`'s quirky behavior. Let me explain why `var` causes so many problems.
+  
+  First, function scope: `var` variables are visible throughout the entire function, not just the block where they're declared. In the example, `leaked` is accessible outside the if block, which is almost never what we want. This leads to subtle bugs where variables "leak" into scopes where they shouldn't exist.
+  
+  Second, redeclaration: You can declare the same `var` variable multiple times in the same scope without any error. This means typos can accidentally overwrite variables, causing hard-to-debug issues.
+  
+  Third, hoisting: `var` declarations are "hoisted" to the top of their function scope, but their assignments stay in place. This creates a confusing situation where you can reference a variable before it's declared, but it will be `undefined`.
+  
+  Here's a real-world example: imagine you're looping through habits and accidentally declare `var i` in multiple places. With `var`, these all refer to the same variable, causing unexpected behavior. With `let`, each would be properly scoped.
+  
+  The bottom line: `let` and `const` solve all of `var`'s problems while being more predictable and matching how variables work in other languages. There's simply no reason to use `var` in modern JavaScript.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -145,6 +211,28 @@ describe('Variable Declarations', () => {
     
   </Tests>
 </CodeDisplay>
+<Notes>
+  This exercise introduces students to making the right choice between `const`, `let`, and `var` (never!). It's designed to reinforce the concepts we just covered through practical application.
+  
+  Let's break down each requirement:
+  
+  1. **User's name (can change)**: This uses `let` because a user might update their display name. We want to signal that reassignment is expected.
+  
+  2. **Current streak count (can change)**: Another `let` use case. The streak will increment as the user maintains their habit, so we need the ability to reassign.
+  
+  3. **Maximum habits allowed (constant)**: Perfect for `const`. This is a configuration value that shouldn't change during runtime. Using ALL_CAPS naming convention signals it's a true constant.
+  
+  4. **Habit object**: This is where students often get confused. We use `const` even though the object's properties will change. Remember: `const` prevents reassignment of the variable reference, not modification of the object's contents.
+  
+  The solution demonstrates mutation to reinforce the concept. Notice how we can change `currentStreak` (it's `let`) and `habit.streak` (modifying a property), but we cannot reassign `habit` itself (it's `const`).
+  
+  Common mistakes students make:
+  - Using `let` for everything "just to be safe"
+  - Using `const` for the habit object and thinking they can't modify its properties
+  - Still using `var` out of habit from old tutorials
+  
+  The tests verify not just that variables exist, but that they have the correct types and structure. This helps students catch errors early and understand the importance of proper variable declaration.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -169,6 +257,19 @@ function betterExample() {
   console.log(z); // Error - not accessible
 }
 ```
+<Notes>
+  Scope determines where in your code a variable can be accessed. Understanding the difference between block scope and function scope is crucial for avoiding bugs and writing clean code.
+  
+  Function scope (var): The variable is accessible anywhere within the function where it's declared, regardless of which block it was created in. In the first example, even though `x` was declared inside the if block, it's accessible throughout the entire function. This is often surprising and unintended.
+  
+  Block scope (let/const): The variable is only accessible within the nearest set of curly braces - the block where it was declared. This is much more intuitive and matches how most developers think about variable scope.
+  
+  Why does this matter in our habit tracker? Imagine you have temporary variables for calculating streaks inside an if statement. With `var`, those variables would "leak out" and potentially interfere with other parts of your function. With `let`/`const`, they stay contained where they belong.
+  
+  Block scope also makes your code more modular and easier to reason about. You can look at a block of code and know exactly which variables are available, without having to scan the entire function.
+  
+  This is why modern JavaScript style guides universally recommend `let` and `const` over `var` - they provide more predictable, safer scoping behavior.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -227,6 +328,28 @@ describe('Variable Scoping', () => {
     
   </Tests>
 </CodeDisplay>
+<Notes>
+  This exercise demonstrates one of the most important differences between `var` and `let`/`const`: block scoping. It's a perfect example of why `var` can lead to bugs in real applications.
+  
+  The problem scenario is common in real code: you have a variable tracking status, and inside a conditional block, you want to temporarily use a different value. With `var`, this creates a serious bug because both declarations refer to the same variable!
+  
+  Walk through what happens with `var`:
+  1. `var habitStatus = "incomplete"` creates a function-scoped variable
+  2. Inside the if block, `var habitStatus = "complete"` doesn't create a new variable - it reassigns the existing one
+  3. After the block, the original value is lost forever
+  
+  The solution using `let` demonstrates proper block scoping:
+  1. `let habitStatus = "incomplete"` creates a block-scoped variable
+  2. Inside the if block, `let habitStatus = "complete"` creates a NEW variable that shadows the outer one
+  3. After the block, the inner variable disappears and we're back to the outer scope
+  
+  This pattern is crucial for loops, conditionals, and any situation where you need temporary variables. Common real-world scenarios:
+  - Temporary calculations inside conditionals
+  - Loop counters that shouldn't leak out
+  - Creating isolated scopes for specific operations
+  
+  The test verifies that students understand the fix - if `habitStatus` is still "complete" outside the block, they haven't properly fixed the scoping issue.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -242,6 +365,22 @@ JavaScript has 7 primitive types and objects:
 - `bigint` - Large integers
 - `string` - Text
 - `symbol` - Unique identifiers
+<Notes>
+  JavaScript's type system is fundamental to understanding how the language works. Unlike statically typed languages where you declare what type a variable holds, JavaScript figures out types dynamically at runtime.
+  
+  Primitive types are the basic building blocks - they're immutable, meaning the values themselves can't be changed (though variables holding them can be reassigned). When you have a string "hello", you can't modify that string - you can only create a new string.
+  
+  Let's break down each primitive:
+  - `undefined`: This is JavaScript's default "nothing" value. When you declare a variable but don't assign it, it's undefined.
+  - `null`: This represents an intentional absence of value. It's what you assign when you want to explicitly say "this has no value."
+  - `boolean`: True or false values, essential for conditions and logic.
+  - `number`: All numbers in JavaScript, whether 42, 3.14, or -17. No separate integer type.
+  - `bigint`: For numbers too large for the regular number type (rare in most applications).
+  - `string`: Text data, like "Hello World" or "Alice".
+  - `symbol`: Unique identifiers, mainly used for object property keys in advanced scenarios.
+  
+  Understanding these types helps you write more predictable code and debug type-related issues in your habit tracker application.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -255,7 +394,23 @@ JavaScript has 7 primitive types and objects:
 - `RegExp` - Pattern matching
 - `Map/Set` - Specialized collections
 - `Promise` - Async operations
-</SlideLayout.Full>
+<Notes>
+  If primitives are the basic building blocks, objects are the complex structures you build with them. Objects are mutable reference types, meaning they can be modified after creation, and variables hold references to them rather than the actual values.
+  
+  This reference behavior is crucial to understand. When you assign an object to a variable, you're not copying the object - you're creating a reference to it. This means multiple variables can point to the same object.
+  
+  Let's explore each object type in the context of our habit tracker:
+  - `Object`: Perfect for representing habits with properties like name, streak, and category.
+  - `Array`: Ideal for lists of habits, completion dates, or user achievements.
+  - `Function`: Contains the logic for calculating streaks, validating inputs, or handling user actions.
+  - `Date`: Essential for tracking when habits were completed and calculating streaks.
+  - `RegExp`: Useful for validating habit names or parsing user input.
+  - `Map/Set`: Advanced collections for unique categories or efficient lookups.
+  - `Promise`: Handle asynchronous operations like saving habits to a database.
+  
+  The key insight is that objects allow you to model real-world concepts in your code. A habit isn't just a string - it's an object with multiple properties and behaviors. Understanding how to work with objects effectively is essential for building any substantial JavaScript application.
+</Notes>
+</SlideLayout.Full> 
 
 <SlideLayout.Full>
 ## Primitive Types in Action
@@ -285,6 +440,22 @@ console.log(typeof habitId);          // "symbol"
     
   </File>
 </CodeDisplay>
+<Notes>
+  This slide provides concrete examples of how each primitive type might be used in your habit tracker application. Each example demonstrates both the type and a realistic use case.
+  
+  Let's walk through each example:
+  - `undefined`: A variable that's been declared but not yet assigned. Perfect for tracking when a habit was last completed - if it's never been completed, it remains undefined.
+  - `null`: An intentional "empty" value. Used when you explicitly want to indicate that a habit has been deleted or cleared.
+  - `boolean`: Simple true/false values for tracking completion status or other binary states.
+  - `number`: JavaScript's unified number type handles both integers and decimals. Your streak count is a whole number, but you could also store decimal values like average completion rates.
+  - `bigint`: For extremely large numbers. Most habit trackers won't need this, but it's useful for point systems that might accumulate huge values over time.
+  - `string`: Text data like habit names and descriptions. Notice the descriptive habit name - this makes your data more meaningful.
+  - `symbol`: Unique identifiers that are guaranteed to be different from each other, even if they have the same description. Useful for creating unique keys.
+  
+  Pay special attention to the `typeof` results. Notice that `typeof null` returns "object" - this is a famous JavaScript quirk that has existed since the beginning. It's not a bug you can fix, just something to remember when checking types.
+  
+  Understanding these types helps you choose the right data structure for each piece of information in your application.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -319,6 +490,27 @@ let saveHabit = Promise.resolve(true); // promise (async operations)
     
   </File>
 </CodeDisplay>
+<Notes>
+  This slide shows how object types are used in practice within a habit tracker application. Each example demonstrates a specific use case that you'll commonly encounter.
+  
+  Let's examine each object type:
+  
+  **Object**: The core data structure for representing a habit. Objects are perfect for entities that have multiple related properties. Here, a habit has both a name and a streak count.
+  
+  **Array**: Ordered collections are ideal for lists like completion dates. Arrays maintain order and provide methods for adding, removing, and iterating through items.
+  
+  **Function**: Contains your application logic. This arrow function would calculate streak values, but in a real app, it might contain complex business rules for determining streaks.
+  
+  **Date**: Essential for any time-based application. The Date object provides methods for working with dates and times, crucial for tracking when habits are completed.
+  
+  **RegExp**: Regular expressions for pattern matching and validation. This example validates that habit names contain only letters and spaces, preventing users from entering invalid characters.
+  
+  **Map**: Advanced key-value storage that's more flexible than regular objects. Maps can use any type as keys and maintain insertion order. Here it organizes habits by category.
+  
+  **Promise**: Handles asynchronous operations like saving data to a database or making API calls. This example creates a resolved promise, but real promises would handle network requests.
+  
+  These object types work together to create rich, interactive applications. Understanding when to use each type is key to writing effective JavaScript.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -337,6 +529,22 @@ The `+` operator is special - it prefers string concatenation:
 "5" * "3"       // 15 - Both converted to numbers
 "10" / "2"      // 5 - Both converted to numbers
 ```
+<Notes>
+  Type coercion is one of JavaScript's most controversial features. It's the automatic conversion between different data types, and the `+` operator showcases both its power and its pitfalls.
+  
+  The `+` operator has dual purpose: it can add numbers OR concatenate strings. When JavaScript sees mixed types with `+`, it chooses string concatenation. This is why "5" + 3 becomes "53" instead of 8 - JavaScript converts the number 3 to the string "3" and concatenates.
+  
+  This behavior is unique to the `+` operator. All other arithmetic operators (-, *, /, %) prefer numbers, so they convert strings to numbers instead. That's why "5" - 3 equals 2.
+  
+  In your habit tracker, this could cause bugs. Imagine getting a streak count from a form input (always a string) and trying to add bonus points:
+  ```javascript
+  let streak = "10"; // from input field
+  let bonus = 5;
+  let total = streak + bonus; // "105" not 15!
+  ```
+  
+  Understanding this behavior helps you write more predictable code. When you want addition, explicitly convert to numbers. When you want concatenation, explicitly convert to strings. Don't rely on JavaScript's automatic coercion.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -358,6 +566,21 @@ false + 5       // 5 - false becomes 0
 "5" == 5        // true - Type coercion happens
 "5" === 5       // false - No coercion with ===
 ```
+<Notes>
+  These examples showcase the more surprising aspects of JavaScript's type coercion. While the `+` operator example was somewhat predictable, these cases can be genuinely confusing even for experienced developers.
+  
+  Boolean conversions follow specific rules: `true` becomes 1, `false` becomes 0. This means `true + true` equals 2. The `!` operator converts values to booleans first, then negates them. This is useful for checking "truthiness" - whether a value would be considered true or false in a boolean context.
+  
+  The complex object conversions are where things get weird. When JavaScript needs to convert an object to a primitive, it calls special methods that usually result in strings. Arrays become comma-separated strings of their elements, objects become "[object Object]".
+  
+  The equality operators are critical to understand:
+  - `==` (loose equality) allows type coercion. "5" == 5 is true because JavaScript converts the string to a number.
+  - `===` (strict equality) doesn't allow coercion. Both value AND type must match.
+  
+  In your habit tracker, always use `===` for comparisons. It's more predictable and prevents bugs. If you need to compare different types, convert them explicitly first.
+  
+  These edge cases show why many developers prefer TypeScript or stricter linting rules - they help catch these potential issues before they become bugs.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -379,6 +602,23 @@ let total = streakFromInput + bonus;  // "105" not 15! 😱
 ```
 </File>
 </CodeDisplay>
+<Notes>
+  This slide demonstrates real-world examples of how JavaScript's flexibility can lead to unexpected results. These aren't contrived examples - they're the kinds of bugs that actually happen in production applications.
+  
+  The first set of examples shows different coercion behaviors:
+  - String concatenation with `+` creates "53" instead of 8
+  - Subtraction forces number conversion, giving us 2
+  - Boolean addition converts true to 1, so we get 2
+  - Object-to-string conversion creates the cryptic "[object Object]"
+  
+  The real-world example at the bottom is particularly important for your habit tracker. When users enter data in HTML forms, everything comes back as strings. If you're not careful about type conversion, you'll get string concatenation instead of mathematical addition.
+  
+  This is exactly the kind of bug that's hard to catch during development but causes problems in production. You might test with the number 10, but when it comes from a form field, it's the string "10", and your calculations break.
+  
+  The key lesson: never assume JavaScript will do what you intend with mixed types. Be explicit about conversions, validate your inputs, and test with realistic data (including strings from form fields).
+  
+  This flexibility was designed to make JavaScript more beginner-friendly, but it requires understanding to use safely in real applications.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -445,6 +685,34 @@ describe('Habit Points Calculation', () => {
     
   </Tests>
 </CodeDisplay>
+<Notes>
+  This exercise addresses one of the most common bugs in JavaScript applications: string concatenation when you meant to do addition. It's especially relevant for the habit tracker since form inputs always return strings.
+  
+  The problem is deceptively simple but catches many developers off guard. When JavaScript sees the `+` operator with a string on either side, it chooses concatenation over addition. So "42" + 8 becomes "428" instead of 50.
+  
+  The exercise provides two solutions:
+  
+  **Solution 1: Number() constructor**
+  - Converts the entire string to a number
+  - Returns NaN if the string contains non-numeric characters
+  - Good for when you need strict conversion
+  
+  **Solution 2: parseInt() function**
+  - Parses integers from the beginning of a string
+  - Stops at the first non-digit character
+  - Always specify the radix (base 10) as the second parameter
+  - More forgiving but can hide errors
+  
+  The key difference: `parseInt("42abc", 10)` returns 42, while `Number("42abc")` returns NaN. This makes parseInt useful for messy user input but dangerous if you need validation.
+  
+  Common student mistakes:
+  - Forgetting that ALL form inputs are strings
+  - Using parseInt without the radix parameter
+  - Not checking for NaN after conversion
+  - Using the unary `+` operator (less readable: `+currentStreakInput`)
+  
+  The test helps students recognize both the problem (string concatenation) and verify their solution works correctly.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -475,6 +743,28 @@ console.log(calculateHabitPoints("10.5", 8));  // 18 (parseInt stops at .)
 ```
   </File>
 </CodeDisplay>
+<Notes>
+  This slide shows how to handle type conversion safely in production code. Instead of relying on JavaScript's automatic coercion or hoping inputs are valid, we take control of the conversion process.
+  
+  The key principles demonstrated here:
+  
+  1. **Explicit conversion**: We use `parseInt()` to convert the string to a number, rather than relying on automatic coercion.
+  
+  2. **Validation**: We check if the conversion succeeded using `isNaN()`. This catches cases where the input wasn't a valid number.
+  
+  3. **Error handling**: Instead of crashing or producing weird results, we log an error and return a safe default value.
+  
+  4. **Defensive programming**: We assume inputs might be invalid and handle that case gracefully.
+  
+  Notice the different behaviors in the examples:
+  - "42" converts cleanly to 42
+  - "abc" fails conversion, so we return 0 with an error message
+  - "10.5" demonstrates that `parseInt()` stops at the first non-digit, returning 10
+  
+  For your habit tracker, this approach is crucial when dealing with user input. Users might enter invalid data, and your app should handle it gracefully rather than breaking or producing nonsensical results.
+  
+  Alternative approaches include `Number()` for decimal numbers or building more sophisticated validation with regular expressions. The key is being intentional about how you handle type conversion rather than leaving it to chance.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -490,6 +780,22 @@ console.log(calculateHabitPoints("10.5", 8));  // 18 (parseInt stops at .)
     <p>Modern tools like TypeScript help catch these issues</p>
   </Box>
 </FlexBox>
+<Notes>
+  This slide addresses the eternal debate about JavaScript's type coercion. Is it a helpful feature that makes the language flexible, or a bug-prone behavior that causes endless frustration?
+  
+  The answer is both. Type coercion was designed to make JavaScript more forgiving and easier to use, especially for beginners. You don't need to worry about exact types - JavaScript figures it out for you. This flexibility allowed JavaScript to become popular quickly and made it accessible to non-programmers.
+  
+  However, this flexibility comes at a cost. The automatic conversions can hide errors and create subtle bugs that are hard to track down. What seems like helpful behavior in simple cases becomes problematic in complex applications.
+  
+  The key is understanding coercion well enough to predict when it will happen and control it. Don't rely on implicit coercion - be explicit about your intentions. Use `Number()`, `String()`, and `Boolean()` to convert types when needed. Use `===` instead of `==` for comparisons.
+  
+  Modern tools help address these issues:
+  - TypeScript catches type mismatches at compile time
+  - ESLint can warn about dangerous equality comparisons
+  - Prettier can standardize your code style
+  
+  The bottom line: type coercion is part of JavaScript, so learn to work with it safely rather than fighting against it.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -509,6 +815,28 @@ function createHabit() {
 ```
 
 Always declare variables explicitly!
+<Notes>
+  This is one of the most common and dangerous mistakes in JavaScript. When you assign to a variable without declaring it with `let`, `const`, or `var`, JavaScript creates a global variable automatically. This is called "implicit global creation" and it's a source of countless bugs.
+  
+  In the bad example, `habitName` becomes a global variable, meaning it's accessible everywhere in your application. This might seem harmless, but imagine if multiple functions create their own `habitName` variables this way - they'll all interfere with each other!
+  
+  Here's why this is particularly dangerous in a habit tracker app:
+  ```javascript
+  function createHabit() {
+    habitName = "Exercise"; // Global!
+  }
+  
+  function deleteHabit() {
+    habitName = "Water"; // Overwrites the global!
+  }
+  ```
+  
+  Now `habitName` is shared state that both functions can accidentally modify, leading to unpredictable behavior.
+  
+  The solution is simple: always explicitly declare your variables with `const` or `let`. This keeps them properly scoped and prevents accidental conflicts. Modern JavaScript environments often run in "strict mode" which will throw an error for undeclared variables, but it's still a good habit to be explicit.
+  
+  Pro tip: Use a linter like ESLint with the "no-undef" rule to catch these mistakes automatically.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -526,6 +854,29 @@ null == undefined  // true (special case)
 "" === 0      // false
 null === undefined  // false
 ```
+<Notes>
+  These examples showcase the most confusing aspects of JavaScript's type coercion, particularly with the loose equality operator `==`. These aren't just academic curiosities - they represent real bugs that happen in production code.
+  
+  Let's break down what's happening:
+  - `[] == false`: The empty array is converted to a string (""), then to a number (0), and false also becomes 0, so they're equal.
+  - `[] == ![]`: This is the famous "WAT" example. The right side becomes false (since ![] negates to false), then both sides follow the same conversion path to 0.
+  - `"" == 0`: Empty string converts to 0, so they're equal.
+  - `null == undefined`: This is a special case built into the language - they're considered loosely equal.
+  
+  In your habit tracker, these could cause real problems:
+  ```javascript
+  let habits = [];
+  if (habits == false) { // This is true!
+    console.log("No habits yet"); // This runs unexpectedly
+  }
+  ```
+  
+  The solution is simple but requires discipline: always use strict equality (`===`) and strict inequality (`!==`). These operators don't perform type coercion - both the value and type must match exactly.
+  
+  This makes your code much more predictable. When you see `===`, you know exactly what's being compared without having to think about coercion rules. It's one less thing to worry about and debug.
+  
+  Modern style guides universally recommend `===` over `==`. Make it a habit!
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -543,6 +894,29 @@ const habit3 = { ...habit };  // Spread operator
 habit3.streak = 15;
 console.log(habit.streak);   // Still 10
 ```
+<Notes>
+  This is a fundamental concept that trips up many JavaScript developers: the difference between reference and value types. Understanding this is crucial for avoiding bugs in your habit tracker application.
+  
+  Primitive types (numbers, strings, booleans) are passed by value. When you assign them to a new variable, you get a copy. Objects and arrays are passed by reference - variables hold pointers to the actual data, not the data itself.
+  
+  In the example, `habit2 = habit` doesn't create a new object - it creates a new reference to the same object. Both `habit` and `habit2` point to the same place in memory. When you modify `habit2.streak`, you're modifying the shared object, so `habit.streak` changes too.
+  
+  This can cause subtle bugs in your habit tracker:
+  ```javascript
+  function updateHabit(habit) {
+    habit.streak = 0; // This modifies the original!
+    return habit;
+  }
+  
+  const myHabit = { name: "Exercise", streak: 5 };
+  const resetHabit = updateHabit(myHabit);
+  console.log(myHabit.streak); // 0 - original was modified!
+  ```
+  
+  The spread operator `{ ...habit }` creates a shallow copy - a new object with the same properties. This is perfect for simple objects. For nested objects, you'd need a deep copy using libraries like Lodash or structuredClone().
+  
+  This concept is especially important when working with React state or any situation where you need to avoid mutation.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>

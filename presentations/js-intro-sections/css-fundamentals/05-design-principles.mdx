@@ -1,16 +1,17 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes, Image} from 'spectacle'
 
 <SlideLayout.Full>
 ## Overview: CSS Design Principles
 
-Before styling the habit card, plan your design approach:
+<Image width="100%" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Overview_+CSS+Design+Principles+-+visual+selection+(4).svg" />
 
-- Layout Strategy:
-    - Choose between Flexbox (1D layout) vs Grid (2D layout)
-    - Consider content hierarchy and information flow
-    - Plan for responsive behavior on different screen sizes
-- Visual Hierarchy:
-    - Use typography scale (headings, body text, captions)
-    - Color coding for categories and status indicators
-    - Visual weight through size, color, and spacing
+<Notes>
+Good CSS isn't just about knowing properties - it's about applying design principles to create effective user interfaces. Before writing any CSS, step back and plan your approach. This planning phase separates professional work from amateur attempts.
+
+Layout strategy is your foundation. Flexbox excels at component layouts where elements flow in one direction - navigation bars, card rows, or form layouts. Grid shines for page layouts where you need precise control over both dimensions. Often, you'll combine both - Grid for the overall structure, Flexbox for components within grid areas.
+
+Visual hierarchy guides users through your interface. The most important elements should be most prominent through size, color, contrast, or position. Typography creates hierarchy naturally - larger, bolder text draws attention. Color should reinforce this hierarchy, not fight against it. Use your brightest, most saturated colors sparingly for calls-to-action.
+
+Spacing is often overlooked but crucial. Consistent spacing creates rhythm and helps users parse information. Use a spacing scale (like 4px, 8px, 16px, 24px, 32px) rather than arbitrary values. Whitespace isn't wasted space - it's a design element that improves readability and creates focus. These principles apply whether you're styling a simple card or a complex dashboard.
+</Notes>
 </SlideLayout.Full>

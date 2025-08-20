@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -33,4 +33,13 @@ loadHabitData(123, (habitData) => {
     
   </File>
 </CodeDisplay>
+<Notes>
+Callbacks were JavaScript's first solution to asynchronous programming. A callback is simply a function that gets called when an operation completes. You pass this function as an argument, and the async operation calls it when ready.
+
+The pattern is straightforward: instead of returning a value directly, async functions accept a callback parameter. When the operation completes, they call this callback with the result. This inverts the normal flow of control - instead of calling a function and getting a result, you provide a function to be called with the result.
+
+The major problem with callbacks becomes apparent when you need to chain multiple async operations. Each operation needs to be nested inside the previous callback, creating deeply indented code that's hard to read and maintain. This "callback hell" or "pyramid of doom" makes error handling particularly difficult - you need to handle errors at each level of nesting.
+
+Despite these limitations, callbacks are still used in many APIs and understanding them is crucial. They're the foundation that Promises and async/await are built upon. Node.js, in particular, has many callback-based APIs, though most now offer Promise-based alternatives.
+</Notes>
 </SlideLayout.Full>

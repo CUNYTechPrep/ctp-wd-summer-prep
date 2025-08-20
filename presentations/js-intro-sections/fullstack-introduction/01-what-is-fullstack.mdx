@@ -1,16 +1,28 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Section>
 ## What is Full Stack Development?
 
-**Full Stack = Front End + Back End + Database**
+<FlexBox flexDirection="row">
+  <Image height="65vh" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Full+Stack+Web+Development+-+visual+selection.svg" />
 
 <FlexBox flexDirection="column" alignItems="flex-start">
-  <Text fontSize="2rem" margin="1rem 0">🎨 **Frontend** - What users see and interact with</Text>
-  <Text fontSize="2rem" margin="1rem 0">⚙️ **Backend** - Server logic and business rules</Text>
-  <Text fontSize="2rem" margin="1rem 0">🗄️ **Database** - Where data is stored and managed</Text>
+  - 🎨 **Frontend** - What users see and interact with
+  - ⚙️ **Backend** - Server logic and business rules
+  - 🗄️ **Database** - Where data is stored and managed
+</FlexBox>
 </FlexBox>
 
-*Think of it like a restaurant: Frontend is the dining room, Backend is the kitchen, Database is the pantry*
+<Notes>
+Full stack development encompasses the entire spectrum of web application development. This restaurant analogy helps students understand how these layers work together.
+
+The frontend, like a restaurant's dining room, is where users interact with your application. It's designed to be appealing, intuitive, and responsive to user needs. Just as a dining room has decor, seating arrangements, and ambiance, the frontend has visual design, user interface elements, and user experience considerations.
+
+The backend is like the kitchen - it's where the real work happens behind the scenes. Orders (requests) come in from the dining room (frontend), the kitchen (backend) processes them according to recipes (business logic), and sends back prepared dishes (responses).
+
+The database is the pantry where all ingredients (data) are stored. The kitchen needs to know what's available, retrieve ingredients efficiently, and keep track of inventory. Similarly, the backend queries the database for information, stores new data, and ensures data integrity.
+
+Understanding this three-layer architecture is fundamental to becoming a full stack developer. Each layer has its own technologies, patterns, and best practices, but they must work together seamlessly to create a functioning application.
+</Notes>
 </SlideLayout.Section>

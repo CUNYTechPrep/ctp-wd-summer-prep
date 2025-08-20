@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -7,6 +7,14 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 **Immutability**
 - Don't modify, create new
 - Safer and more predictable
+
+<Notes>
+Immutability is a core principle of functional programming that treats data as unchangeable. Instead of modifying existing data, we create new versions with our changes. This might seem wasteful at first, but it provides significant benefits.
+
+Think of immutability like version control for your data. Just as Git never modifies past commits but creates new ones, immutable code never changes existing data but creates new versions. This approach eliminates entire categories of bugs related to unexpected mutations.
+
+In JavaScript, immutability isn't enforced by the language (unlike languages like Haskell), so it's a discipline we choose to follow. Modern JavaScript makes this easier with spread syntax and methods that return new arrays rather than modifying existing ones.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Why Immutability Matters
@@ -14,6 +22,16 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 - Easier to reason about state
 - Enables functional programming patterns
 - Enhances performance in some cases
+
+<Notes>
+The benefits of immutability might not be immediately obvious, but they become clear as applications grow. When data can't be changed, you never have to worry about one part of your code unexpectedly modifying data that another part depends on.
+
+Reasoning about state becomes much simpler. If you pass an array to a function, you know that array won't be changed. This guarantee makes code more predictable and easier to debug. You can trace data flow without worrying about hidden mutations.
+
+Immutability also enables powerful optimizations. React, for example, can quickly check if props have changed by comparing object references rather than deep comparing values. Libraries like Immutable.js use structural sharing to make immutable operations efficient.
+
+The functional programming patterns enabled by immutability include time-travel debugging, undo/redo, and concurrent programming without locks.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Example of Immutability in Action
@@ -34,4 +52,14 @@ function updateHabitStreak(habit, newStreak) {
   return { ...habit, streak: newStreak }; // New object
 }
 ```
+
+<Notes>
+These examples show practical immutability patterns in JavaScript. The mutable approach with push modifies the original array, which can lead to bugs if other code expects that array to remain unchanged. The immutable approach creates a new array, leaving the original intact.
+
+The spread operator (...) is our main tool for immutability in modern JavaScript. For arrays, `[...oldArray, newItem]` creates a shallow copy with the new item added. For objects, `{...oldObject, key: newValue}` creates a new object with the updated property.
+
+Note that spread creates shallow copies. For nested structures, you need to spread at each level you're modifying. This can get verbose, which is why libraries like Immer exist to make immutable updates more ergonomic.
+
+In practice, teams often adopt immutability gradually, starting with the most critical state and expanding from there. The discipline pays off in reduced bugs and easier debugging.
+</Notes>
 </SlideLayout.Full>

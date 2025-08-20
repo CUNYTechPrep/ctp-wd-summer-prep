@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -26,4 +26,14 @@ function createCounter(start = 0) {
   - No need for classes or `this` keyword complications
 
 **For the exercise**: Create a goal tracker factory that manages progress privately while providing public methods for interaction.
+
+<Notes>
+This slide introduces the factory function pattern, which is one of the most practical applications of closures. The counter example here is simple but demonstrates all the key principles that scale up to complex applications.
+
+The private count variable is truly private - there's no way to access or modify it except through the provided methods. This is different from conventions in other patterns where privacy is suggested but not enforced. Each counter created by this factory is completely independent, with its own count variable living in its own closure.
+
+This pattern offers several advantages over class-based approaches: no 'this' binding issues, true privacy without special syntax, and the ability to create lightweight objects without prototype chains. It's particularly useful when you need many instances with simple behavior.
+
+The mention of "no this keyword complications" is important - closures access variables directly through scope, avoiding the common pitfalls of dynamic this binding that confuse many JavaScript developers. This makes the code more predictable and easier to reason about.
+</Notes>
 </SlideLayout.Full>

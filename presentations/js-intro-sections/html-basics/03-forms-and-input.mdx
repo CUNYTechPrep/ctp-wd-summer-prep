@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -67,4 +67,13 @@ document.getElementById('habitForm').addEventListener('submit', function(e) {
 ```
   </File>
 </CodeDisplay>
+<Notes>
+Forms are how users send data to your application. Every interactive website relies on forms - login screens, search boxes, comment sections, and checkout processes. Understanding form elements and their attributes is crucial for building usable interfaces.
+
+The form element is the container that groups related inputs. The id attribute allows JavaScript to easily select and handle form submission. Inside forms, every input should have a corresponding label. Labels aren't just text - they're clickable targets that focus their associated input, improving usability especially on mobile devices.
+
+Different input types serve different purposes. Text inputs are versatile but generic. Specialized types like email, tel, and date provide better mobile keyboards and built-in validation. The required attribute adds browser validation, though you should still validate on the server.
+
+Select elements create dropdowns for choosing from predefined options. Radio buttons allow single selection from a group (notice they share the same name attribute). Checkboxes allow multiple selections. The button element is superior to input type="submit" because it can contain HTML and is more flexible for styling. Each form element serves a specific purpose - choosing the right one improves user experience and accessibility.
+</Notes>
 </SlideLayout.Full>

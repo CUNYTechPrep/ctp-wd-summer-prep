@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -118,4 +118,13 @@ describe('Async Habit Tracking', () => {
     
   </Tests>
 </CodeDisplay>
+<Notes>
+This exercise demonstrates the evolution of async patterns through a practical example. We start with a callback-based function - the traditional approach that many older APIs still use. Notice how the callback pattern requires passing a function that will be called later with the result.
+
+The solution shows three important transformations. First, we convert the callback-based function to return a Promise. This is a common pattern when modernizing legacy code - wrap the callback in a Promise constructor, calling resolve with the successful result.
+
+Second, we show how async/await makes the code more readable. Instead of chaining .then() calls, we can write code that looks synchronous but handles asynchronous operations. The await keyword pauses execution until the Promise resolves.
+
+The final function demonstrates real-world async patterns: sequential operations where each step depends on the previous one. This is common in web applications - save data, then fetch the updated state to ensure consistency. The try/catch block provides clean error handling for the entire operation chain. This exercise helps students see that callbacks, Promises, and async/await are different syntaxes for the same underlying concept.
+</Notes>
 </SlideLayout.Full>

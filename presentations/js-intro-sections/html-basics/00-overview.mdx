@@ -1,13 +1,18 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
-<SlideLayout.VerticalImage
-  title="HTML Basics"
-  src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZXV2ZTJ3MXVpbGFiNzR2OXBpMTR5ZHBuanBmNGFxZ3J5M29mdjE3NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l3vRfNA1p0rvhMSvS/giphy.gif"
-  listItems={[
-    'HTML provides the structure of web pages',
-    'Elements, attributes, and content',
-    'Semantic HTML for better accessibility',
-    'Building blocks for the habit tracker'
-  ]}
-/>
+<SlideLayout.Full>
+ ## HTML Basics
+  <Image src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/HTML+Basics+-+visual+selection.svg"
+    height="calc(100% - 6rem)"
+  />
+  <Notes>
+  Welcome to HTML Basics! HTML, or HyperText Markup Language, is the foundation of every website. While CSS makes things beautiful and JavaScript makes them interactive, HTML provides the essential structure and content that everything else builds upon.
+
+  Think of building a website like building a house. HTML is the frame, walls, and rooms - the structural elements that define what goes where. Without a solid HTML foundation, your CSS and JavaScript have nothing to work with. This is why understanding HTML deeply is so important, even in an era of complex frameworks.
+
+  In this section, we'll explore HTML from the ground up. We'll start with document structure - how every HTML page is organized. Then we'll dive into essential elements for text, images, links, and more. We'll pay special attention to semantic HTML, which helps search engines and assistive technologies understand your content. Finally, we'll build practical examples including components for our habit tracker application.
+
+  By the end, you'll understand not just how to write HTML, but how to write meaningful, accessible HTML that serves as a solid foundation for modern web applications.
+  </Notes>
+</SlideLayout.Full>

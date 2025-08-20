@@ -1,10 +1,17 @@
-import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Notes } from 'spectacle'
 
 <SlideLayout.Full>
   ## Intro To JavaScript
   <FlexBox alignItems="center" justifyContent="center" flexDirection="column">
     <Image height="400px" width="400px" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnZ4MGx4YWR5djFmaXIza2dvaWNvMnlvcGVtOWw0cHJvY29iZTZqMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fuJPZBIIqzbt1kAYVc/giphy.gif" />
   </FlexBox>
+  <Notes>
+    Welcome to our JavaScript journey! JavaScript is the language that brings the web to life. What started as a simple scripting language for adding interactivity to web pages has evolved into one of the most versatile and widely-used programming languages in the world.
+    
+    In this introduction, we'll explore JavaScript's fascinating history, understand its unique role in web development, and see why it's become an essential skill for modern developers. Whether you're building interactive websites, server applications, mobile apps, or even desktop software, JavaScript has become the Swiss Army knife of programming languages.
+    
+    Get ready to dive into a language that's both beginner-friendly and incredibly powerful!
+  </Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
   ## What is JavaScript
@@ -12,10 +19,41 @@ import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
   - Originally created to make web pages interactive
   - Now runs everywhere: browsers, servers, mobile apps, IoT devices
   - It's the most popular programming language in the world
+  <Notes>
+    JavaScript is unique among programming languages. It's the only language that runs natively in web browsers, making it essential for front-end development. But its reach extends far beyond the browser.
+    
+    Key characteristics of JavaScript:
+    - Dynamic typing: Variables can hold any type of value
+    - Interpreted: No compilation step needed
+    - Event-driven: Responds to user interactions
+    - First-class functions: Functions can be passed around like any other value
+    - Prototype-based: Objects can inherit directly from other objects
+    
+    What makes JavaScript special is its ubiquity. Every device with a web browser can run JavaScript, making it one of the most accessible programming languages. Its flexibility allows it to adapt to many programming paradigms - functional, object-oriented, or procedural.
+    
+    According to Stack Overflow's developer survey, JavaScript has been the most popular programming language for over a decade, used by nearly 70% of developers worldwide.
+  </Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
   <Image src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/History+of+JavaScript+-+visual+selection.svg" width="100%" />
+  <Notes>
+    JavaScript has a fascinating history that explains many of its quirks and features.
+    
+    1995: Brendan Eich creates JavaScript in just 10 days at Netscape. Originally called Mocha, then LiveScript, it was renamed JavaScript to ride the popularity of Java (despite being unrelated).
+    
+    1997: JavaScript becomes an official standard (ECMAScript) to ensure consistency across browsers.
+    
+    2005: AJAX revolutionizes web development, allowing pages to update without full reloads. Google Maps and Gmail showcase JavaScript's potential.
+    
+    2009: Node.js brings JavaScript to the server, unifying front-end and back-end development.
+    
+    2015: ES6/ES2015 modernizes JavaScript with classes, arrow functions, promises, and more. Annual updates begin.
+    
+    Today: JavaScript powers everything from websites to mobile apps (React Native), desktop apps (Electron), and even machine learning (TensorFlow.js).
+    
+    Understanding this evolution helps explain why JavaScript has some unusual features - it had to maintain backward compatibility while evolving rapidly to meet modern needs.
+  </Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -33,4 +71,34 @@ import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
     }}
     src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/JavaScript+is+Everywhere+-+visual+selection.svg" />
   </FlexBox>
+  <Notes>
+    JavaScript's "write once, run anywhere" philosophy has made it incredibly versatile. Let's explore the JavaScript ecosystem:
+    
+    Frontend (Browsers):
+    - React, Vue, Angular for building user interfaces
+    - Vanilla JavaScript still powers millions of websites
+    - WebAssembly allows JavaScript to work alongside other languages
+    
+    Backend (Servers):
+    - Node.js runs JavaScript on servers
+    - Express, Fastify, and NestJS for building APIs
+    - Can handle millions of concurrent connections
+    
+    Mobile Development:
+    - React Native: Write once, deploy to iOS and Android
+    - Ionic: Hybrid mobile apps using web technologies
+    - Progressive Web Apps (PWAs): Web apps that feel native
+    
+    Desktop Applications:
+    - Electron powers VS Code, Discord, Slack, and more
+    - Tauri: Lighter alternative using system webviews
+    
+    Other Platforms:
+    - IoT devices with Johnny-Five
+    - Machine Learning with TensorFlow.js
+    - Game development with Phaser or Three.js
+    - Serverless functions on AWS Lambda, Vercel, etc.
+    
+    This ubiquity means learning JavaScript opens doors to virtually every area of software development!
+  </Notes>
 </SlideLayout.Full>

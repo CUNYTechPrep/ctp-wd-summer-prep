@@ -1,52 +1,78 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes, Image} from 'spectacle'
 
 <SlideLayout.Full>
 ## Accessibility and Usability
 
-Making the web work for everyone
+<Image height="calc(100% - 6em)" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Overview_+CSS+Design+Principles+-+visual+selection+(3).svg" />
+<Notes>
+Accessibility is about ensuring that everyone, regardless of ability, can use and understand your website. This includes people with visual, auditory, motor, or cognitive disabilities, as well as those using assistive technologies like screen readers or keyboard-only navigation.
+
+The impact is significant: roughly 15% of the world's population has some form of disability. When we build accessible websites, we're not just helping a small minority - we're ensuring our content reaches the widest possible audience. Plus, many accessibility improvements benefit everyone: captions help in noisy environments, good contrast helps in bright sunlight, and keyboard navigation helps power users.
+
+Accessibility is also increasingly a legal requirement. Many countries have laws requiring digital accessibility, and lawsuits for inaccessible websites are rising. But beyond compliance, it's simply the right thing to do. The web was designed to be universal, and our CSS should support that vision.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Color Contrast
 
-- Text should have at least 4.5:1 contrast ratio with background (AA standard)
-- Large text (18pt+) needs 3:1 contrast ratio
-- Use tools like WebAIM contrast checker to verify
-- Don't rely on color alone to convey information
+<Image height="calc(100% - 6em)" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Overview_+CSS+Design+Principles+-+visual+selection+(2).svg" />
+<Notes>
+Color contrast is one of the most common accessibility failures on the web. Low contrast text might look stylish, but it's unreadable for many users. The WCAG guidelines provide specific ratios based on extensive research.
+
+Tools make checking contrast easy. Chrome DevTools shows contrast ratios when you inspect text elements. Online tools like WebAIM's contrast checker let you test color combinations before implementing them. Many designers are surprised that their "subtle" gray text fails accessibility standards.
+
+The "don't rely on color alone" principle is crucial. If you show errors in red text only, colorblind users might miss them. Always combine color with other indicators: icons, text labels, or patterns. For example, show form errors with red text, an error icon, and clear error message text. This redundancy ensures your meaning comes across regardless of how users perceive color.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Keyboard Navigation
+ <Image height="calc(100% - 6rem)" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Overview_+CSS+Design+Principles+-+visual+selection+(5).svg" />
+<Notes>
+Keyboard navigation is how many users interact with the web - not just those with motor disabilities, but also power users who find it faster than reaching for the mouse. Every interactive element must be reachable and usable with just the keyboard.
 
-- All interactive elements must be keyboard accessible
-- Visible focus indicators (outline, border, or background change)
-- Logical tab order that follows visual flow
-- Skip links for repetitive navigation
+Focus indicators are the keyboard equivalent of hover states. That dotted outline you might be tempted to remove? It's essential for keyboard users to see where they are on the page. If you must style it differently, ensure your custom focus indicator is highly visible. The new :focus-visible pseudo-class lets you show focus indicators only when using the keyboard, not when clicking with a mouse.
+
+Tab order should follow the visual flow of your page. CSS positioning can create situations where the visual order doesn't match the DOM order, confusing keyboard users. Skip links let users jump past repetitive content like navigation menus - they're typically hidden until focused, appearing for keyboard users who need them.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Screen Reader Support
 
-- Use semantic HTML elements
-- Proper heading hierarchy (h1 → h2 → h3)
-- Alt text for images that convey information
-- ARIA labels for icon-only buttons
-- Hide decorative elements with `aria-hidden="true"`
+<Image height="calc(100% - 6rem)" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Overview_+CSS+Design+Principles+-+visual+selection+(6).svg" />
+<Notes>
+Screen readers convert visual interfaces into audio, reading content aloud for users who are blind or have low vision. Your CSS styling doesn't directly affect screen readers, but your HTML structure and ARIA attributes do.
+
+Semantic HTML is your foundation. A button styled to look like a link is still announced as a button. A div styled to look like a heading isn't recognized as one. Use the right HTML elements, then style them with CSS. This ensures your content makes sense when styling is stripped away.
+
+ARIA (Accessible Rich Internet Applications) attributes bridge gaps when semantic HTML isn't enough. Use aria-label for icon-only buttons so screen readers can announce their purpose. Hide purely decorative elements with aria-hidden="true" so they don't clutter the audio experience. But remember the first rule of ARIA: don't use ARIA if you can use semantic HTML instead.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Motion and Animation
 
-- Respect `prefers-reduced-motion` for users with vestibular disorders
-- Provide pause/stop controls for auto-playing content
-- Avoid flashing content (can trigger seizures)
+<Image height="calc(100% - 6rem)" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Overview_+CSS+Design+Principles+-+visual+selection+(8).svg" />
+<Notes>
+Motion can enhance user experience, but for some users, it causes problems. People with vestibular disorders can experience nausea or dizziness from parallax scrolling or large animations. The prefers-reduced-motion media query lets users indicate they want minimal animation.
+
+Implementing this is straightforward: wrap your animations in a media query that checks for prefers-reduced-motion: no-preference. This way, animations only play for users who haven't requested reduced motion. You can still indicate state changes - just use opacity or color changes instead of movement.
+
+Flashing content is particularly dangerous as it can trigger photosensitive seizures. The WCAG guidelines specify that content shouldn't flash more than three times per second. This is why strobe effects and rapid blinking are discouraged. If you must include potentially problematic content, provide clear warnings and allow users to opt in rather than forcing it on them.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Form Accessibility
 
-- Labels associated with inputs using `for` attribute
-- Error messages linked to fields with `aria-describedby`
-- Required fields marked with `required` attribute
-- Clear, descriptive error messages
+<Image height="calc(100% - 6rem)" src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Overview_+CSS+Design+Principles+-+visual+selection+(9).svg" />
+<Notes>
+Forms are often the most complex interactive elements on a page, and they're where accessibility issues compound. Every form control needs a label that clearly describes its purpose. The label should be programmatically associated using the for attribute, not just visually nearby.
+
+Error handling requires special attention. Color alone isn't sufficient - combine red borders with error icons and clear text messages. Use aria-describedby to associate error messages with their fields so screen readers announce them. The required attribute not only provides visual indicators but also semantic meaning for assistive technologies.
+
+Validation messages should be helpful, not just indicate failure. "Invalid email" is less helpful than "Email must include an @ symbol". Place error messages near their related fields, and consider using aria-live regions to announce errors as they occur. Good form accessibility reduces errors for all users and makes the submission process smoother for everyone.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -80,4 +80,13 @@ describe('Habit Card Structure', () => {
     
   </Tests>
 </CodeDisplay>
+<Notes>
+This exercise brings together HTML fundamentals to create a practical component. Students build a habit card that will later be styled with CSS and made interactive with JavaScript. The exercise teaches component thinking - creating reusable, well-structured HTML blocks.
+
+The starting code provides a basic structure, but students should enhance it with semantic HTML. The generic div container works, but article would be more semantic for self-contained content. The date in the small element should use the time element with a datetime attribute for machine readability.
+
+This exercise emphasizes that even simple components benefit from thoughtful HTML structure. Students learn to think ahead: How will CSS target these elements? What data attributes might JavaScript need? How can we make this accessible? Adding ARIA labels, ensuring keyboard accessibility, and using semantic elements sets a strong foundation.
+
+The habit card pattern appears throughout the course, showing how the same HTML structure can be progressively enhanced. First with CSS for visual design, then with JavaScript for interactivity, and finally integrated into larger applications. This iterative approach mirrors real development where components evolve while maintaining their core HTML structure.
+</Notes>
 </SlideLayout.Full>

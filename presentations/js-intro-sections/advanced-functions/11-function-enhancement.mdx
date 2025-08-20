@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -17,6 +17,16 @@ function withLogging(fn) {
 // Usage
 const loggedCalculator = withLogging(calculatePoints);
 ```
+
+<Notes>
+Function enhancement is a powerful technique for adding cross-cutting concerns like logging, timing, caching, or error handling to existing functions. The withLogging example demonstrates how we can wrap any function to add debugging output without touching the original code.
+
+Notice the use of rest parameters (...args) and spread syntax to preserve the original function's signature. This ensures our wrapper works with functions of any arity. The wrapper also preserves the return value, making it transparent to callers.
+
+This pattern is used extensively in production code. Middleware in Express, higher-order components in React, and decorators in TypeScript all follow this pattern. It's a way to achieve aspect-oriented programming in JavaScript - separating concerns like logging from business logic.
+
+The beauty is that enhancements can be combined. You could wrap a function with logging, then wrap that with timing, then wrap that with error handling, building up layers of functionality while keeping each concern separate and testable.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Function Enhancement Patterns
@@ -27,4 +37,14 @@ const loggedCalculator = withLogging(calculatePoints);
   - Each enhancement is testable in isolation
 
 **For the exercise**: Build a points system using function composition where each enhancement is a separate, reusable function.
+
+<Notes>
+This slide introduces the practical application of function enhancement for business logic. In real applications, we often need to layer behaviors - a base calculation might need bonuses during special events, caps to prevent gaming, or multipliers for premium users.
+
+By building each enhancement as a separate function, we achieve several benefits: Each enhancement can be tested in isolation, making bugs easier to find and fix. We can mix and match enhancements for different scenarios without code duplication. The business logic becomes self-documenting - each function has a clear, single purpose.
+
+This approach is particularly valuable in systems with complex rules that change frequently. Instead of nested if statements and tangled logic, we compose simple functions into sophisticated behaviors. This is how many game systems, financial calculators, and rule engines are built.
+
+The exercise challenges students to think in terms of composition rather than modification, a key shift in functional programming mindset.
+</Notes>
 </SlideLayout.Full>

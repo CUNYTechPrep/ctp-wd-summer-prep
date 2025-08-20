@@ -1,25 +1,27 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Database Layer - Data Persistence
 
-<FlexBox justifyContent="space-between" alignItems="flex-start">
-  <Box width="48%">
-    **SQL Databases:**
-    - PostgreSQL
-    - MySQL
-    - SQLite
-    - Structured data with relationships
-  </Box>
-  <Box width="48%">
-    **NoSQL Databases:**
-    - MongoDB
-    - Firebase
-    - DynamoDB
-    - Flexible document storage
-  </Box>
+<FlexBox justifyContent="space-around" alignItems="flex-start">
+  <Image 
+    src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Full+Stack+Web+Development+-+visual+selection+(7).svg"
+    height="calc(100% - 6rem)"
+  />
 </FlexBox>
+
+<Notes>
+The database layer is where your application's data lives permanently. Choosing between SQL and NoSQL databases is one of the first architectural decisions in any project, and understanding their differences is crucial.
+
+SQL databases like PostgreSQL and MySQL store data in tables with rows and columns, like spreadsheets. They excel at maintaining relationships between data - a user has many habits, each habit belongs to one user. This relational model enforces data integrity through constraints and foreign keys.
+
+NoSQL databases like MongoDB store data as documents, similar to JSON objects. They're more flexible - you can add fields without modifying a schema. This flexibility makes them great for rapidly evolving applications or data with varying structures.
+
+The choice isn't about which is "better" but which fits your needs. SQL databases are ideal when you need strong consistency, complex queries, and well-defined relationships. NoSQL shines when you need flexibility, horizontal scaling, or are dealing with unstructured data.
+
+Many modern applications use both, choosing the right tool for each job - SQL for user accounts and transactions, NoSQL for activity logs or user-generated content.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -46,6 +48,18 @@ CREATE TABLE habits (
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+This SQL schema example demonstrates fundamental database design principles. We're creating two related tables that could support a habit-tracking application.
+
+The users table showcases several important concepts. The id field uses SERIAL (auto-incrementing integer) as a primary key, ensuring each user has a unique identifier. The UNIQUE constraints on username and email prevent duplicates, maintaining data integrity at the database level.
+
+The habits table demonstrates relationships through foreign keys. The user_id field references the users table, establishing that each habit belongs to a specific user. This relationship is enforced by the database - you can't create a habit for a non-existent user.
+
+The TIMESTAMP DEFAULT NOW() pattern automatically records when records are created, essential for auditing and features like "recently added" or activity feeds.
+
+This schema design follows normalization principles, avoiding data duplication and maintaining referential integrity. It's a pattern you'll see repeated across countless applications.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -62,4 +76,16 @@ WHERE u.id = 1;
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+This SQL query demonstrates the power of relational databases through a JOIN operation. We're retrieving habits along with the username of the person who created them, combining data from two tables into a single result.
+
+The JOIN clause connects the habits and users tables through their relationship (h.user_id = u.id). This allows us to fetch related data efficiently in a single query rather than making multiple requests.
+
+The WHERE clause filters results to a specific user. In a real application, this ID would come from the authenticated user's session, ensuring people only see their own data.
+
+This type of query is fundamental to most web applications. Whether you're showing a user's posts, orders, or any other related data, you'll use similar JOIN operations. Understanding how to write efficient queries that fetch exactly the data you need is a crucial backend skill.
+
+The beauty of SQL is its declarative nature - we describe what data we want, not how to fetch it. The database engine optimizes the execution plan for efficiency.
+</Notes>
 </SlideLayout.Full>

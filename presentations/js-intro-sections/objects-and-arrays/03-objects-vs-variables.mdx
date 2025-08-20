@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -19,4 +19,17 @@ const habit = {
   isActive: true
 };
 ```
+<Notes>
+This slide demonstrates a fundamental shift in how we think about data organization. Let's examine why this difference matters so much.
+
+With separate variables, we have four independent pieces of data floating around our program. While they're logically related - they all describe the same habit - there's nothing in the code that enforces this relationship. We could accidentally modify habitName without updating habitCategory, or forget to reset habitStreak when we meant to reset the entire habit. The connection exists only in our minds, not in the code.
+
+The object approach changes everything. Now we have one cohesive entity that represents a habit. All related data lives together in a single structure. This isn't just about organization - it's about creating a mental model that matches reality. In the real world, a habit has properties like name and category. In our code, the habit object has those same properties.
+
+Notice the consistency in property access: habit.name, habit.category, habit.streak. This dot notation creates a clear relationship - we're accessing properties of the habit. Compare this to separate variables where the relationship is only implied by naming conventions.
+
+This pattern scales beautifully. With separate variables, adding a new property means creating another variable and remembering to include it in all relevant functions. With objects, you add one property to the structure, and all code that works with habit objects automatically has access to it.
+
+The object approach also eliminates a common source of bugs: parameter mismatch. Instead of passing four separate parameters to functions, you pass one object. You can't accidentally swap the order of name and category because they're accessed by name, not position.
+</Notes>
 </SlideLayout.Full>

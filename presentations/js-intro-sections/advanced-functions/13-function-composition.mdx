@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -31,4 +31,14 @@ const result = processHabit({ name: "Exercise", completions: 5 });
     
   </File>
 </CodeDisplay>
+
+<Notes>
+Function composition is the heart of functional programming - combining simple functions to build complex behaviors. This slide shows two composition utilities: compose and pipe, which differ only in the order they apply functions.
+
+Compose applies functions right-to-left, matching mathematical function composition. If you have f(g(h(x))), compose lets you write compose(f, g, h). Pipe applies left-to-right, which often feels more natural when thinking about data transformations.
+
+The habit processing example demonstrates real-world composition. Each function does one thing: add a timestamp, calculate points, or add streak data. By composing them, we create a processing pipeline that's easy to understand, modify, and test.
+
+This pattern scales beautifully. In production applications, you might compose dozens of small functions to handle complex transformations. Each function remains simple and focused, but their composition can handle sophisticated business logic. This is how libraries like Ramda and Lodash/fp work, and it's a pattern you'll see in data processing pipelines, middleware stacks, and functional reactive programming.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -45,4 +45,15 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 ```
   </File>
 </CodeDisplay>
+<Notes>
+These essential HTML elements form the vocabulary of web content. Each element has semantic meaning that goes beyond its visual appearance. Understanding when and how to use each element is fundamental to writing good HTML.
+
+Headings (h1 through h6) create document outline and hierarchy. Use them in order - don't skip from h1 to h3. Screen readers use headings for navigation, and search engines use them to understand content structure. The h1 should describe the page's main topic, with subsequent headings organizing subtopics.
+
+Text formatting elements like strong and em have semantic meaning. Strong indicates importance (not just bold styling), while em indicates emphasis (not just italics). This distinction matters for screen readers, which may change tone or pace to convey these meanings.
+
+Lists organize related items. Use ul (unordered lists) when order doesn't matter, like ingredients or features. Use ol (ordered lists) when sequence is important, like steps in a recipe or ranked items. Proper list markup helps assistive technologies announce the number of items and current position.
+
+Links and images are the web's superpowers. Links connect pages and create navigation. Always use descriptive link text - "click here" tells users nothing. Images need alt attributes for accessibility - describe what the image conveys, not just what it shows.
+</Notes>
 </SlideLayout.Full>

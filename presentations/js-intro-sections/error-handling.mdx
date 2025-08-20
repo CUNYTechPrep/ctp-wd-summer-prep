@@ -1,10 +1,18 @@
-import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## ⚠️ Error Handling
 
 Building Robust JavaScript Applications
+
+<Notes>
+Error Handling is one of the most critical topics for building production-ready applications. Today we'll cover everything from basic try/catch blocks to creating sophisticated error handling systems.
+
+Error handling is often overlooked by beginners, but it's what separates amateur code from professional applications. In our habit tracker context, proper error handling means the difference between an app that crashes when users enter unexpected data and one that gracefully guides them through corrections.
+
+We'll start with the fundamentals and build up to advanced patterns that you'll use in real-world applications. Pay special attention to the examples - they're all designed around scenarios you'll encounter when building our habit tracking application.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -14,6 +22,20 @@ Building Robust JavaScript Applications
 - Try/catch/finally blocks
 - Creating custom error types
 - Error recovery strategies
+
+<Notes>
+This section is all about making your code resilient - meaning it can handle unexpected situations gracefully without crashing or losing user data.
+
+First, we'll understand what errors actually are in JavaScript and why they occur. Many students think errors are bad, but they're actually helpful signals that something needs attention.
+
+Then we'll dive deep into try/catch/finally blocks - the fundamental error handling mechanism in JavaScript. The 'finally' block is often misunderstood, so we'll spend time on when and why to use it.
+
+Custom error types are where things get really powerful. Instead of generic Error objects, we'll create specific error classes that make debugging easier and allow for targeted error handling.
+
+Finally, error recovery strategies - this is about building applications that can adapt when things go wrong, providing fallback behaviors and maintaining functionality even when some features fail.
+
+Think about your habit tracker - what happens if the database is unavailable? A resilient app saves to local storage instead. What if the user enters invalid data? A well-designed app guides them to fix it rather than just crashing.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -25,6 +47,22 @@ Common errors in applications:
 - Storage quota exceeded
 - Missing or corrupted data
 - API rate limits
+
+<Notes>
+Let's talk about why error handling is absolutely critical. These aren't theoretical problems - these are real issues that every application faces in production.
+
+Invalid user input is probably the most common error you'll encounter. Users will enter text where you expect numbers, leave required fields empty, or input data in unexpected formats. In our habit tracker, someone might try to create a habit with an empty name or set a target of negative days.
+
+Network failures happen constantly - users lose WiFi, servers go down, or requests timeout. Your habit tracker needs to handle these gracefully, perhaps by saving data locally until the connection is restored.
+
+Storage quota exceeded is increasingly common as web apps store more data locally. Browser storage limits vary, and users on older devices might hit these limits quickly.
+
+Missing or corrupted data can occur due to browser crashes, power failures, or storage corruption. Your app should detect this and either recover or guide the user through data restoration.
+
+API rate limits are a fact of life when integrating with third-party services. If your habit tracker syncs with a fitness API, you need to handle cases where you've made too many requests.
+
+Without proper error handling, any of these scenarios can crash your application and frustrate users. With good error handling, these become minor inconveniences that your app handles smoothly.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -41,6 +79,20 @@ try {
   showMessage("Invalid data format");
 }
 ```
+
+<Notes>
+This simple example perfectly illustrates the difference between fragile and robust code. Let's break this down:
+
+Without error handling, if a user provides malformed JSON - maybe they forgot a closing brace or used single quotes instead of double quotes - JSON.parse() throws an exception that crashes your entire application. The user sees a cryptic error message or, worse, a blank screen.
+
+With error handling, the same malformed input is caught gracefully. Instead of crashing, your application shows a helpful message like "Invalid data format" and continues running. The user can correct their input and try again.
+
+In the context of our habit tracker, imagine importing habit data from a file. Without error handling, one malformed entry crashes the entire import process. With error handling, you can skip the problematic entry, log it for review, and successfully import the rest of the data.
+
+This is a fundamental shift in mindset - from writing code that works when everything goes right, to writing code that works even when things go wrong. The second approach is what professional developers do.
+
+Notice that the error handling version doesn't just swallow the error - it provides feedback to the user. This is crucial: errors should be handled, not hidden.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -77,6 +129,26 @@ function saveHabitData(habitData) {
     
   </File>
 </CodeDisplay>
+
+<Notes>
+Here's the complete try/catch/finally structure in action with a realistic habit tracker example. Let's walk through each section carefully:
+
+The TRY block contains all the risky operations - opening files, parsing JSON, writing data. Any of these operations could fail for various reasons: file doesn't exist, invalid JSON, disk full, permissions issues, etc.
+
+The CATCH block handles any errors that occur in the try block. Notice we're doing two things: logging the error for developers (console.error) and returning a meaningful result (false) to indicate failure. This allows the calling code to respond appropriately.
+
+The FINALLY block is crucial and often misunderstood. It runs regardless of whether the try block succeeds or the catch block is executed. This makes it perfect for cleanup operations like closing files, releasing resources, or hiding loading spinners.
+
+In this example, we declare the file variable outside the try block so it's accessible in the finally block. This is a common pattern when you need to clean up resources.
+
+Key teaching points:
+1. The finally block always runs - even if there's a return statement in try or catch
+2. Use finally for cleanup, not for regular logic
+3. Always handle errors meaningfully - don't just swallow them
+4. Return consistent types from your functions (here, always boolean)
+
+This pattern is fundamental to robust file operations, database connections, and any other resource management in JavaScript.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -105,6 +177,22 @@ throw new Error("Habit name is required");
     
   </File>
 </CodeDisplay>
+
+<Notes>
+Understanding the different types of errors in JavaScript is crucial for effective debugging and error handling. Let's examine each type:
+
+SYNTAX ERRORS occur when JavaScript can't parse your code. These are caught at compile time, before your code even runs. The commented example shows a missing closing brace - this would prevent the entire file from loading. In development, your editor and tools usually catch these, but they can slip through in dynamically generated code.
+
+REFERENCE ERRORS happen when you try to use a variable that doesn't exist. This is extremely common with typos in variable names or forgetting to import modules. In our habit tracker, this might happen if you reference 'habitData' but declared 'habitDatas'.
+
+TYPE ERRORS occur when you try to perform an operation on a value of the wrong type. The example tries to call forEach on a number, but forEach only exists on arrays. In habit tracking, this might happen if you expect an array of habits but receive a single habit object instead.
+
+RANGE ERRORS happen when a numeric value is outside the acceptable range. Creating an array with negative length is impossible. In our context, this might occur when calculating date ranges or habit streaks with invalid inputs.
+
+CUSTOM ERRORS are ones you create yourself using the Error constructor or custom error classes. These are powerful for application-specific validation and business logic errors.
+
+Each error type provides different information and might require different handling strategies. TypeError suggests a data structure problem, RangeError suggests invalid user input, and ReferenceError suggests a coding mistake.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -129,6 +217,29 @@ try {
     
   </File>
 </CodeDisplay>
+
+<Notes>
+This is the fundamental pattern you'll use constantly in web applications. Let's break down this habit tracker example to understand each component:
+
+The TRY block contains the complete workflow: create the habit object, save it to the database, and update the user interface. This represents the "happy path" - what should happen when everything works correctly.
+
+Each of these operations could fail for different reasons:
+- createHabit() might fail due to validation errors (missing name, invalid data)
+- saveToDatabase() might fail due to network issues or server problems
+- updateUI() might fail due to DOM manipulation errors or missing elements
+
+The CATCH block handles all these potential failures with a two-pronged approach:
+1. Log the technical error for developers (console.error with the actual error message)
+2. Show a user-friendly message that doesn't expose technical details
+
+This separation is crucial - developers need detailed error information for debugging, but users need simple, actionable messages.
+
+The FINALLY block ensures the loading spinner is hidden regardless of success or failure. This is a common pattern - always clean up UI state, close connections, or release resources.
+
+Common mistake: Don't put business logic in the finally block. It's for cleanup only.
+
+Another key point: This pattern handles all three operations as a unit. If any step fails, the entire operation is considered failed, and the user is notified accordingly.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -153,6 +264,28 @@ function createHabit(data) {
     
   </File>
 </CodeDisplay>
+
+<Notes>
+Throwing your own errors is a powerful technique for creating robust, self-documenting code. This example shows proper input validation for our habit creation function.
+
+The first validation checks for the presence of a habit name. Using throw new Error() immediately stops execution and passes a clear message about what went wrong. This is much better than returning null or undefined, which could cause confusing errors later.
+
+The second validation demonstrates using RangeError specifically for numeric range validation. This is more semantic than a generic Error - it tells developers exactly what type of problem occurred.
+
+Key principles for throwing errors:
+
+1. **Fail fast** - Validate inputs at the beginning of functions rather than halfway through processing
+2. **Use descriptive messages** - "Habit name is required" is much better than "Invalid input"
+3. **Choose appropriate error types** - RangeError for numeric ranges, TypeError for wrong types, generic Error for business logic
+4. **Throw early, catch late** - Let errors bubble up to where they can be handled meaningfully
+
+In the habit tracker context, this validation ensures that:
+- No habits are created without names (which would break the UI)
+- Target days are realistic (preventing infinite loops or negative progress)
+- The application fails gracefully with clear error messages
+
+Best practice: Always validate inputs in functions that create or modify important data structures. This prevents corrupted data from propagating through your application.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -169,6 +302,27 @@ class AppError extends Error {
   }
 }
 ```
+
+<Notes>
+Custom error classes are where error handling becomes truly powerful. This is the foundation for building sophisticated error handling systems that can distinguish between different types of failures.
+
+The AppError base class extends the built-in Error class, inheriting all its functionality while adding our own enhancements. The key line is `this.name = this.constructor.name` - this automatically sets the error name to the class name, so HabitValidationError instances will have name "HabitValidationError".
+
+Why create a base class instead of extending Error directly?
+1. **Consistency** - All your application errors share common behavior
+2. **Easy identification** - You can check `if (error instanceof AppError)` to distinguish your errors from system errors
+3. **Future extensibility** - You can add common properties or methods to all your errors
+
+In our habit tracker, this becomes the foundation for:
+- ValidationError for form input problems
+- StorageError for database/localStorage issues
+- NetworkError for API communication failures
+- AuthError for authentication problems
+
+Each can have specific properties and handling logic while sharing the common AppError foundation.
+
+This pattern is used by major frameworks and libraries - it's a professional approach to error handling that makes debugging and maintenance much easier.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -189,6 +343,34 @@ class NetworkError extends AppError {
   }
 }
 ```
+
+<Notes>
+Now we're building specific error types that extend our base AppError class. Each type carries additional context that helps with both debugging and user experience.
+
+ValidationError includes a 'field' property that identifies exactly which form field caused the problem. This is incredibly useful for:
+- Highlighting the problematic field in the UI
+- Showing field-specific error messages
+- Logging which validations fail most often
+
+For example: `new ValidationError("Must be between 1 and 365 days", "targetDays")` tells us both what went wrong and where.
+
+NetworkError includes a 'statusCode' property for HTTP errors. This allows different handling for different types of network failures:
+- 400 errors (client mistakes) might show validation messages
+- 401 errors (unauthorized) might redirect to login
+- 500 errors (server problems) might trigger retry logic
+- 503 errors (service unavailable) might show maintenance messages
+
+Best practices for custom error properties:
+1. **Keep them simple** - primitive values are easier to work with than complex objects
+2. **Make them meaningful** - properties should help with either debugging or user experience
+3. **Document them** - other developers need to know what properties are available
+
+In our habit tracker, you might create errors like:
+- `new ValidationError("Habit name cannot be empty", "name")`
+- `new NetworkError("Failed to sync habits", 503)`
+
+This structured approach makes error handling predictable and maintainable.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -198,6 +380,26 @@ class NetworkError extends AppError {
 - Can include additional context (field names, error codes)
 - Improved debugging and logging
 - Better user experience with specific messages
+
+<Notes>
+Let's discuss why custom errors are worth the extra effort - the benefits are substantial for any serious application.
+
+**Easier to handle different error types**: Instead of parsing error messages or using magic strings, you can use instanceof checks. This makes your error handling code more reliable and less brittle. Compare `if (error instanceof ValidationError)` to `if (error.message.includes('validation'))`.
+
+**Additional context**: Custom properties like field names and error codes provide structured data for both debugging and user interface improvements. Your error handling code can access error.field to highlight the correct form field, or error.statusCode to determine retry strategies.
+
+**Improved debugging and logging**: When errors include structured data, your logs become much more useful. Instead of "Error: Something went wrong", you get "ValidationError in field 'targetDays': Must be between 1 and 365". This makes production debugging significantly easier.
+
+**Better user experience**: With specific error types and additional context, you can provide targeted, helpful error messages. ValidationError for the 'email' field can show "Please enter a valid email address" right next to the email input, while NetworkError can show "Connection lost - changes saved locally" with a retry button.
+
+In our habit tracker, this translates to:
+- Form validation that highlights exactly which fields need attention
+- Network errors that offer appropriate recovery options
+- Storage errors that suggest alternative saving methods
+- Clear, actionable error messages instead of cryptic technical details
+
+The investment in custom error classes pays dividends in maintenance time saved and user satisfaction gained.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -221,6 +423,31 @@ function createHabit(data) {
   return new Habit(data);
 }
 ```
+
+<Notes>
+Defensive programming is about assuming that anything that can go wrong will go wrong, and coding accordingly. This function demonstrates comprehensive input validation for our habit creation process.
+
+Let's examine each validation step:
+
+**First check**: Ensures we received actual data and it's an object. This prevents errors if someone passes null, undefined, a string, or any other invalid type. The `typeof data !== 'object'` check catches primitive values, but remember that arrays are also objects in JavaScript - you might need additional checks for that.
+
+**Second check**: Validates the habit name exists and isn't just whitespace. The `data.name.trim() === ''` catches names that are only spaces, tabs, or other whitespace characters. This prevents habits with effectively empty names that would break the UI.
+
+**Third check**: Validates targetDays if it's provided. Note the `data.targetDays &&` - this makes the field optional. If it's provided, it must be within a reasonable range. The range 1-365 prevents both negative values and unrealistic goals.
+
+Key principles demonstrated:
+1. **Validate early** - Check inputs before any processing
+2. **Be specific** - Each validation addresses a particular failure mode
+3. **Use appropriate error types** - RangeError for numeric ranges, generic Error for business rules
+4. **Handle optional fields carefully** - Check existence before validation
+
+Common mistakes to avoid:
+- Don't just check for truthy values - empty strings are falsy but might be valid in some contexts
+- Don't forget to trim strings - users often accidentally add spaces
+- Don't validate the same thing multiple times - be systematic
+
+This defensive approach prevents corrupted data from entering your system and provides clear feedback when validation fails.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -231,6 +458,20 @@ Handle different error types specifically:
 - Network errors → Retry or show offline mode
 - Permission errors → Redirect to login
 - Unknown errors → Generic fallback
+
+<Notes>
+Error recovery patterns are what separate good applications from great ones. Instead of just showing error messages, we provide pathways for users to resolve problems and continue using the application.
+
+**Validation errors → Show form feedback**: When users enter invalid data, highlight the problematic fields and provide specific guidance. Don't just say "Invalid input" - say "Email address must contain @ symbol" and highlight the email field. In our habit tracker, if someone enters a negative target, show "Target days must be positive" right next to that field.
+
+**Network errors → Retry or show offline mode**: Network failures are temporary and recoverable. Offer a "Try Again" button for failed requests. For our habit tracker, if syncing fails, save data locally and show "Saved locally - will sync when connection is restored." Consider implementing automatic retry with exponential backoff for transient failures.
+
+**Permission errors → Redirect to login**: Authentication failures usually mean the user's session has expired. Instead of showing a confusing error, automatically redirect to the login page or show a "Please log in again" modal. Preserve their work when possible - save form data to restore after login.
+
+**Unknown errors → Generic fallback**: When you encounter an error you don't recognize, provide a safe fallback experience. This might mean disabling certain features, showing cached data, or providing alternative workflows. The key is failing gracefully rather than breaking completely.
+
+Remember: Error recovery is about maintaining user trust. Users will forgive occasional errors if your application helps them resolve the problem quickly and doesn't lose their work.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -250,6 +491,34 @@ try {
   }
 }
 ```
+
+<Notes>
+This is the payoff for creating custom error classes - sophisticated error handling that provides targeted responses to different failure modes.
+
+Let's walk through each branch of this error handling:
+
+**Success case**: When everything works, show a clear success message. Users need confirmation that their action completed successfully. "Habit saved successfully!" is much better than no feedback at all.
+
+**ValidationError handling**: Use the error's field property to highlight the specific problematic field and show the exact validation message. This creates a smooth user experience where form errors feel like helpful guidance rather than roadblocks.
+
+**NetworkError handling**: Offer a retry mechanism for network failures. These are often temporary, so giving users a way to try again without losing their work is crucial. You might also save the data locally and sync it later.
+
+**Generic error handling**: For unknown errors, provide a safe fallback that doesn't expose technical details but still acknowledges the problem. "Something went wrong" is better than a cryptic stack trace.
+
+Best practices demonstrated:
+1. **Order matters** - Check specific error types before generic ones
+2. **Use instanceof** - More reliable than string matching
+3. **Provide context** - Use error properties (like field) for better UX
+4. **Always handle the unknown** - Have a fallback for unexpected errors
+
+In a production habit tracker, you might also:
+- Log different error types to different monitoring systems
+- Implement different retry strategies based on error type
+- Save user data locally when cloud sync fails
+- Show different UI states (offline mode, validation errors, etc.)
+
+This pattern scales well - you can add new error types and handling logic without changing existing code.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -259,6 +528,29 @@ Provide alternatives when operations fail:
 - Save to local storage if cloud sync fails
 - Show cached data if network is unavailable
 - Gracefully degrade features
+
+<Notes>
+Fallback behaviors are about designing applications that continue to function even when some components fail. This is resilience engineering - building systems that degrade gracefully rather than failing catastrophically.
+
+**Save to local storage if cloud sync fails**: This is crucial for data integrity. If your habit tracker can't sync to the cloud, save changes locally and retry later. Show users a status like "Saved locally - will sync when connection is restored." This prevents data loss and maintains user trust. Implement a background sync process that automatically uploads local changes when connectivity returns.
+
+**Show cached data if network is unavailable**: Rather than showing empty screens or error messages, display the last known good data. Add a subtle indicator like "Showing offline data" so users understand the state. In our habit tracker, show yesterday's habits and progress even if today's sync failed. This maintains functionality and user engagement.
+
+**Gracefully degrade features**: When advanced features fail, fall back to basic functionality. If habit analytics can't load due to a service outage, disable the analytics section but keep habit logging working. If cloud sync is down, disable sharing features but maintain local tracking. The core functionality should never depend on optional features.
+
+Implementation strategies:
+1. **Design with offline-first mindset** - Assume network failures will happen
+2. **Cache aggressively** - Store recent data locally for quick fallback
+3. **Prioritize core features** - Identify which features are essential vs. nice-to-have
+4. **Communicate status clearly** - Users should understand when they're in fallback mode
+
+Examples in our habit tracker:
+- Primary: Log habit completion (works offline)
+- Secondary: View progress charts (cached data if offline)
+- Tertiary: Social sharing (disabled if network fails)
+
+This approach keeps users productive even when things go wrong.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -278,6 +570,39 @@ function handleError(error, context) {
   }
 }
 ```
+
+<Notes>
+Error logging is crucial for maintaining production applications - you need to know what's going wrong in order to fix it. This function demonstrates the dual responsibility of error handling: serving developers and users.
+
+**Developer logging**: The console.error provides immediate debugging information during development. In production, this feeds into browser dev tools and helps with local debugging. The errorMonitoring.reportError sends structured error data to services like Sentry, LogRocket, or Bugsnag for production monitoring.
+
+Key information to log:
+- Error type and message
+- Stack trace for debugging
+- Context about what the user was doing
+- User session information (anonymized)
+- Browser and device information
+- Timestamp and URL
+
+**User communication**: The second part handles user-facing messages. Notice how different error types get different messages:
+- ValidationError gets specific guidance ("check your input")
+- Unknown errors get generic but reassuring messages ("technical difficulties")
+
+Best practices for error logging:
+1. **Log early and often** - Capture errors at multiple levels
+2. **Include context** - What was the user trying to do?
+3. **Sanitize sensitive data** - Don't log passwords or personal information
+4. **Use structured logging** - JSON format makes analysis easier
+5. **Set up alerts** - Get notified of critical errors immediately
+
+In our habit tracker context:
+- Log validation errors to identify common user mistakes
+- Log network errors to identify service reliability issues
+- Log storage errors to catch browser compatibility problems
+- Track error trends to prioritize fixes
+
+Good error logging turns production issues from mysteries into actionable bug reports.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -375,6 +700,37 @@ describe('Custom Error Classes', () => {
     
   </Tests>
 </CodeDisplay>
+<Notes>
+  This exercise teaches students how to create a hierarchical error system for their applications. It's a practical skill that separates junior developers from more experienced ones.
+  
+  **Why custom error classes?**
+  
+  Generic Error objects don't provide enough context. In a real application, different types of errors need different handling. By creating specific error classes, we can:
+  - Catch and handle specific error types differently
+  - Add contextual properties (like which field failed validation)
+  - Provide better debugging information
+  - Make our error handling more maintainable
+  
+  **The hierarchy pattern:**
+  1. **HabitError** - Base class for all habit-related errors
+  2. **HabitValidationError** - For invalid user input (includes which field failed)
+  3. **HabitStorageError** - For database/localStorage issues (includes operation type)
+  4. **HabitSyncError** - For network/API failures (includes status codes)
+  
+  **Key implementation details:**
+  - Always call `super(message)` to initialize the parent Error class
+  - Set a descriptive `name` property for easier debugging
+  - Add contextual properties specific to each error type
+  - Extend from your base error class for consistency
+  
+  **Common student mistakes:**
+  - Forgetting to call `super()` in the constructor
+  - Not setting the `name` property
+  - Creating too many error classes (keep it focused)
+  - Not adding useful contextual properties
+  
+  The tests verify that each error class has the correct inheritance chain and includes the expected properties. This ensures students understand both the syntax and the purpose of custom errors.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>

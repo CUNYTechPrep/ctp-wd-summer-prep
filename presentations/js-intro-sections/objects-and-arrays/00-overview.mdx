@@ -1,9 +1,18 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Objects and Arrays
 ### The Foundation of Data Structures
+<Notes>
+Welcome to Objects and Arrays - the fundamental data structures that power JavaScript applications. These aren't just programming concepts; they're the tools that let us model real-world complexity in our code.
+
+Think about any application you use daily. Behind the scenes, it's managing collections of related data: user profiles, messages, products, or in our case, habits. Objects and arrays are how we organize this data in a way that's both efficient for computers and intuitive for developers.
+
+In this section, we'll explore how objects group related properties and behaviors together, creating mini-models of real things. We'll see how arrays let us work with lists of data, transforming and analyzing collections efficiently. Most importantly, we'll learn when to use each structure and how they work together to create powerful applications.
+
+By the end, you'll think in terms of data structures, seeing how to break down complex problems into organized, manageable pieces. This mental shift from individual variables to structured data is a key milestone in becoming a proficient programmer.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -12,10 +21,28 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
   - Store related data and functionality together
   - Foundation of object-oriented programming in JS
   - Similar to dictionaries, maps, or hash tables
+<Notes>
+Objects are JavaScript's way of grouping related data and functionality together. If variables are like labeled boxes holding single values, objects are like filing cabinets with multiple labeled drawers, each containing related information.
+
+The key-value pair structure is fundamental. Keys (also called properties) are strings that name each piece of data. Values can be anything: numbers, strings, booleans, even other objects or functions. This flexibility makes objects incredibly powerful for modeling complex data.
+
+If you've programmed in other languages, you might recognize objects as similar to dictionaries in Python, hash maps in Java, or associative arrays in PHP. The concept is universal: a data structure that lets you look up values by name rather than by position.
+
+Objects excel at representing entities - things with multiple attributes and behaviors. A user has a name, email, and preferences. A product has a price, description, and inventory count. This grouping makes code more organized and intuitive. Instead of separate variables like userName, userEmail, and userAge, you have one user object containing all related data.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
   ## Real-world analogy: 
   A habit tracker app is like an object
   - Properties: name, streak, category
    Methods: complete(), reset(), getStatus()
+<Notes>
+This real-world analogy perfectly illustrates why objects are so powerful. A habit in your tracker app isn't just data - it's an entity with both characteristics (properties) and behaviors (methods).
+
+Properties store the state: the habit's name tells us what it is, the streak tracks progress, and the category helps with organization. These properties work together to represent the habit's current state. Change any property, and you've changed the habit's state.
+
+Methods represent actions the habit can perform. The complete() method might increment the streak and update the last completion date. The reset() method could clear the streak back to zero. The getStatus() method might analyze the current state and return whether the habit is active, completed today, or overdue.
+
+This combination of data and behavior in one package is the essence of object-oriented thinking. Instead of having separate data variables and functions that operate on them, objects bundle everything together. This makes code more intuitive - habit.complete() clearly shows that we're completing that specific habit. It's like the difference between "complete the habit" (object-oriented) and "run the complete function with the habit data" (procedural).
+</Notes>
 </SlideLayout.Full>

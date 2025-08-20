@@ -1,10 +1,20 @@
-import { SlideLayout, Image, FlexBox, Box} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Common JavaScript Pitfalls
 
 Understanding and avoiding common mistakes
+
+<Notes>
+Welcome to one of the most practical sessions in our JavaScript course - Common Pitfalls. Every JavaScript developer, regardless of experience level, has fallen into these traps. The key to becoming a better developer is learning to recognize and avoid them before they cause problems in production.
+
+These aren't just academic exercises - these are real issues that crash applications, corrupt data, and frustrate users. In our habit tracker context, understanding these pitfalls means the difference between an app that works reliably and one that has mysterious bugs that are hard to reproduce and fix.
+
+We'll cover five major categories: equality confusion, floating point precision issues, reference vs value problems, the notorious 'this' binding issues, and the differences between arrow and regular functions. Each of these has bitten countless developers, but once you understand them, you'll write much more reliable code.
+
+Pay close attention to the examples - they're designed to show not just what goes wrong, but why it goes wrong and how to fix it. Most importantly, we'll learn defensive programming techniques to avoid these issues entirely.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -27,6 +37,20 @@ console.log(null === undefined);  // false
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+Equality confusion is probably the #1 source of bugs for new JavaScript developers. The root cause is JavaScript's type coercion system - the language tries to be helpful by converting types automatically, but this often leads to unexpected results.
+
+Let's break down what's happening: When you use loose equality (==), JavaScript performs type coercion before comparison. So `0 == false` becomes `0 == 0` (false coerces to 0), which is true. But `0 === false` compares both value and type - 0 is a number, false is a boolean, so it's false.
+
+The string "5" compared to number 5 with == returns true because JavaScript converts the string to a number first. With ===, no conversion happens, so string "5" is not the same as number 5.
+
+The null/undefined case is particularly tricky. These are the only two values that are loose-equal to each other but not to anything else. This is a special case in the JavaScript specification.
+
+In your habit tracker, imagine checking if a habit is complete: `habit.completedToday == true`. If completedToday is 1 (truthy), this returns true. But if it's undefined (not set yet), this returns false. Much safer to use `habit.completedToday === true` or better yet, `Boolean(habit.completedToday)`.
+
+The golden rule: Always use strict equality (===) unless you have a very specific reason to use loose equality. Your code will be more predictable and easier to debug.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -51,6 +75,24 @@ const dollars = totalCents / 100;    // 0.3
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+Floating point precision issues surprise many developers because they seem to violate basic math. But this isn't a JavaScript bug - it's how computers represent decimal numbers in binary.
+
+JavaScript uses the IEEE 754 standard for floating point numbers, which can't exactly represent all decimal fractions in binary. Just like you can't exactly represent 1/3 in decimal notation (it becomes 0.333...), some decimals can't be exactly represented in binary.
+
+0.1 in binary is actually 0.0001100110011... (repeating), and 0.2 is 0.001100110011... When you add these imprecise representations, you get a result that's very close to 0.3 but not exactly 0.3.
+
+This becomes a critical issue when dealing with financial calculations. Imagine a habit tracker with a points system where users earn 0.1 points per day. After 3 days, they'd have 0.30000000000000004 points instead of 0.3. If you're checking for achievement thresholds, this could break your logic.
+
+Solution 1 is using toFixed() to round to a specific number of decimal places. Note that toFixed() returns a string, so you might need to convert back to a number if you're doing further calculations.
+
+Solution 2 is often better for financial or precise calculations: work with integers. Instead of dollars and cents as decimals, work with total cents as integers. This avoids floating point issues entirely because integer arithmetic is precise.
+
+For our habit tracker, if we're calculating scores or percentages, consider multiplying by 100 or 1000, doing integer arithmetic, then dividing at the end for display.
+
+A practical tip: Never use === to compare floating point results. Instead, check if the difference is smaller than a tolerance: `Math.abs(result - expected) < 0.0001`.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -80,6 +122,26 @@ const obj3 = { ...obj1 };  // Shallow copy
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+Reference vs value confusion causes some of the most frustrating bugs in JavaScript because the symptoms appear far from the cause. You modify one variable and suddenly another variable changes too, seemingly by magic.
+
+Here's what's really happening: In JavaScript, primitive values (numbers, strings, booleans) are copied by value, but objects and arrays are copied by reference. When you write `const arr2 = arr1`, you're not creating a new array - you're creating a new variable that points to the same array in memory.
+
+This means arr1 and arr2 are just two different names for the same array. Modifying the array through either variable affects the same underlying data structure.
+
+This becomes particularly problematic in applications like our habit tracker. Imagine you have an array of habits, and you want to create a filtered view for today's habits: `const todaysHabits = allHabits.filter(...)`. If you later modify todaysHabits (maybe to update completion status), you might accidentally modify the original allHabits array too if your filter returned references to the same objects.
+
+For arrays, the spread operator `[...arr1]` creates a new array with the same elements. The slice() method also works because slice() without arguments returns a copy of the entire array.
+
+For objects, `{ ...obj1 }` creates a new object with the same properties. This is called a "shallow copy" because if the object contains nested objects or arrays, those are still referenced, not copied.
+
+Important distinction: These are shallow copies. If your habit object contains an array like `completionDates: [date1, date2]`, copying the habit object doesn't copy the completionDates array. Both the original and copied habit objects would share the same completionDates array.
+
+For deep copying (copying nested structures), you'd need a library like Lodash's cloneDeep, or for simple cases, `JSON.parse(JSON.stringify(obj))` works but has limitations with functions, dates, and undefined values.
+
+Defensive programming tip: Always assume you need to copy objects and arrays when passing them to functions or storing them in state, unless you specifically want to share the reference.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -105,6 +167,28 @@ obj.greet();
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+The "this" keyword in JavaScript is probably the most confusing aspect of the language for developers coming from other languages. The confusion stems from the fact that "this" is determined by how a function is called, not where it's defined.
+
+In our example, when we call `obj.greet()`, we're using method invocation. The rule is: when a function is called as a method of an object (obj.method()), "this" refers to that object. So inside greet(), "this" is obj, and this.name is "Object".
+
+But inside the setTimeout callback, we have a different story. The setTimeout function calls our callback as a regular function, not as a method. With regular function calls, "this" defaults to the global object (window in browsers, global in Node.js), or undefined in strict mode.
+
+This creates a very common bug pattern: you define a method that works correctly when called directly, but breaks when used as a callback. In our habit tracker, imagine a habit object with a method to update its streak. If you pass this method as an event handler or setTimeout callback, "this" won't refer to the habit object anymore.
+
+This is so common that there's even a name for it: "losing the context" or "this binding confusion". It happens with:
+- Event handlers: `button.addEventListener('click', obj.method)` 
+- Async callbacks: `setTimeout(obj.method, 1000)`
+- Array methods: `habits.forEach(this.processHabit)`
+
+Traditional solutions include:
+1. Storing "this" in a variable: `const self = this; setTimeout(function() { self.name })`
+2. Using bind(): `setTimeout(obj.greet.bind(obj), 1000)`
+3. Using arrow functions (which we'll see next)
+
+Understanding "this" binding is crucial for writing reliable JavaScript, especially when dealing with asynchronous code and event handling.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -129,6 +213,24 @@ const obj = {
   }
 };
 ```
+
+<Notes>
+Let's establish the four fundamental rules for "this" binding in JavaScript. These rules, in order of precedence, will help you predict what "this" will be in any context.
+
+Rule 1 - Method calls: When you call a function as a property of an object (obj.method()), "this" is bound to that object. This is the most intuitive behavior and matches expectations from other programming languages.
+
+Rule 2 - Function calls: When you call a function directly (function()), without any object context, "this" defaults to the global object. In browsers, that's window. In Node.js, it's global. However, in strict mode ('use strict'), "this" is undefined, which is actually more helpful because it fails fast instead of silently referencing the global object.
+
+Rule 3 - Arrow functions: These are special because they don't have their own "this" binding. Instead, they inherit "this" from the enclosing lexical scope. This makes them perfect for callbacks where you want to preserve the original context.
+
+Rule 4 - Event handlers: When you attach a function as an event handler, "this" typically refers to the DOM element that triggered the event. This can be useful but also surprising if you're expecting "this" to refer to your object.
+
+The "lost context" problem shown in the code is extremely common. You have a method that works fine when called directly, but when passed as a callback to setTimeout, addEventListener, or array methods, "this" gets reassigned.
+
+For our habit tracker, imagine a Habit class with an updateStreak method. If you try to use this method as an event handler or in a setTimeout, you'll lose the reference to the habit instance.
+
+This is why arrow functions were such a game-changer - they provide a way to preserve context in callbacks without the awkward `var self = this` pattern or explicit binding.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -159,6 +261,40 @@ const obj2 = {
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+Arrow functions vs regular functions is one of the most important distinctions to understand in modern JavaScript. The key difference isn't just syntax - it's how they handle the "this" keyword.
+
+Regular functions have "dynamic this" - the value of "this" is determined at call time based on how the function is invoked. This is why obj1's setInterval callback loses context. The setInterval function calls our callback as a regular function call, so "this" becomes the global object (or undefined in strict mode).
+
+Arrow functions have "lexical this" - they capture the value of "this" from their surrounding scope at the time they're defined, not when they're called. In obj2, the arrow function captures "this" from the start() method, where "this" refers to obj2.
+
+This makes arrow functions perfect for callbacks, event handlers, and any situation where you want to preserve the original context. In our habit tracker, imagine a method that needs to make an API call and then update the habit's state:
+
+```javascript
+class Habit {
+  syncWithServer() {
+    fetch('/api/habits/' + this.id)
+      .then(response => response.json())
+      .then(data => {
+        this.updateFromServer(data); // "this" still refers to the Habit instance
+      });
+  }
+}
+```
+
+If we used regular functions in the .then() callbacks, we'd lose the reference to the Habit instance.
+
+However, this behavior also means arrow functions can't be used as constructors (you can't use "new" with them) and they don't have their own "arguments" object.
+
+Choosing between arrow and regular functions:
+- Use arrow functions for callbacks where you want to preserve "this"
+- Use regular functions for methods where you want dynamic "this" binding
+- Use regular functions for constructors
+- Use arrow functions for short, inline operations
+
+The arrow function in our example elegantly solves the context problem that has plagued JavaScript developers for years.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -190,4 +326,59 @@ timer.start();
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+This exercise perfectly demonstrates the "this" binding problem and gives students hands-on practice fixing it. The code looks like it should work - we have a timer object with name and seconds properties, and a start method that should count down.
+
+But when you run this code, you'll see "undefined" printed repeatedly, followed by "undefined: Done!" because inside the setInterval callback, "this" doesn't refer to the timer object.
+
+There are several ways to fix this, and it's worth discussing multiple approaches:
+
+**Solution 1: Arrow Function**
+```javascript
+start() {
+  const interval = setInterval(() => {
+    console.log(this.seconds); // Works!
+    this.seconds--;
+    if (this.seconds < 0) {
+      clearInterval(interval);
+      console.log(this.name + ": Done!");
+    }
+  }, 100);
+}
+```
+
+**Solution 2: Store "this" in a variable**
+```javascript
+start() {
+  const self = this;
+  const interval = setInterval(function() {
+    console.log(self.seconds);
+    self.seconds--;
+    if (self.seconds < 0) {
+      clearInterval(interval);
+      console.log(self.name + ": Done!");
+    }
+  }, 100);
+}
+```
+
+**Solution 3: Use bind()**
+```javascript
+start() {
+  const interval = setInterval(function() {
+    console.log(this.seconds);
+    this.seconds--;
+    if (this.seconds < 0) {
+      clearInterval(interval);
+      console.log(this.name + ": Done!");
+    }
+  }.bind(this), 100);
+}
+```
+
+The arrow function solution is generally preferred in modern JavaScript because it's clean and clearly expresses the intent to preserve context.
+
+This pattern is incredibly common in real applications. Any time you have methods that use callbacks - API calls, timers, event handlers - you'll encounter this issue. Understanding how to solve it is essential for writing reliable JavaScript applications.
+</Notes>
 </SlideLayout.Full>
