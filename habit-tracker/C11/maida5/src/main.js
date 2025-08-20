@@ -200,7 +200,7 @@ const renderHabits = (habits) => {
                           </section>
                           <footer class="habit_footer">
                               <button class="habit_mark_complete" data_habit="${habit.id}">Mark Complete</button>
-                              <button class="habit_view_details">View Details</button>
+                              <button class="habit_view_details" data_habit="${habit.id}">View Details</button>
                           </footer> 
                         </div>`
                 
@@ -241,6 +241,7 @@ habitList.addEventListener('click', (event) => {
         if (!habitTracker.habits[i].completionDates.includes(today)) {
           habitTracker.habits[i].completionDates.push(today);
           habitTracker.habits[i].lastCompleted = today;
+          habitStorage.save(habitTracker.habits);
         }
 
         console.log(`Completed habit with id: ${habitId}`);
@@ -252,6 +253,15 @@ habitList.addEventListener('click', (event) => {
 
   if (event.target.classList.contains('habit_view_details')) {
     const habitId = event.target.getAttribute('data_habit');
+    for(let i = 0; i < habitTracker.habits.length; i++) {
+      if (habitTracker.habits[i].id == habitId) {
+        console.log(`last completed: ${habitId}`);
+        // const dates = `<p>habitTracker.habits[i].completionDates</p>`;
+        const habit_view_details = document.querySelector('.habit_footer')
+        habit_view_details.innerHTML += `<p>${habitTracker.habits[i].completionDates}</p>`
+        break;
+      }
+    }
   }
     
     // renderHabits(habitTracker.habits);
