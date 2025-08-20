@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -10,6 +10,14 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 3. The inner function is available outside the outer function
 
 **Key insight**: The inner function "closes over" variables from its parent scope
+
+<Notes>
+Closures are one of the most powerful and often misunderstood features in JavaScript. To understand closures, think of them like a backpack that a function carries with it. When a function is created inside another function, it packs up all the variables it needs from the outer function and carries them along, even after the outer function has finished running.
+
+The three conditions for a closure are crucial: First, we need nested functions - one function inside another. Second, the inner function must reference variables from the outer function. Third, and this is key, the inner function must be available outside its parent function, usually by returning it or passing it as a callback.
+
+This concept is fundamental to many JavaScript patterns, from event handlers to module patterns to React hooks. Understanding closures unlocks the ability to create more sophisticated and maintainable code.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Example of a Closure
@@ -28,4 +36,12 @@ function outer() {
 const myClosure = outer();  // outer() has finished executing
 myClosure();                // But inner() still remembers 'message'!
 ```
+
+<Notes>
+This example demonstrates the "magic" of closures. When we call outer(), it creates the message variable and defines the inner function. Normally, when a function finishes executing, its local variables are garbage collected. But here's where closures shine - because inner() references message, JavaScript keeps that variable alive.
+
+When we store the returned inner function in myClosure and call it later, it still has access to message even though outer() finished executing long ago. This is like the inner function taking a photograph of all the variables it needs from its parent scope.
+
+This behavior allows us to create functions with persistent, private state - a cornerstone of encapsulation in JavaScript. It's how we can create data privacy without classes, and it's the foundation for many advanced patterns we'll explore.
+</Notes>
 </SlideLayout.Full>

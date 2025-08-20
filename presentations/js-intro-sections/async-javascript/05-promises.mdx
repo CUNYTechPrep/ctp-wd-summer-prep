@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -37,4 +37,13 @@ loadHabitData(123)
     
   </File>
 </CodeDisplay>
+<Notes>
+Promises revolutionized JavaScript's async story. A Promise is an object that represents a value that will be available in the future - it might succeed with a value (resolve) or fail with an error (reject). This binary outcome makes error handling much cleaner than callbacks.
+
+The key insight of Promises is that they're chainable. Each .then() returns a new Promise, allowing you to create flat chains instead of nested callbacks. If any Promise in the chain rejects, execution jumps to the nearest .catch(), providing centralized error handling.
+
+When creating a Promise, you provide a function that receives two callbacks: resolve and reject. You call resolve with the successful result or reject with an error. Once a Promise settles (resolves or rejects), it's immutable - it can't change state again.
+
+The real power comes from Promise methods like Promise.all() for parallel operations, Promise.race() for timeouts, and Promise.allSettled() for handling mixed results. Modern JavaScript APIs like fetch() return Promises natively, making them the standard for async operations. Understanding Promises is essential because async/await is built on top of them - it's just syntactic sugar for Promise chains.
+</Notes>
 </SlideLayout.Full>

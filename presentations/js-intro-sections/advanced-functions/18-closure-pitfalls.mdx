@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -15,6 +15,14 @@ for (var i = 0; i < 3; i++) {
   };
 }
 ```
+
+<Notes>
+The loop variable capture problem is perhaps the most common closure pitfall, and it perfectly illustrates how closures work. When we use var in a loop, there's only one variable i for the entire loop. All three click handlers close over the same variable.
+
+By the time any button is clicked, the loop has finished and i equals 3. All three closures reference this same variable with value 3. This surprises developers because we intuitively expect each iteration to capture its own value.
+
+This problem taught an entire generation of JavaScript developers about closure mechanics. It's less common now with let, but understanding why it happens deepens our understanding of closures and scope. The issue isn't with closures themselves but with var's function-level scope creating a single shared variable.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Common Closure Pitfalls
@@ -28,6 +36,14 @@ for (let i = 0; i < 3; i++) {
     alert(i); // Works correctly
   };
 }
+
+<Notes>
+The let solution works because let has block scope. Each iteration of the loop creates a new binding for i, and each closure captures its own version. This is what we intuitively expected to happen with var.
+
+This seemingly small change - var to let - has profound implications. It shows how ES6's block scoping solves real problems that plagued JavaScript developers for years. Modern JavaScript codebases almost exclusively use let and const, largely because they behave more predictably with closures.
+
+This fix is so simple and effective that it's become the standard solution. It's a great example of how language evolution can eliminate entire categories of bugs.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Common Closure Pitfalls
@@ -44,6 +60,14 @@ for (var i = 0; i < 3; i++) {
   })(i);
 }
 ```
+
+<Notes>
+The IIFE (Immediately Invoked Function Expression) solution predates let and shows how developers worked around var's limitations. By wrapping the closure creation in an IIFE, we create a new scope for each iteration.
+
+The IIFE takes i as a parameter and immediately calls itself. This creates a new variable index in each iteration's scope, and the closure captures this local variable rather than the shared loop variable. It's more verbose than using let, but it works in older JavaScript environments.
+
+This pattern appears throughout legacy codebases and libraries that need to support older browsers. Understanding it helps when maintaining older code and demonstrates the lengths developers went to work around JavaScript's early limitations. It's also a testament to JavaScript's flexibility - we could solve language limitations using the language itself.
+</Notes>
 </SlideLayout.Full>
 <SlideLayout.Full>
 ## Common Closure Pitfalls
@@ -60,4 +84,14 @@ function createLeak() {
   };
 }
 ```
+
+<Notes>
+Memory leaks with closures are a subtle but important issue. When a function closes over variables, those variables can't be garbage collected as long as the function exists. In this example, the returned function only uses hugeData.length, but the entire array remains in memory.
+
+This becomes problematic in long-running applications or when creating many closures. Event handlers are particularly susceptible - if you attach a closure as an event handler and the closure references large objects, those objects persist as long as the element exists in the DOM.
+
+The solution is to be mindful of what closures capture. Extract only the data you need before creating the closure, or explicitly null out references when done. Modern development tools help identify these leaks, but understanding the mechanism helps prevent them.
+
+This isn't a reason to avoid closures - they're essential to JavaScript. Rather, it's about understanding their memory implications in performance-critical applications.
+</Notes>
 </SlideLayout.Full>

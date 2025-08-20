@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -49,4 +49,61 @@ const sampleHabits = [
     
   </File>
 </CodeDisplay>
+<Notes>
+This capstone exercise brings together all the concepts students have learned about arrays and objects into a realistic analytics system. Analytics are what make habit tracking apps valuable - they transform raw data into actionable insights.
+
+Let's examine each method and its purpose:
+
+**getCompletionRate(habit, daysTracked)** calculates the percentage success rate:
+```javascript
+getCompletionRate(habit, daysTracked) {
+  return (habit.completions / daysTracked) * 100;
+}
+```
+This teaches percentage calculations and how to derive meaningful metrics from raw counts. Completion rate is more useful than absolute completions because it accounts for how long the habit has been tracked.
+
+**getHabitsByCategory(habits, category)** filters habits by category:
+```javascript
+getHabitsByCategory(habits, category) {
+  return habits.filter(habit => habit.category === category);
+}
+```
+This reinforces the filter pattern for data segmentation. Categories help users organize and analyze their habits by life area.
+
+**getTopHabits(habits, limit)** finds the best-performing habits:
+```javascript
+getTopHabits(habits, limit = 3) {
+  return habits
+    .sort((a, b) => b.completions - a.completions)
+    .slice(0, limit);
+}
+```
+This introduces sorting arrays by numeric values and limiting results. The descending sort (b - a) puts highest completions first. slice() extracts just the top N results.
+
+**getCategoryStats(habits)** creates aggregate statistics by category:
+```javascript
+getCategoryStats(habits) {
+  return habits.reduce((stats, habit) => {
+    if (!stats[habit.category]) {
+      stats[habit.category] = { count: 0, totalCompletions: 0, avgStreak: 0 };
+    }
+    stats[habit.category].count++;
+    stats[habit.category].totalCompletions += habit.completions;
+    stats[habit.category].avgStreak = 
+      (stats[habit.category].avgStreak * (stats[habit.category].count - 1) + habit.streak) / stats[habit.category].count;
+    return stats;
+  }, {});
+}
+```
+
+This is the most complex method, using reduce() to build a nested object with multiple metrics per category. It demonstrates:
+- Dynamic object property creation
+- Running averages calculation
+- Complex aggregation patterns
+- Object as accumulator in reduce()
+
+The analytics object pattern shown here is common in professional applications - grouping related functionality in objects makes code organized and easy to test.
+
+This exercise ties together the entire objects and arrays module, showing how these fundamental concepts enable sophisticated data analysis that provides real value to users.
+</Notes>
 </SlideLayout.Full>

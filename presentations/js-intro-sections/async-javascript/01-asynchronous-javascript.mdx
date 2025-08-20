@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -13,4 +13,13 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
       - Restaurant kitchen - take orders while cooking
       - Don't wait for one meal before starting next
   </FlexBox>
+<Notes>
+JavaScript's single-threaded nature is both a limitation and a strength. Unlike languages like Java or C++ that can create multiple threads, JavaScript runs all code on a single thread. This means it can only do one thing at a time.
+
+Imagine if your web browser froze every time it loaded an image or made an API call. That would be terrible user experience! This is why we need asynchronous programming. When JavaScript encounters a time-consuming operation, it delegates that work to the browser's APIs and continues executing other code.
+
+The restaurant kitchen analogy is perfect here. A chef doesn't stand idle watching one dish cook - they start multiple dishes, check on them periodically, and plate them as they finish. Similarly, JavaScript starts multiple async operations and handles their results as they complete. This enables the smooth, responsive interfaces we expect from modern web applications.
+
+This asynchronous behavior is what allows a web page to remain interactive while fetching data, enables smooth animations while processing user input, and lets servers handle thousands of requests simultaneously.
+</Notes>
 </SlideLayout.Full>

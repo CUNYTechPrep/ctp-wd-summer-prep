@@ -1,8 +1,19 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Exercise: Building a Habit Tracker
+<Notes>
+This exercise represents the culmination of everything we've learned about objects. We're building a complete habit tracking system that demonstrates objects containing other objects, method implementation, array manipulation, and practical problem-solving.
+
+The habitTracker object is more sophisticated than our previous examples. It manages a collection of habits (an array of objects) and provides methods to manipulate that collection. This pattern - an object that manages collections of related objects - is fundamental in application development. You'll see it everywhere: a playlist managing songs, a cart managing products, a user account managing preferences.
+
+As you work through this exercise, notice how the object methods handle edge cases. What happens if you try to complete a habit that doesn't exist? How do you prevent adding duplicate habits? These details separate robust code from fragile code. The comprehensive tests help you think through these scenarios systematically.
+
+Pay attention to the data structure decisions. Each habit in the habits array has its own structure with name, category, and completions. The lastCompleted property is particularly interesting - it uses Date objects, showing how objects can contain other objects. This composition creates rich, expressive data models.
+
+The getTotalPoints method demonstrates functional programming concepts within object-oriented code. The reduce method transforms an array of objects into a single value, showing how object-oriented and functional paradigms complement each other.
+</Notes>
 <CodeDisplay >
   <File name="exercise.js">
 ```javascript
@@ -219,4 +230,17 @@ describe('Habit Tracker Object', () => {
     - A list of daily habit completions
     - Each day's data stored in order
   </FlexBox>
+<Notes>
+Arrays are JavaScript's ordered collections, and understanding them is crucial for managing lists of data. This slide introduces arrays in the context of our habit tracker, providing a bridge from objects to collections.
+
+**Ordered collections** means that position matters in arrays. Unlike object properties, which you access by name, array elements are accessed by their numeric position (index). This ordering is perfect for scenarios where sequence matters - like daily habit completions, where you might want to track progress over time.
+
+**Zero-indexing** is a common source of confusion for beginners, but it's universal in programming. The first element is at index 0, the second at index 1, and so on. This means an array with 5 elements has indices 0, 1, 2, 3, 4. The last index is always array.length - 1.
+
+**Mixed data types** in arrays give JavaScript incredible flexibility. You can have an array containing strings, numbers, objects, even other arrays. This is different from strongly-typed languages where arrays must contain elements of the same type. In our habit context, you might have an array like `[habitObject, "completed", new Date(), 10]` storing different types of related information.
+
+**Dynamic sizing** means arrays can grow and shrink during program execution. You don't need to declare a fixed size upfront. The push() method adds elements, pop() removes them, and the array adjusts accordingly. This flexibility makes arrays perfect for data that changes over time, like a growing list of habits or daily completion records.
+
+The real-world analogy connects arrays to something familiar. A daily habit completion list is naturally ordered (by date), contains similar but distinct items (each day's data), and grows over time (new days are added). This mental model helps you recognize when arrays are the right data structure choice.
+</Notes>
 </SlideLayout.Full>

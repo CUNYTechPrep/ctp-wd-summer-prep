@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -30,4 +30,27 @@ const dailyRecords = [
     
   </File>
 </CodeDisplay>
+<Notes>
+This exercise puts students in a realistic scenario: they have an array of objects representing daily habit tracking data, and they need to extract meaningful insights from it. This mirrors exactly what they'll do in real applications.
+
+The data structure shown here is typical of what you'd get from an API or database. Each record has multiple properties (date, completed status, points), and students need to work with both individual properties and relationships between them.
+
+Let's walk through what each calculation teaches:
+
+**1. Total days completed** - This requires filtering (find completed days) then counting (use .length). It demonstrates the filter-and-count pattern that's fundamental to data analysis.
+
+**2. Total points earned** - Students could approach this two ways: sum all points (using reduce), or filter completed days first then sum their points. Both approaches are valid and teach different concepts about when to filter vs. when to handle conditionally.
+
+**3. Completion rate (percentage)** - This combines multiple operations: count completed days, divide by total days, multiply by 100. It shows how complex calculations build from simple array operations.
+
+**4. Array of completed dates** - This requires filtering then mapping (or chaining), demonstrating the common pattern of 'find items that match, then extract specific data from them.'
+
+Expected solutions:
+1. `dailyRecords.filter(day => day.completed).length`
+2. `dailyRecords.reduce((sum, day) => sum + day.points, 0)`
+3. `(dailyRecords.filter(day => day.completed).length / dailyRecords.length) * 100`
+4. `dailyRecords.filter(day => day.completed).map(day => day.date)`
+
+This exercise reinforces that arrays are not just simple lists - they're powerful data containers that enable sophisticated analysis with clean, readable code.
+</Notes>
 </SlideLayout.Full>

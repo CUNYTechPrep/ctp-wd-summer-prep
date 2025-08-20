@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -174,4 +174,13 @@ import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking
 ```
   </File>
 </CodeDisplay>
+<Notes>
+CSS transitions and animations transform static interfaces into dynamic experiences. While they might seem like mere decoration, thoughtful animation improves usability by providing visual feedback, guiding attention, and making interfaces feel more responsive and alive.
+
+Transitions are perfect for state changes - hover effects, focus states, or any property change triggered by user interaction. The key properties are: transition-property (what to animate), transition-duration (how long), transition-timing-function (the acceleration curve), and transition-delay (when to start). The timing function is crucial - ease-out feels natural for most interactions because it starts fast and slows down, mimicking real-world physics.
+
+Keyframe animations offer more control for complex sequences. You define waypoints with @keyframes, then apply them with the animation property. Use these for loading states, attention-grabbing effects, or any animation that should run without user interaction.
+
+Performance matters: animate transform and opacity for smooth 60fps animations. These properties can be handled by the GPU without triggering layout recalculation. Avoid animating properties like width, height, or position which cause the browser to recalculate layout on every frame. Always test animations on slower devices and respect prefers-reduced-motion for accessibility.
+</Notes>
 </SlideLayout.Full>

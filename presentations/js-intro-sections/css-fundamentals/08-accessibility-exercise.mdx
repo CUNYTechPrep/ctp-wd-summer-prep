@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -372,4 +372,13 @@ describe('Accessibility Fixes', () => {
 ```
   </Tests>
 </CodeDisplay>
+<Notes>
+This exercise challenges students to identify and fix common accessibility issues. Each problem represents a real-world mistake that makes websites unusable for many people. Let's examine what needs fixing and why.
+
+The color contrast issue (#555 text on #333 background) fails WCAG standards badly. Students need to increase contrast to at least 4.5:1. The lack of semantic HTML (using divs instead of header, h1, button elements) means screen readers can't understand the page structure. The onclick handler on a div makes it inaccessible to keyboard users.
+
+The missing alt text on the image leaves screen reader users wondering what the image shows. The color-only error indicator excludes colorblind users. The form without labels is unusable for screen readers - they won't know what each input is for.
+
+This exercise teaches that accessibility isn't one thing - it's many small decisions that add up. Each fix makes the site usable for more people. Students learn to think about different ways people interact with websites and build empathy for users with different abilities. The goal is to make accessibility checking a natural part of their development process.
+</Notes>
 </SlideLayout.Full>

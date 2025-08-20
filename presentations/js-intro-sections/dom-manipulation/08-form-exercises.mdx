@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import FormValidationExercise from '../dom-exercises/form-validation.mdx'
 import DataAttributesExercise from '../dom-exercises/data-attributes.mdx'
 
@@ -6,10 +6,28 @@ import DataAttributesExercise from '../dom-exercises/data-attributes.mdx'
 ## Exercise: Form Validation
 
 <FormValidationExercise />
+<Notes>
+Form validation is a critical skill that every web developer must master. This exercise challenges students to implement real-world validation patterns that they'll use in production applications.
+
+The exercise covers multiple validation types: required fields (ensuring users don't skip important inputs), format validation (like email addresses or phone numbers), length constraints (minimum/maximum characters), and custom business rules (like password complexity). Each type teaches different validation techniques and error handling approaches.
+
+Students learn to provide immediate feedback as users type, not just on submission. This includes showing success indicators when fields are valid, clearing errors when issues are fixed, and preventing form submission until all validations pass. The exercise emphasizes user experience - validations should guide users to success, not frustrate them with cryptic errors.
+
+This practical experience builds confidence in handling one of web development's most common tasks. Students see how proper validation improves data quality, reduces server load, and creates better user experiences. The patterns learned here apply to every form they'll ever build.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Exercise: Data Attributes & State
 
 <DataAttributesExercise />
+<Notes>
+Data attributes are HTML5's gift to DOM manipulation. They provide a standard way to embed custom data in HTML elements without abusing class names or creating non-standard attributes. This exercise teaches students to use data attributes effectively for state management.
+
+The exercise demonstrates several key patterns: storing component state (like IDs or status) directly on elements, creating relationships between elements without complex JavaScript lookups, and passing configuration options through HTML. Students learn that data-* attributes are accessible via the dataset property, automatically converting from kebab-case to camelCase.
+
+This approach to state management keeps related data close to the elements it describes. Instead of maintaining separate JavaScript objects that mirror your DOM structure, you can store state where it's used. This pattern is particularly powerful for dynamically generated content where you need to track metadata for each element.
+
+The exercise also introduces students to the concept of DOM as a state container - a pattern used by many modern frameworks. Understanding how to effectively use data attributes prepares students for more advanced state management concepts while solving immediate practical problems.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -28,4 +28,13 @@ import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking
     
   </File>
 </CodeDisplay>
+<Notes>
+This exercise introduces the fundamental pattern of DOM manipulation: select elements, attach event listeners, and update the page based on user actions. It's a simple example that demonstrates powerful concepts.
+
+The exercise builds muscle memory for common DOM operations. First, students must select elements using querySelector or getElementById. This reinforces the importance of having selectable elements (IDs and classes) in your HTML. Then they attach an event listener, introducing the concept of event-driven programming.
+
+The increment logic seems simple but teaches state management. Where do you store the current streak count? In a JavaScript variable? Read it from the DOM? This decision affects your application's architecture. Most beginners read from the DOM, but maintaining state in JavaScript is often cleaner.
+
+The visual feedback requirement pushes students to think about user experience. A number changing might be too subtle - perhaps the button should change color, or the streak should briefly animate. This introduces the idea that DOM manipulation isn't just about functionality but about creating delightful interactions that give users confidence their actions had an effect.
+</Notes>
 </SlideLayout.Full>

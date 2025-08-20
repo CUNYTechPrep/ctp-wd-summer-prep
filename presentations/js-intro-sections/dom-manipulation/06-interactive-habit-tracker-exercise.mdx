@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -580,4 +580,13 @@ describe('Complete Habit System', () => {
     
   </Tests>
 </CodeDisplay>
+<Notes>
+This comprehensive exercise brings together all DOM manipulation concepts into a real-world application. Students build a functional habit tracker that demonstrates practical patterns they'll use in production applications.
+
+The exercise starts with structured HTML - notice the semantic IDs and organized layout. This good HTML structure makes the JavaScript much cleaner. Students must handle form inputs, create dynamic content, manage state, and implement interactive features. Each part builds on previous concepts while introducing new challenges.
+
+Key learning points include: form handling without page refresh (preventDefault), creating HTML elements dynamically (createElement vs innerHTML), managing application state in JavaScript, implementing event delegation for dynamically added elements, and using data attributes to store information. The test suite ensures students implement core functionality correctly.
+
+This exercise is valuable because it mirrors real development. You're not just manipulating random elements - you're building a useful application. Students see how individual DOM methods combine into features users actually want. The progression from static HTML to dynamic application demonstrates the power of JavaScript and motivates further learning.
+</Notes>
 </SlideLayout.Full>

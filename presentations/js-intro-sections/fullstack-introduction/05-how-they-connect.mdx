@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -14,15 +14,37 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
   <Text fontSize="2rem">⚙️ **Backend** ↔️ **Database**</Text>
   <Text fontSize="1.5rem">SQL queries or API calls</Text>
 </FlexBox>
+
+<Notes>
+Understanding how the layers communicate is crucial for debugging and designing full stack applications. Each connection point uses different protocols and patterns.
+
+The user-to-frontend connection happens through the browser. Users interact with HTML elements, triggering JavaScript events. The browser renders visual feedback, creating the interactive experience we expect from modern web applications.
+
+The frontend-to-backend connection typically uses HTTP/HTTPS protocols. The frontend sends requests with different methods: GET to retrieve data, POST to create new resources, PUT to update existing ones, and DELETE to remove them. This RESTful pattern provides a consistent interface for communication.
+
+The backend-to-database connection depends on the database type. SQL databases use query languages, while NoSQL databases might use specialized APIs. The backend acts as an intermediary, translating high-level business operations into specific database commands.
+
+Each layer has its own concerns and responsibilities, but they must work together seamlessly. Understanding these connections helps diagnose issues - is the problem in the UI, the API, or the database?
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
 ## Example Flow: Creating a Habit
 
-1. User submits habit form (Frontend)
-2. Frontend sends POST request to `/api/habits` (Backend)
-3. Backend validates data and saves to database
-4. Database returns saved habit with ID
-5. Backend sends success response to Frontend
-6. Frontend updates UI to show new habit
+<Image
+    src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Full+Stack+Web+Development+-+visual+selection+(5).svg"
+    height="calc(100% - 6rem)"
+  />
+
+<Notes>
+This example traces a complete request-response cycle through all three layers of a full stack application. Understanding this flow is essential for debugging and building features.
+
+Step 1-2: The journey begins with user interaction. When the user submits a form, the frontend captures this event and transforms the form data into a structured HTTP request. This involves serializing data, setting headers, and choosing the appropriate endpoint.
+
+Step 3-4: The backend receives the request and springs into action. It validates the data (never trust client input!), applies business rules, and translates the operation into database commands. The database performs the actual storage and returns confirmation.
+
+Step 5-6: The response travels back through the layers. The backend formats a response, the frontend receives it, and updates the UI accordingly. This might involve adding the new habit to a list, showing a success message, or navigating to a different view.
+
+This cycle happens countless times in any web application. Each click, form submission, or data load follows a similar pattern. Mastering this flow helps you build features systematically and debug issues efficiently.
+</Notes>
 </SlideLayout.Full>

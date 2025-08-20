@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -28,4 +28,17 @@ const stats = { streak, points }; // Same as { streak: streak, points: points }
     
   </File>
 </CodeDisplay>
+<Notes>
+ES6 and later versions of JavaScript introduced powerful features that make working with objects more elegant and expressive. These aren't just syntactic sugar - they represent different ways of thinking about object manipulation.
+
+**Destructuring assignment** extracts properties from objects into individual variables in one concise statement. Instead of writing three separate lines (`const name = habit.name; const category = habit.category;`), you write one (`const { name, category } = habit;`). This is particularly powerful when working with functions that need several properties from an object. You can destructure in function parameters: `function displayHabit({ name, category, streak }) { ... }` - this immediately shows which properties the function uses.
+
+**The spread operator (...)** creates shallow copies of objects while allowing modifications. `{ ...habit, streak: 10 }` creates a new object with all of habit's properties, but with streak overridden to 10. This is crucial for functional programming patterns and preventing accidental mutations. The original habit object remains unchanged. This pattern is essential in React and other frameworks where immutability is important.
+
+**Computed property names** use brackets to create properties with dynamic names. The property name comes from evaluating an expression rather than being written literally. This is powerful for creating objects programmatically or when property names come from variables or user input. In our example, `[propName]: "2024-01-20"` creates a property named "lastCompleted" because that's the value of propName.
+
+**Object shorthand** eliminates redundancy when variable names match property names. Instead of `{ streak: streak, points: points }`, you write `{ streak, points }`. This is common when constructing objects from existing variables and makes the code cleaner and less error-prone.
+
+These features work together beautifully. You might destructure function parameters, use spread to create modified copies, and use shorthand to construct return objects. Modern JavaScript development relies heavily on these patterns for clean, expressive code.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -194,4 +194,13 @@ h2 {
 ```
   </File>
 </CodeDisplay>
+<Notes>
+Interactive styling brings interfaces to life. Static designs feel dead - interactive elements respond to users, providing feedback and guiding interaction. CSS provides powerful pseudo-classes and properties to create these dynamic experiences without JavaScript.
+
+The :hover pseudo-class is just the beginning. Modern CSS offers :focus for keyboard navigation, :active for click states, :focus-visible for better accessibility, and :focus-within for container states. Each serves a specific purpose in creating inclusive, responsive interfaces.
+
+Transform and transition properties are your tools for smooth interactions. Transform handles the visual changes - scale, rotate, translate - while transition controls the timing. The key is subtlety: a slight scale on hover (1.05) feels more professional than dramatic effects. Timing functions like ease-out feel more natural than linear transitions.
+
+Remember that interactions must be accessible. Hover effects should enhance, not be required for functionality. Always provide focus styles for keyboard users - removing outline without replacement excludes users who navigate by keyboard. Consider reduced motion preferences for users sensitive to animation. Great interactive CSS enhances usability for everyone while maintaining accessibility.
+</Notes>
 </SlideLayout.Full>

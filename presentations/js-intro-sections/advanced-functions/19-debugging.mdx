@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -38,4 +38,16 @@ array
   .map(function double(x) { return x * 2; })
   .filter(function greaterThan10(x) { return x > 10; });
 ```
+
+<Notes>
+Debugging closures and higher-order functions requires specific techniques because their behavior isn't always visible in standard debugging.
+
+console.dir() is a powerful tool that many developers don't know about. Unlike console.log(), it shows the internal [[Scopes]] property, revealing exactly what variables a closure has captured. This is invaluable when debugging unexpected behavior or understanding why a closure has access to certain values.
+
+The composition tracing technique adds logging to the composition process itself. This helps visualize the data flow through your function pipeline, making it clear which transformation is causing unexpected results. In production, you'd remove this logging, but during development, it's incredibly helpful.
+
+Naming anonymous functions might seem unnecessary, but it dramatically improves stack traces. When an error occurs deep in a chain of anonymous functions, the stack trace shows "anonymous" repeatedly. Named functions make errors much easier to locate and fix. This small habit significantly improves debugging experience in functional code.
+
+These techniques become essential as you write more functional JavaScript, helping maintain productivity even as code complexity grows.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -42,4 +42,51 @@ console.log("Loaded:", loaded);
     
   </File>
 </CodeDisplay>
+<Notes>
+This exercise introduces students to data persistence - a crucial concept for building practical web applications. Without persistence, users lose their data every time they refresh the page, making the application essentially useless.
+
+The object-based API pattern shown here is common in professional development. Rather than having global functions, we encapsulate related functionality in an object. This provides namespace organization and makes the code more maintainable.
+
+Let's examine what each method should do:
+
+**save(habits)** method needs to:
+1. Convert the habits array to a JSON string using JSON.stringify()
+2. Store it in localStorage with a consistent key like 'habits'
+```javascript
+save(habits) {
+  localStorage.setItem('habits', JSON.stringify(habits));
+}
+```
+
+**load()** method needs to:
+1. Retrieve the stored string from localStorage
+2. Parse it back to a JavaScript array using JSON.parse()
+3. Handle the case where no data exists (return empty array)
+```javascript
+load() {
+  const stored = localStorage.getItem('habits');
+  return stored ? JSON.parse(stored) : [];
+}
+```
+
+**clear()** method needs to:
+1. Remove the stored data using localStorage.removeItem()
+```javascript
+clear() {
+  localStorage.removeItem('habits');
+}
+```
+
+Important concepts this exercise teaches:
+
+**JSON serialization**: localStorage only stores strings, so complex data must be converted. JSON.stringify() converts objects/arrays to strings, JSON.parse() converts them back.
+
+**Error handling**: What happens if localStorage is disabled or full? What if stored data is corrupted? Production code would use try/catch blocks.
+
+**Data consistency**: Using a consistent key ('habits') ensures the same data is accessed across page loads.
+
+**Default values**: The load() method returns an empty array if no data exists, preventing null/undefined errors in the application.
+
+This pattern is fundamental for creating stateful web applications that remember user data between sessions.
+</Notes>
 </SlideLayout.Full>

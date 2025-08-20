@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -25,6 +25,13 @@ console.log("2. Continuing..."); // Runs immediately!
     
   </File>
 </CodeDisplay>
+<Notes>
+This code example perfectly illustrates the difference between synchronous and asynchronous execution. In the synchronous version, when we call loadHabitsFromFile(), JavaScript stops everything and waits for the file to load. Nothing else can happen - no user clicks, no animations, nothing. It's like pressing pause on everything.
+
+In the asynchronous version, we pass a callback function that will run when the data is ready. Meanwhile, JavaScript continues to the next line immediately. This is why we see "2. Continuing..." before "3. Got data". The order of execution is no longer top-to-bottom - it's based on when operations complete.
+
+This non-blocking behavior is crucial for web applications. While waiting for a network request that might take seconds, the browser can still respond to user interactions, run animations, and execute other code. Without async programming, websites would freeze constantly, creating a frustrating user experience.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -43,4 +50,13 @@ console.log("2. Continuing..."); // Runs immediately!
       - Built on top of Promises
       - Cleaner, more readable code
   </FlexBox>
+<Notes>
+JavaScript's async patterns have evolved significantly over the years. Callbacks were the original solution - simple functions passed as arguments and called when an operation completes. While callbacks work, they can become deeply nested when you have multiple sequential async operations, creating what developers call "callback hell" - code that looks like a sideways pyramid.
+
+Promises, introduced in ES6, revolutionized async programming. A Promise is an object that represents a value that may not be available yet. Think of it as an IOU - "I promise to give you this value when it's ready." Promises can be chained together, making sequential operations much cleaner, and they have built-in error handling with .catch().
+
+Async/await, added in ES2017, is syntactic sugar built on top of Promises. It lets you write asynchronous code that looks almost identical to synchronous code. Under the hood, it's still using Promises, but the syntax is much more intuitive. This has become the preferred way to handle async operations in modern JavaScript.
+
+Each pattern has its place, and understanding all three helps you work with different codebases and choose the right tool for each situation.
+</Notes>
 </SlideLayout.Full>

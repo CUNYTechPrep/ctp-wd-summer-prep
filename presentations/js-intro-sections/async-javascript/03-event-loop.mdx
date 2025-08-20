@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -10,4 +10,13 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
     - Callbacks, promises, and async/await manage async code
     - Understanding async is crucial for modern JavaScript
     </FlexBox>
+<Notes>
+The Event Loop is the secret sauce that makes JavaScript's asynchronous behavior possible. Despite being single-threaded, JavaScript can handle multiple operations concurrently through this clever mechanism.
+
+Here's how it works: JavaScript has a call stack where it executes functions. When it encounters an async operation (like setTimeout or fetch), it hands that operation off to the browser's Web APIs. The JavaScript engine then continues executing other code. When the async operation completes, its callback is placed in a queue. The Event Loop constantly checks: "Is the call stack empty? If yes, move the next callback from the queue to the stack."
+
+This is why setTimeout(fn, 0) doesn't execute immediately - it goes through the Event Loop, allowing other code to run first. This architecture enables JavaScript to handle thousands of concurrent operations without creating new threads.
+
+Understanding the Event Loop helps explain many JavaScript behaviors: why console.log might appear in unexpected order, why promises resolve after synchronous code, and how Node.js can handle thousands of concurrent connections on a single thread. It's the foundation of JavaScript's non-blocking, event-driven architecture.
+</Notes>
 </SlideLayout.Full>

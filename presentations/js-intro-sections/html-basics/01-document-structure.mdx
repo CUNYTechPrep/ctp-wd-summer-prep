@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -39,4 +39,13 @@ import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideT
 ```
   </File>
 </CodeDisplay>
+<Notes>
+Every HTML document follows this standard structure. Understanding each part is crucial for building valid, well-structured web pages. Let's break down each section.
+
+The DOCTYPE declaration tells browsers this is an HTML5 document. It must be the very first thing in your file. The html element is the root, containing everything else. The lang attribute helps screen readers pronounce content correctly and helps search engines understand the page language.
+
+The head section contains metadata - information about the page that isn't displayed directly. The charset meta tag ensures proper character encoding (UTF-8 supports all languages and emojis). The viewport meta tag is essential for responsive design on mobile devices. The title appears in browser tabs and search results.
+
+The body contains all visible content. Notice the semantic elements: header for introductory content, nav for navigation, main for the primary content, section for thematic groupings, and footer for concluding information. These semantic elements are far superior to generic divs because they convey meaning about their content. This structure helps search engines understand your page and assists screen readers in navigating content efficiently.
+</Notes>
 </SlideLayout.Full>

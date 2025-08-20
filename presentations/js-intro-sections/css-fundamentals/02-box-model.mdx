@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -96,4 +96,13 @@ body {
 ```
   </File>
 </CodeDisplay>
+<Notes>
+The CSS Box Model is perhaps the most important concept in CSS. Every element on a web page is a rectangular box, and understanding how these boxes work is crucial for controlling layout and spacing.
+
+Think of each element as a gift box. The content is the gift itself. Padding is the protective foam around the gift. The border is the box itself. Margin is the space you leave between this box and other boxes when packing them for shipping.
+
+The traditional box model can be confusing because width and height only apply to the content area. If you set width: 200px, then add 20px padding and a 5px border, your element is actually 250px wide! This is why box-sizing: border-box is so popular - it includes padding and border in the width calculation, making layouts much more predictable.
+
+Margin has a special behavior called margin collapse - vertical margins between elements don't add up, they overlap, with the larger margin winning. This prevents excessive spacing but can be surprising. Understanding the box model thoroughly will solve 90% of your layout frustrations and is the foundation for more advanced layout techniques.
+</Notes>
 </SlideLayout.Full>

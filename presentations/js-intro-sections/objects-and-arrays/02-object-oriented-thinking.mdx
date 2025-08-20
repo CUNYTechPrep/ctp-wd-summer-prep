@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -9,4 +9,13 @@ Before building objects, think about the real world: Objects Group Related data
 - A habit has a name, category, streak count, and active status
 - Instead of separate variables, group them into one object
 - Objects can also contain functions (methods) that work with their data
+<Notes>
+Object-oriented thinking is a mental shift from thinking about individual pieces of data to thinking about complete entities. This paradigm mirrors how we naturally think about the world, making code more intuitive and maintainable.
+
+When you look at a habit tracker, you don't think "there's a name string, a category string, a number for streak, and a boolean for active status." You think "there's a habit with these characteristics." Object-oriented programming aligns code with this natural thinking.
+
+The key insight is that objects represent things - nouns in your application. A habit, a user, a task. Each object encapsulates all the data that describes that thing. This encapsulation creates clear boundaries in your code. When you need to work with habit data, you work with the habit object, not scattered variables.
+
+Methods take this further by adding behaviors - verbs that act on the object. A habit doesn't just have data; it can complete(), reset(), or checkStreak(). This combination of data and behavior in one place is powerful. It creates self-contained, reusable components that model real-world concepts in code.
+</Notes>
 </SlideLayout.Full>

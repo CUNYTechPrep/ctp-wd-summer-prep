@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -28,4 +28,12 @@ console.log(tracker(5));  // "Alice has 15 points"
     
   </File>
 </CodeDisplay>
+
+<Notes>
+This habit tracker example shows closures in action with a real-world use case. The createHabitTracker function is like a factory that creates personalized tracking functions. Each tracker it creates has its own private totalPoints variable that can't be accessed or modified from outside.
+
+Notice how each call to tracker() updates and remembers the totalPoints value. This is the power of closures - the returned function maintains a live connection to the variables in its parent scope. It's not a copy of totalPoints; it's the actual variable that persists in memory.
+
+This pattern is incredibly useful for creating multiple instances with their own private state. If we create another tracker for "Bob", it will have its own independent totalPoints. This is similar to how object-oriented programming achieves encapsulation, but using only functions. This demonstrates why closures are sometimes called "poor man's objects" - they provide data privacy and state management without needing classes.
+</Notes>
 </SlideLayout.Full>

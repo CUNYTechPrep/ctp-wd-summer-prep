@@ -1,0 +1,48 @@
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
+import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
+
+<SlideLayout.Full>
+## Async/Await Best Practices
+<CodeDisplay >
+  <File name="example.js">
+    
+```javascript
+// DO: Use try/catch for error handling
+async function saveHabit() {
+  try {
+    const result = await api.save(habit);
+    return result;
+  } catch (error) {
+    console.error('Save failed:', error);
+    throw error;
+  }
+}
+
+// DO: Run independent operations in parallel
+const [habits, user, settings] = await Promise.all([
+  fetchHabits(),
+  fetchUser(),
+  fetchSettings()
+]);
+
+// DON'T: Await in loops (slow)
+for (const habit of habits) {
+  await saveHabit(habit); // Sequential - slow!
+}
+
+// DO: Use Promise.all for parallel operations
+await Promise.all(habits.map(habit => saveHabit(habit)));
+```
+    
+  </File>
+</CodeDisplay>
+<Notes>
+These best practices can make the difference between slow, buggy async code and fast, reliable applications. The try/catch pattern is essential - always wrap your await calls in try/catch blocks to handle potential rejections. Without proper error handling, rejected promises can crash your application.
+
+The parallel execution pattern is crucial for performance. When you have multiple independent async operations, don't await them sequentially. Instead, start them all at once with Promise.all(). This can dramatically improve performance - three 1-second operations take 1 second in parallel versus 3 seconds sequentially.
+
+The loop antipattern is surprisingly common. Awaiting inside a loop forces operations to run one after another. If you're saving 100 items and each takes 100ms, that's 10 seconds sequentially versus 100ms in parallel! The solution is to map your items to promises, then use Promise.all().
+
+Other important practices include: always handle errors explicitly (don't silently swallow them), use async/await consistently within a function (mixing patterns gets confusing), and remember that async functions always return promises. These patterns separate professional code from amateur implementations.
+</Notes>
+</SlideLayout.Full>

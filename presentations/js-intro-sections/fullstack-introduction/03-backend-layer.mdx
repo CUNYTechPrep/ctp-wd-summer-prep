@@ -1,25 +1,32 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
 ## Backend Layer - The Server
 
-<FlexBox justifyContent="space-between" alignItems="flex-start">
-  <Box width="48%">
-    **Technologies:**
-    - Node.js (JavaScript server)
-    - Python (Django/Flask)
-    - Java (Spring)
-    - C# (.NET)
-  </Box>
-  <Box width="48%">
-    **Responsibilities:**
-    - Process business logic
-    - Handle API requests
-    - Authenticate users
-    - Communicate with database
-  </Box>
+<FlexBox justifyContent="space-around" alignItems="flex-start">
+  <Image 
+    src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Full+Stack+Web+Development+-+visual+selection+(6).svg"
+  />
 </FlexBox>
+
+<Notes>
+The backend layer is the brain of your application, handling all the logic that shouldn't or can't run on the client side. While the frontend focuses on user experience, the backend ensures data integrity, security, and business rule enforcement.
+
+Different programming languages offer different backend solutions. Node.js allows JavaScript developers to use the same language on both frontend and backend, reducing context switching. Python offers simplicity and powerful frameworks like Django. Java provides enterprise-grade solutions with Spring. Each has its strengths, but they all serve the same purpose.
+</Notes>
+</SlideLayout.Full>
+<SlideLayout.Full>
+## Backend Responsibilities
+<Image 
+    src="https://ctp-presentation-media.s3.us-east-2.amazonaws.com/Full+Stack+Web+Development+-+visual+selection+(3).svg"
+    height="65vh"
+  />
+<Notes>
+The backend's responsibilities go beyond just storing data. It authenticates users to ensure only authorized access, validates data to maintain integrity, implements business logic that shouldn't be exposed to clients, and manages complex operations that require server resources.
+
+Think of the backend as a gatekeeper and processor. It receives requests, determines if they're valid and authorized, processes them according to business rules, interacts with databases or other services, and returns appropriate responses.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>
@@ -52,4 +59,16 @@ app.post('/api/habits', async (req, res) => {
 ```
   </File>
 </CodeDisplay>
+
+<Notes>
+This backend example shows a typical API endpoint pattern. It handles a POST request to create a new habit, demonstrating several key backend responsibilities in action.
+
+First, we validate the input. The backend never trusts data from the frontend - it always validates to ensure required fields are present and data is in the correct format. This protects against both malicious attacks and honest mistakes.
+
+Next, we interact with the database through an abstraction layer. The await keyword shows this is asynchronous - the backend waits for the database operation to complete. Notice how we associate the habit with a specific user ID, maintaining data relationships and security.
+
+Error handling is crucial. We use try-catch to handle any unexpected errors, returning appropriate HTTP status codes. 400 indicates a client error (bad request), while 500 indicates a server error. This helps frontend developers understand what went wrong.
+
+This pattern - receive request, validate, process, respond - is the foundation of REST APIs and appears throughout backend development regardless of language or framework.
+</Notes>
 </SlideLayout.Full>

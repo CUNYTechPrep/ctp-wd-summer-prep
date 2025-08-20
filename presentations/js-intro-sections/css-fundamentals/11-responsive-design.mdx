@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -227,4 +227,13 @@ body {
 ```
   </File>
 </CodeDisplay>
+<Notes>
+Responsive design ensures your website works beautifully on any device, from phones to desktop monitors. It's not optional in modern web development - mobile traffic often exceeds desktop, and users expect seamless experiences regardless of their device.
+
+The foundation is the viewport meta tag, which tells mobile browsers to use the device width rather than pretending to be desktop browsers. Without this, your responsive CSS won't work properly on mobile devices.
+
+Media queries are your primary tool for responsive design. Start with mobile-first approach: design for small screens, then add complexity for larger screens. This ensures the core experience works everywhere and prevents mobile users from downloading unnecessary desktop styles. Common breakpoints include 768px for tablets and 1024px for desktops, but choose breakpoints based on your content, not devices.
+
+Responsive techniques go beyond media queries: use relative units (rem, em, %) instead of fixed pixels, implement flexible images with max-width: 100%, create fluid grids with CSS Grid or Flexbox, and consider touch targets for mobile (minimum 44x44px). Test on real devices, not just browser dev tools. Responsive design is about creating one website that adapts, not separate mobile and desktop versions.
+</Notes>
 </SlideLayout.Full>

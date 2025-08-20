@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -33,4 +33,13 @@ processHabit(123)
     
   </File>
 </CodeDisplay>
+<Notes>
+Async/await is the most recent addition to JavaScript's async toolkit, and it's transformed how we write asynchronous code. The beauty of async/await is that it makes async code look and behave like synchronous code, eliminating the cognitive overhead of callbacks and Promise chains.
+
+When you mark a function as async, two things happen: it automatically returns a Promise, and you can use the await keyword inside it. The await keyword is where the magic happens - it pauses the function's execution until the Promise resolves, then returns the resolved value directly. No more .then() chains!
+
+Notice how our error handling uses familiar try/catch blocks instead of .catch() methods. This makes async errors behave exactly like synchronous errors. If any awaited Promise rejects, execution jumps to the catch block.
+
+One crucial point: async functions always return Promises. Even if you return a regular value, it's wrapped in a Promise. This means you can still use .then() and .catch() when calling async functions, giving you flexibility in how you handle their results. This compatibility is why async/await has become the preferred pattern - it plays nicely with existing Promise-based code while offering cleaner syntax.
+</Notes>
 </SlideLayout.Full>

@@ -1,4 +1,4 @@
-import { SlideLayout, FlexBox, Box } from 'spectacle'
+import { SlideLayout, FlexBox, Box, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -32,6 +32,15 @@ habitsList.addEventListener('click', (e) => {
     
   </File>
 </CodeDisplay>
+<Notes>
+Event handling is the heartbeat of interactive web applications. Without events, web pages would be static documents. With events, every user action can trigger a response, creating dynamic, engaging experiences.
+
+The addEventListener method is the modern standard for attaching event handlers. Unlike older methods (onclick attributes), you can attach multiple handlers to the same event, remove handlers when needed, and keep your JavaScript separate from your HTML. The event object passed to your handler is a treasure trove of information: which element was clicked, mouse coordinates, which key was pressed, whether modifier keys were held, and more.
+
+Event delegation is a powerful pattern that leverages event bubbling. Instead of attaching listeners to many elements (like each button in a list), you attach one listener to a parent element. When events bubble up from child elements, you check what was clicked and respond accordingly. This is more efficient, works with dynamically added elements, and reduces memory usage.
+
+Common events cover every type of user interaction: mouse events (click, hover, drag), keyboard events (keydown, keyup, keypress), form events (submit, change, focus), and window events (load, resize, scroll). Mastering events means you can respond to any user action.
+</Notes>
 </SlideLayout.Full>
 
 <SlideLayout.Full>

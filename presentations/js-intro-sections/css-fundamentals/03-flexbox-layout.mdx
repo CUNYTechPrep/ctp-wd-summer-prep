@@ -1,4 +1,4 @@
-import { SlideLayout } from 'spectacle'
+import { SlideLayout, Notes } from 'spectacle'
 import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -139,4 +139,13 @@ import { CodeDisplay, File } from '../../components/CodeDisplayWithSlideTracking
 ```
   </File>
 </CodeDisplay>
+<Notes>
+Flexbox revolutionized CSS layouts by making previously difficult tasks simple. Before Flexbox, centering elements vertically or creating equal-height columns required hacks and workarounds. Now it's as simple as a few properties.
+
+The mental model for Flexbox is a flexible container with flexible items. The container controls how items are arranged, and items control how they grow or shrink. Think of it like a shelf system where you can control how books are arranged - left to right, right to left, or even bottom to top.
+
+The key properties to master are: display: flex to create a flex container, flex-direction to set the main axis, justify-content for alignment along the main axis, align-items for alignment along the cross axis, and flex-wrap to control wrapping. On flex items, the flex property is shorthand for flex-grow, flex-shrink, and flex-basis.
+
+Flexbox shines for component layouts - navigation bars, card layouts, form controls, and any UI where you need to distribute space dynamically. It's particularly powerful for responsive design because flex items naturally adapt to available space. Once you understand the main axis vs. cross axis concept, Flexbox becomes intuitive and indispensable.
+</Notes>
 </SlideLayout.Full>

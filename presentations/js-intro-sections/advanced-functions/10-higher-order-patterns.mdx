@@ -1,4 +1,4 @@
-import { SlideLayout, Image, FlexBox, Box, Text} from 'spectacle'
+import { SlideLayout, Image, FlexBox, Box, Text, Notes } from 'spectacle'
 import { CodeDisplay, File, Tests } from '../../components/CodeDisplayWithSlideTracking'
 
 <SlideLayout.Full>
@@ -32,4 +32,16 @@ function withLogging(fn) {
     
   </File>
 </CodeDisplay>
+
+<Notes>
+Higher-order functions are functions that operate on other functions, either by taking them as arguments or returning them. This slide shows three fundamental patterns that form the backbone of functional programming in JavaScript.
+
+The first pattern, functions as arguments, is already familiar from array methods like map, filter, and reduce. The processHabits function abstracts the iteration, letting us pass different operations to transform our data.
+
+The second pattern, returning functions, creates specialized versions of more general functions. The createMultiplier example shows how we can create a family of related functions - double, triple, quadruple - from a single factory.
+
+The third pattern, function transformation, is incredibly powerful. The withLogging wrapper adds debugging capabilities to any function without modifying the original. This is the decorator pattern in functional programming - we enhance behavior by wrapping, not inheritance.
+
+These patterns enable code reuse, separation of concerns, and composability. They're essential for understanding modern JavaScript frameworks and libraries, which use higher-order functions extensively.
+</Notes>
 </SlideLayout.Full>
