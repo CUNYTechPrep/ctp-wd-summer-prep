@@ -27,14 +27,18 @@ body {
     background-color: white;
     border: solid;
     border-color: #156a9b;
-    padding: 25px 0px 50px 25px;
+    padding: 25px 25px 50px 25px;
     margin: 25px;
-    width: 250px;
+    max-width: 250px;
     font-family: 'Montserrat';
+    align-items: center;
 }
 
 .habit_header {
     font-family: 'Montserrat';
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .habit_mark_complete {
@@ -47,4 +51,21 @@ body {
 
 .habit_list {
     display: flex;
+}
+
+.habit_name {
+    font-family: 'Montserrat';
+    font-weight: bold;
+}
+
+.delete_habit {
+    font-family: 'Montserrat';
+    color: red;
+    text-decoration: none;
+    font-size: large;
+}
+
+.delete_habit:hover {
+    color: darkred;
+    cursor: pointer;
 }
