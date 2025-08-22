@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/src/assets/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/src/assets/style.css">
+  <title>Habit Tracker</title>
+</head>
+<body>
+  <div class="root" id="root">
+    <header class="header">
+      <h1>Habit Tracker</h1>
+    </header>
+    <form class="habit-form" id="habit-form">
+      <h2>Add a New Habit</h2>
+      <label for="habit-name">Habit Name:</label>
+      <input id="habit-name" name="habit-name" type="text" required />
+      <label for="target-streak">Target Streak (days):</label>
+      <input id="target-streak" required name="target-streak" min="0" max="32" type="number" />
+      <button type="submit" class="btn btn--primary" id="submit-habit">Submit</button>
+    </form>
+    <!-- See current streak and longest streak and completed habits -->
+    <div class="habit-stats">
+      <h2>All Habit Statistics</h2>
+      <div class="stats-container">
+        <div class="stat-card" id="completed-habits-card">
+          <div class="stat-number" id="completed-habits">0</div>
+          <div class="stat-label">Completed Habits</div>
+        </div>
+        <div class="stat-card" id="broken-streaks-card">
+          <div class="stat-number" id="broken-streaks">0</div>
+          <div class="stat-label">Broken Streaks</div>
+        </div>
+      </div>
+    </div>
+    <div class="habit-list-container">
+      <h2>Your Habits</h2>
+      <ul class="habit-list" id="habit-list">
+        <!-- habit number, name, target streak, current streak, buttons for edit and delete -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Edit Habit Modal -->
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit Habit</h3>
+        <span class="close" id="edit-close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form class="edit-form" id="edit-form">
+          <label for="edit-habit-name">Habit Name:</label>
+          <input type="text" id="edit-habit-name" name="edit-habit-name" required>
+
+          <label for="edit-target-streak">Target Streak (days):</label>
+          <input type="number" id="edit-target-streak" name="edit-target-streak" min="1" max="32" required>
+
+          <div class="modal-buttons">
+            <button type="submit" class="btn btn--primary">Save</button>
+            <button type="button" class="btn btn--secondary" id="edit-cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title"></h3>
+        <span class="modal-close" id="modal-close">&times;</span>
+      </div>
+      <div class="modal-body" id="modal-body"> </div>
+    </div>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
