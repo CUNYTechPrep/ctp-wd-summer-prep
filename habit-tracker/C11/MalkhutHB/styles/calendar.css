@@ -1,0 +1,77 @@
+/* calendar */
+
+.calendar {
+    display: flex;
+    gap: 0.625rem;
+    margin: 1.875rem 0rem 4.375rem;
+    width: fit-content;
+}
+
+@media (max-width: 550px) {
+    .calendar {
+        justify-content: flex-start;
+    }
+}
+
+.calendar-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    width: 100vw;
+    justify-self: flex-start;
+}
+
+@media (max-width: 730px) {
+    .calendar {
+        width: fit-content;
+        margin: 1.875rem 2rem 2.375rem;
+        align-self: flex-start;
+    }
+}
+
+.calendar-day {
+    font-size: 1.375rem;
+    font-weight: 700;
+    height: 6.25rem;
+    width: 5rem;
+    color:#c6c9cb;
+    border-color: #269cc7;
+    border-style: none;
+    border-radius: 1.25rem;
+    background-color: var(--main);
+    -webkit-touch-callout: none; 
+      -webkit-user-select: none; 
+       -khtml-user-select: none; 
+         -moz-user-select: none; 
+          -ms-user-select: none; 
+              user-select: none; 
+}
+
+.cal-day-num {
+    font-size: 2.1875rem;
+}
+
+.cal-day-of-week {
+    font-size: 1.25rem;
+}
+
+
+
+.calendar-day:hover {
+    color:#373737;
+    box-shadow: none;   
+    border-style: none;
+
+}
+
+.calendar-day.clicked {
+    color:#000000;
+    box-shadow: none;   
+    border-style: none;
+    box-shadow:  
+    0px 8px 13px -5px #bababa,
+    0px -8px 13px 0px #ffffff;
+}
+

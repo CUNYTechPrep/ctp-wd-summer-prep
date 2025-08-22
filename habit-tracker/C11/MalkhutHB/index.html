@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+  <link rel="stylesheet" href="styles/styles.css"/>
+  <link rel="stylesheet" href="styles/calendar.css"/>
+  <!-- <link rel="stylesheet" href="styles/mobile-breakpoint.css"> -->
+  <link rel="stylesheet" href="styles/habit-cards.css"/>
+  <link rel="stylesheet" href="styles/progress.css"/>
+  <script src="main.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+</head>
+<body>
+<div class="site">
+  <Header class="top">
+    <div>
+      <h1 class="title">
+        <span class="date"></span> 
+      </h1>
+    </div>
+    <div class="header-right">
+
+    </div>
+  </Header>
+
+  <div class="calendar-wrapper">
+    <div class="calendar">
+      <!-- will load dynamically, for now lets make dummies -->
+      <!-- actually dummies can stay in html and just update the content. As for  -->
+      <button class="calendar-day clicked" data-time-offset="0">
+        <div class="cal-day-num">8</div>
+        <div class="cal-day-of-week">Fr</div>
+      </button>
+      <button class="calendar-day" data-time-offset="1">
+        <div class="cal-day-num">9</div>
+        <div class="cal-day-of-week">Sa</div>
+      </button>
+      <button class="calendar-day" data-time-offset="2">
+        <div class="cal-day-num">10</div>
+        <div class="cal-day-of-week">Su</div>
+      </button>
+      <button class="calendar-day" data-time-offset="3">
+        <div class="cal-day-num">11</div>
+        <div class="cal-day-of-week">Mo</div>
+      </button>
+      <button class="calendar-day" data-time-offset="4">
+        <div class="cal-day-num">12</div>
+        <div class="cal-day-of-week">Tu</div>
+      </button>
+      <button class="calendar-day" data-time-offset="5">
+        <div class="cal-day-num">13</div>
+        <div class="cal-day-of-week">Wed</div>
+      </button>
+      <button class="calendar-day" data-time-offset="6">
+        <div class="cal-day-num">14</div>
+        <div class="cal-day-of-week">Th</div>
+      </button>
+      <button class="calendar-day" data-time-offset="7">
+        <div class="cal-day-num">15</div>
+        <div class="cal-day-of-week">Fr</div>
+      </button>
+    </div>
+  </div>
+
+  <h2 class="habits-list"><button class="section1 selected">My Habits</button> <button class="section2">Completed</button></h2>
+
+  
+  <section class="cards">
+    
+  </section>
+
+
+  <!-- new habit UI -->
+  
+  <button class="add-habit"><span class="plus">+</span>New Habit</button>
+
+  <!-- TEMPLATES -->
+    
+  <template id="card-template">
+    <article class="habit-card">
+      <div class="habit-card-main" tabindex="0">
+        <div class="habit-icon" tabindex="0">
+        </div>
+        <div class="text">
+          <h2 class="habit-title">New Habit</h2>
+          <span class="status completed">unfinished</span>
+          <span class="time">10:00 AM</span>
+        </div>
+        <div class="streak"></div>
+        <svg width="70" height="70" viewBox="0 0 70 70" class="circular-progress" style="--progress: 0">
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#5E84FF"/>
+              <stop offset="100%" stop-color="#96BCFF"/>
+            </linearGradient>
+          </defs>
+          <circle class="bg" cx="35" cy="35"></circle>
+          <circle class="fg" cx="35" cy="35"></circle>
+          <text x="51%" y="52%">
+            0%
+          </text>
+        </svg>  
+      </div>
+    </article>
+  </template>
+
+  <template id="extender-template">
+    <div class="habit-card-extender">
+      <span class="update-title">Update Habit</span>
+
+      <label for="habit_name_input">Habit Title</label>
+      <input type="text" id="habit_name_input" placeholder="Enter habit name">
+
+      <span>Repeat</span>
+      <div class="repeat-options">
+        <button class="repeat none">None</button>
+        <button class="repeat daily">Daily</button>
+        <button class="repeat weekly">Weekly</button>
+      </div>
+
+      <span id="select-days-title" class="">Select Days</span>
+      <div class="days">
+        <button id="sunday" class="">S</button>
+        <button id="monday" class="">M</button>
+        <button id="tuesday" class="">T</button>
+        <button id="wednesday" class="">W</button>
+        <button id="thursday" class="">T</button>
+        <button id="friday" class="">F</button>
+        <button id="saturday" class="">S</button>
+      </div>
+
+      <div class="time-section">
+        <label for="time">Time</label>
+        <input type="time" id="time" value="10:00">
+      </div>
+
+      <div class="buttons"> 
+        <button class="save-habit">Save</button>
+        <button class="delete-habit">Delete</button>
+      </div>
+    </div>
+  </template>
+
+  <div id="detached-container" style="display:none;">
+
+  </div>
+  <!-- TEMPLATES -->
+
+
+
+
+
+
+
+</div class="site">
+</body>
+</html>
+
+
+<!-- 
+current card design with js
+
+  <section class="cards">
+
+    <article class="habit-card">
+      <h2>Example Habit</h2>
+      <p>Started Jan 2002</p>
+      <p>Current Streak: 4 days!</p>
+      <div class="buttons">
+        <button id="complete">Mark Complete</button>
+        <button id="details">View Details</button>
+      </div>
+    </article>
+
+  </section>
+  
+-->
