@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="styles.css">
   <title> Form </title>
 </head>
 <body>
     <form id="habitform">
       <fieldset>
-        <label for = "habitName"> Habit Name:</label>
-        <input type="text" id="habitName" name="habitName" required>
+        <div class="sameLine">
+          <div class="nameInput">
+            <label class="nameInput" for = "habitName"> Habit Name:</label> <!--create a class to keep the label and its box together -->
+            <input class="nameInput" type="text" id="habitName" name="habitName" required>
+          </div>
+        <p id="pointsDisplay" class="right-align"></p>
+        </div>
 
 <!-- Select Dropdown -->
         
@@ -18,6 +24,8 @@
               <option value="learning">Learning</option>
               <option value="relaxation">Relaxation</option>
           </select>
+
+
         </fieldset>
         
         <!-- slider -->
@@ -27,11 +35,12 @@
           </label> 
           <input type="range" id = "targetStreak" name = "targetStreak" min= "1" max= "9" value = "1" oninput="document.getElementById('streakValue').innerText = this.value">
           <button type="submit">Create Habit</button>
+          <button id="clearList" type="button">Clear habit list</button>
         </fieldset>  
     </form>
 
     <ul id= "habit_list">
-      
+      /
     </ul>
 
     
