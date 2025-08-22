@@ -1,0 +1,271 @@
+body {
+  margin: 0;
+  display: flex; 
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+/*  Side Nav bar*/
+.sidebar {
+  width: 220px;
+  background-color: #161414;
+  color: white;
+  position: fixed;    
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.nav-brand {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin-bottom: 15px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.nav-links a:hover {
+  background-color: #555;
+}
+/*  Dashboard*/
+.dashboard {
+  display:flex;
+  flex-direction: column;  
+  align-items: center;    
+  margin-left: 220px;
+  padding: 20px;
+  width: calc(100% - 220px); 
+  box-sizing: border-box;
+}
+
+.nav-links button {
+    appearance: none;
+    background-color: #2ea44f;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.nav-links button:hover {
+  background-color: #2c974b;
+}
+
+.nav-links button:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.nav-links button:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.nav-links button:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+/*  Habit Modal */
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    opacity: 1;
+    transition: all 0.3s ease;
+    }
+
+.hidden {
+    display:none
+}
+
+.modalContent {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+#modal-close {
+  position: absolute;
+  top: 0px;        
+  right: 0px;      
+  width: 32px;
+  height: 32px;
+  background: #f1f5f9;
+  border: none;
+  font-size: 14px;
+  color: #64748b;
+  cursor: pointer;
+  z-index: 1;    
+  margin-bottom: auto;  
+}
+
+#modal-close:hover {
+    background: #e2e8f0;
+    color: #374151;
+
+}
+
+.modalContent input,
+.modalContent select,
+.modalContent button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 0px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.modalContent button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.modalContent button:hover {
+  background-color: #2563eb;
+}
+.modalContent label[for="habitName"],
+.modalContent label[for="category"] {
+  opacity: 50%;
+}
+
+.modalContent legend{
+  font-weight:bold;
+  margin: bottom 8px;
+  padding:0;
+}
+
+.modalContent input[type="radio"] {
+    width: auto; 
+    margin-right: 8px;
+    margin-bottom: 0;
+}
+
+.modalContent label[for="daily"],
+.modalContent label[for="weekly"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 20px; 
+    margin-bottom: 8px;
+}
+
+.modalContent input[type="checkbox"] {
+    width: auto;           
+    margin-right: 8px;     
+    margin-bottom: 0;      
+    display: inline-block; 
+}
+
+.modalContent label[for="reminder"] {
+    display: inline-block;
+    width: auto;
+    margin-bottom: 16px;
+    vertical-align: top;  
+}
+
+#habit_list{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:30px;
+    padding:10px;
+    margin:0 auto;
+    width:100%;
+}
+.habitCard {
+    display:flex;
+    border: 1px solid #ccc;
+    padding: 30px; 
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cardButtons{
+  display:flex;
+}
+.completeButton {
+    appearance: none;
+    background-color: #2ea44f;
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    
+}
+
+.completeButton:hover {
+  background-color: #2c974b;
+}
+
+.deleteHabitButton {
+  cursor: pointer;
+  background-color: red;
+
+}

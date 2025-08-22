@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css"/>
+  <title>Habit Tracker</title>
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="nav-brand">Habit Tracker</div>
+      <ul class="nav-links">
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">My Habits</a></li>
+        <li><a href="#">Statistics</a></li>
+        <button id="create_habit_btn"> Create A New Habit! </button>
+      </ul>
+
+  </nav>
+  <main class="dashboard"> 
+    <h1>Your Habits</h1>
+    <div id="habit_list">
+    </div>
+  </main>
+  <div id="habitModal" class="modal hidden">
+    <div class="modalContent">
+      <button id="modal-close" onclick="document.getElementById('habitModal').classList.add('hidden')">X</button>
+      <form id="habitForm">
+
+        <!-- Text Input -->
+        <label for="habitName">Habit Name:</label>
+        <input type="text" id="habitName" name="habitName" required>
+        
+        <!-- Select Dropdown -->
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            <option value="health">Health</option>
+            <option value="productivity">Productivity</option>
+            <option value="learning">Learning</option>
+        </select>
+
+        <!-- Radio Buttons -->
+        <fieldset>
+        <legend>Frequency:</legend>
+        <input type="radio" id="daily" name="frequency" value="daily" checked>
+        <label for="daily">Daily</label>
+        
+        <input type="radio" id="weekly" name="frequency" value="weekly">
+        <label for="weekly">Weekly</label>
+        </fieldset>
+        <!-- Checkbox -->
+        <input type="checkbox" id="reminder" name="reminder">
+        <label for="reminder">Enable reminders</label>
+        
+        <!-- Buttons -->
+        <button type="submit">Save Habit</button>
+      </form>
+    </div>
+  </div>   
+  <div id="root"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
