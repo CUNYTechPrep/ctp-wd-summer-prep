@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit Tracker & Wellness Dashboard</title>
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <div class="container">
+          <h1 class="app-title">
+            <span class="icon">🎯</span>
+            Habit Tracker
+          </h1>
+          <p class="app-subtitle">Build better habits, one day at a time</p>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container">
+          <!-- Add Habit Form -->
+          <section class="add-habit-section">
+            <h2>Add New Habit</h2>
+            <form id="add-habit-form" class="habit-form">
+              <div class="form-group">
+                <label for="habit-name">Habit Name</label>
+                <input
+                  type="text"
+                  id="habit-name"
+                  name="habitName"
+                  placeholder="e.g., Drink 8 glasses of water"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="habit-category">Category</label>
+                <select id="habit-category" name="category" required>
+                  <option value="">Select a category</option>
+                  <option value="health">🏃 Health & Fitness</option>
+                  <option value="productivity">💼 Productivity</option>
+                  <option value="mindfulness">🧘 Mindfulness</option>
+                  <option value="social">👥 Social</option>
+                  <option value="learning">📚 Learning</option>
+                  <option value="creativity">🎨 Creativity</option>
+                  <option value="other">📝 Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="habit-frequency">Target Frequency</label>
+                <select id="habit-frequency" name="frequency" required>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
+              <div
+                class="form-group"
+                id="custom-count-group"
+                style="display: none"
+              >
+                <label for="habit-count">Times per week</label>
+                <input
+                  type="number"
+                  id="habit-count"
+                  name="targetCount"
+                  min="1"
+                  max="7"
+                  value="3"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Add Habit</button>
+            </form>
+          </section>
+
+          <!-- Habits Dashboard -->
+          <section class="dashboard-section">
+            <div class="dashboard-header">
+              <h2>Your Habits</h2>
+              <div class="stats-summary">
+                <div class="stat-card">
+                  <span class="stat-number" id="total-habits">0</span>
+                  <span class="stat-label">Total Habits</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-number" id="active-streaks">0</span>
+                  <span class="stat-label">Active Streaks</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-number" id="completion-rate">0%</span>
+                  <span class="stat-label">Today's Rate</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Current Date Display -->
+            <div class="current-date">
+              <h3 id="current-date-display"></h3>
+            </div>
+
+            <!-- Habits List -->
+            <div id="habits-container" class="habits-container">
+              <div id="no-habits" class="no-habits">
+                <p>No habits yet! Add your first habit above to get started.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Habit History -->
+          <section class="history-section">
+            <h2>Habit History</h2>
+            <div class="history-filters">
+              <button class="filter-btn active" data-period="week">
+                This Week
+              </button>
+              <button class="filter-btn" data-period="month">This Month</button>
+              <button class="filter-btn" data-period="all">All Time</button>
+            </div>
+            <div id="history-container" class="history-container">
+              <!-- History will be populated by JavaScript -->
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- Edit Habit Modal -->
+      <div id="edit-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Edit Habit</h3>
+            <button class="close-btn" id="close-edit-modal">&times;</button>
+          </div>
+          <form id="edit-habit-form" class="habit-form">
+            <input type="hidden" id="edit-habit-id" />
+            <div class="form-group">
+              <label for="edit-habit-name">Habit Name</label>
+              <input
+                type="text"
+                id="edit-habit-name"
+                name="habitName"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="edit-habit-category">Category</label>
+              <select id="edit-habit-category" name="category" required>
+                <option value="health">🏃 Health & Fitness</option>
+                <option value="productivity">💼 Productivity</option>
+                <option value="mindfulness">🧘 Mindfulness</option>
+                <option value="social">👥 Social</option>
+                <option value="learning">📚 Learning</option>
+                <option value="creativity">🎨 Creativity</option>
+                <option value="other">📝 Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="edit-habit-frequency">Target Frequency</label>
+              <select id="edit-habit-frequency" name="frequency" required>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div
+              class="form-group"
+              id="edit-custom-count-group"
+              style="display: none"
+            >
+              <label for="edit-habit-count">Times per week</label>
+              <input
+                type="number"
+                id="edit-habit-count"
+                name="targetCount"
+                min="1"
+                max="7"
+              />
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="btn btn-secondary" id="cancel-edit">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/demo-data.js"></script>
+  </body>
+</html>
