@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Habit Tracker</h1>
+      <p>Build better habits, one day at a time</p>
+    </header>
+
+    <main class="main-content">
+
+      <section class="add-habit-section">
+        <h2>Add New Habit</h2>
+        <form id="habitForm" class="habit-form">
+          <div class="form-group">
+            <label for="habitName">Habit Name</label>
+            <input type="text" id="habitName" placeholder="e.g. Drink 8 glasses of water" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="habitFrequency">Target Frequency</label>
+            <select id="habitFrequency" required>
+              <option value="">Select frequency</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="custom">Custom (days per week)</option>
+            </select>
+          </div>
+          
+          <div class="form-group hidden" id="customFrequencyGroup">
+            <label for="customDays">Days per week</label>
+            <input type="number" id="customDays" min="1" max="7" placeholder="e.g., 3">
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Add Habit</button>
+        </form>
+      </section>
+
+
+      <section class="habits-section">
+        <div class="empty-state" id="emptyState">
+          <h3>No habits yet</h3>
+          <p>Start building better habits by adding your first habit above!</p>
+        </div>
+        
+        <div class="habits-grid hidden" id="habitsGrid"></div>
+      </section>
+    </main>
+  </div>
+
+
+  <div id="editDialog" class="dialog hidden">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h3>Edit Habit</h3>
+        <button class="close-btn" type="button">&times;</button>
+      </div>
+      
+      <form id="editForm">
+        <div class="form-group">
+          <label for="editHabitName">Habit Name</label>
+          <input type="text" id="editHabitName" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="editHabitFrequency">Target Frequency</label>
+          <select id="editHabitFrequency" required>
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="custom">Custom (days per week)</option>
+          </select>
+        </div>
+        
+        <div class="form-group hidden" id="editCustomFrequencyGroup">
+          <label for="editCustomDays">Days per week</label>
+          <input type="number" id="editCustomDays" min="1" max="7">
+        </div>
+        
+        <div class="dialog-actions">
+          <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="src/main.js"></script>
+</body>
+</html>
