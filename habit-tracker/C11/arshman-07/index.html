@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Habit Tracker</h1>
+
+  <form id="habit_form">
+    <label for="habit_name">Habit Name:</label>
+    <input id="habit_name" name="habit_name" type="text" required />
+
+    <label for="target_streak">Target Streak:</label>
+    <input id="target_streak" name="target_streak" type="number" min="1" required />
+
+    <button type="submit">Add Habit</button>
+  </form>
+
+  <ul id="habit_list"></ul>
+
+  <script src="main.js"></script>
+</body>
+</html>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

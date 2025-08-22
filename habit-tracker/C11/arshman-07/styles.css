@@ -1,0 +1,85 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #c8f7c5; 
+  margin: 0;
+  padding: 20px;
+}
+
+
+h1 {
+  text-align: center;
+  color: white;
+  background-color: #2e7d32; 
+  padding: 15px;
+  border-radius: 8px;
+}
+
+
+form {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input, button {
+  padding: 8px;
+  margin-top: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  margin-right: 5px;
+}
+
+button:hover {
+  background-color: #1b5e20;
+}
+
+
+#habit_list {
+  list-style: none;
+  padding: 0;
+}
+
+.habit-item {
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.habit-item span {
+  font-weight: bold;
+}
+
+.delete {
+  background-color: red;
+}
+
+.delete:hover {
+  background-color: darkred;
+}
