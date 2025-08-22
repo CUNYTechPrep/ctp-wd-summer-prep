@@ -1,0 +1,108 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f9fb;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  margin-bottom: 0.5em;
+}
+
+#habit_form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+#habit_form input,
+#habit_form select {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#habit_list {
+  list-style: none;
+  padding: 0;
+}
+
+#habit_list li {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+#habit_category,
+#habit_name,
+#date_started,
+#target_streak {
+    color: #b34ad3;
+}
+
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+button.toggle_today {
+  background: #4caf50;
+  color: white;
+}
+
+button.delete_habit {
+  background: #f44336;
+  color: white;
+}
+
+button.edit_habit,
+button.save_edit,
+button.cancel_edit {
+  background: #2196f3;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.edit_name,
+.edit_category,
+.edit_target {
+  margin-right: 8px;
+  padding: 5px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+li.editing {
+  background: #fffbe6;
+  border-color: #f0c36d;
+}
+
+.streak {
+  display: inline-block;
+  background: #eee;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 0.9em;
+  margin-left: 6px;
+}
+
+.streak.current {
+  background: #4caf50;
+  color: white;
+}
+
+.streak.longest {
+  background: #2196f3;
+  color: white;
+}

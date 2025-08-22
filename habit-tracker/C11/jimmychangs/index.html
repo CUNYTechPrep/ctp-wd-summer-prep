@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@jimmychangs Habit Tracker</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div id="app_container">
+    <h1>Habit Tracker</h1>
+    <h4>It takes on average 66 days to ingrain an habit!</h4>
+    
+    <form id="habit_form">
+      <label for="habit_name">Habit Name:</label>
+      <input id="habit_name" name="habit_name" type="text" required/>
+      <label for=""habit_category>Category:</label>
+      <select id="habit_category" name="habit_category" required>
+        <option value="Health">Health</option>
+        <option value="Productivity">Productivity</option>
+        <option value="Learning">Learning</option>
+      </select> 
+      <label for="target_streak">Target Streak:</label>
+      <input id="target_streak" name="target_streak" min="0" max="66" type="number" />
+      <label for="date_started">Date Started:</label>
+      <input id="date_started" name="date_started" type="date" />
+      <button type="submit" id="submit_habit">Add Habit</button>
+    </form>
+    <ul id="habit_list">
+    </ul>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
