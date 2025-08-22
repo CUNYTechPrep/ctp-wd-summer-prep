@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Tracker (Simple Dark + Streaks)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100">
+  <div class="max-w-3xl mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Habit Tracker</h1>
+
+    <!-- Add habit form -->
+    <form id="newHabitForm" class="mb-4 grid gap-2 sm:grid-cols-[1fr_160px_120px]">
+      <input id="habitName" class="bg-slate-800 border border-slate-700 rounded-lg p-2 w-full" placeholder="Habit name (e.g. Study)" required />
+      <select id="habitTarget" class="bg-slate-800 border border-slate-700 rounded-lg p-2 w-full">
+        <option>7</option><option>6</option><option selected>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+      </select>
+      <button class="bg-blue-500 hover:bg-blue-600 rounded-lg text-white px-4 py-2" type="submit">Add Habit</button>
+    </form>
+
+    
+    <div class="flex items-center justify-between mb-2">
+      <div>
+        <h2 class="text-xl font-semibold">Habits</h2>
+        <div id="weekLabel" class="text-sm text-slate-400"></div>
+      </div>
+      <button id="resetBtn" class="hidden bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg" title="Advance to next week and increment streak for habits that met their goal">Next Week (Reset)</button>
+    </div>
+
+    <div id="daysHeader" class="grid grid-cols-[1fr_7fr_auto] gap-2 text-sm text-slate-400 mb-2"></div>
+    <div id="habitList" class="space-y-2"></div>
+  </div>
+
+  <template id="habitRowTpl">
+    <div class="grid grid-cols-[1fr_7fr_auto] gap-2 items-center border border-slate-800 rounded-xl p-2 bg-slate-800">
+      <div>
+        <div class="habit-title font-medium"></div>
+        <div class="habit-stats text-sm text-slate-300"></div>
+      </div>
+      <div class="habit-grid grid grid-cols-7 gap-2"></div>
+      <div class="flex gap-1">
+        <button class="px-2 py-1 border border-slate-700 rounded-lg text-sm" data-action="history">History</button>
+        <button class="px-2 py-1 border border-slate-700 rounded-lg text-sm" data-action="edit">Edit</button>
+        <button class="px-2 py-1 bg-red-500 hover:bg-red-600 rounded-lg text-white text-sm" data-action="delete">Delete</button>
+      </div>
+    </div>
+  </template>
+
+  <dialog id="historyDialog" class="p-4 border border-slate-700 bg-slate-900 text-slate-100 rounded-md">
+    <h3 class="font-bold mb-2">History</h3>
+    <div id="historyContent" class="text-sm"></div>
+    <form method="dialog"><button class="mt-2 border border-slate-700 px-3 py-1 rounded">Close</button></form>
+  </dialog>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

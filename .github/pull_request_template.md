@@ -1,10 +1,10 @@
 ## 📚 CTP Habit Tracker Submission
 
 ### 📝 Student Information
-- **Name**: 
-- **Cohort**: (e.g., C11, C12)
-- **GitHub Username**: 
-- **Week Submission**: (Week 1 / Week 2 / Week 3 / Final)
+- **Name**: Azm Karim
+- **Cohort**: C11
+- **GitHub Username**: Azmk1
+- **Week Submission**: Week 1 
 
 ### 🎯 Implementation Summary
 <!-- Provide a brief overview of what you implemented this week -->
