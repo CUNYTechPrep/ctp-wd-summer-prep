@@ -1,0 +1,45 @@
+/* reset box model */
+* { box-sizing: border-box; }
+
+body {
+  font-family: sans-serif;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+form input, form select, form button {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.habit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.habit-item div {
+  flex: 1;
+}
+
+.habit-item button {
+  margin-left: 0.5rem;
+}
+
+/* history text */
+.history {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
