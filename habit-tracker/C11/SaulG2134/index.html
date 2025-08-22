@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+    }
+    #root {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 20px;
+    }
+    li {
+      padding: 10px;
+      background-color: #e9e9f0;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li button {
+      margin-left: 5px;
+      background-color: #5f4dff;
+      padding: 5px 10px;
+    }
+    li button:hover {
+      background-color: #0023e6;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <h2>Habit Tracker</h2>
+    <form id="habit_form">
+      <label for="habit_name">Habit Name:</label> 
+      <input id="habit_name" name="habit_name" type="text" placeholder="e.g., Drink Water" required/>
+
+      <label for="target_streak">Target (optional):</label>
+      <input 
+        id="target_streak" 
+        name="target_streak" 
+        type="number" 
+        min="1" 
+        placeholder="Enter target (optional)" 
+      />      
+
+      <button type="submit" id="submit_habit">Add / Update Habit</button>
+    </form>
+
+    <ul id="habit_list"></ul>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
