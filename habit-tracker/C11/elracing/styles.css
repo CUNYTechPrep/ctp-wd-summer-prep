@@ -1,0 +1,21 @@
+.right-align {
+    text-align: right;
+}
+
+.left-align {
+    text-align: left;
+}
+
+
+.sameLine {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nameInput {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
