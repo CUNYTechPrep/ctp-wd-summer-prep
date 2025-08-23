@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+
+  <style>
+    #root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 20px;
+      font-family: sans-serif;
+    }
+
+    #habit_form{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    #habit_form input, #habit_form button {
+      padding: 5px 10px;
+      font-size: 1rem;
+    }
+
+    #habit_list {
+      list-style-type: none;
+      padding: 0;
+      width: 700px; 
+    }
+
+    #habit_list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    #habit_list button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <form id="habit_form">
+      <label for="habit_name">Habit Name:</label>
+      <input id="habit_name" name="habit_name" type="text" required />
+
+      <label for="target_streak">Target Streak:</label>
+      <input id="target_streak" required name="target_streak" min="0" max="10" type="number" />
+
+      <button type="submit" id="submit_habit">Submit</button>
+    </form>
+    <ul id="habit_list"></ul>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
