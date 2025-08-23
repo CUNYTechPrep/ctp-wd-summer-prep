@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite + React + TS</title>
+  <link rel="stylesheet" href="/index.css">
+</head>
+
+<body class="background">
+  <div id="root"></div>
+
+  <h1 class="title">Habit Tracker</h1>
+
+  <div class="form_box">
+    <form id="habit_form">
+      
+      <div class="habit_name_box">
+        <label for="habit_name" class="habit_name">Habit Name:</label>
+        <input id="habit_name" name="habit_name" type="text" required />
+      </div>
+
+      <div class="target_streak_box">
+        <label for="target_streak" class="target_streak">Target Streak:</label>
+        <input id="target_streak" required name="target_streak" min="0" max="10" type="number" />
+      </div>
+
+      <div class="submit_button_box">
+        <button type="submit" id="submit_habit" class="submit_button">Submit</button>
+      </div>
+
+    </form>
+  </div>
+
+  <ul id="habit_list">
+      
+  </ul>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+<footer class="footer">
+  <p>2025 Habit tracker</p>
+</footer>
+
+</html>
