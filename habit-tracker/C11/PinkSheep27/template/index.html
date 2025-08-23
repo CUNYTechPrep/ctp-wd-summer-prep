@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- This is the font I choose for the whole website "Monteserrat" -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+  <!-- Link to new css file for the html -->
+  <link rel="stylesheet" href="style.css">
+  <title>Vite + React + TS</title>
+</head>
+<body>
+  <div id="root">
+    <div class="form-box">
+
+    <h2 id="top-heading">Habit Tracker App</h2>
+    <hr id="top-divider">
+    <h2 id="form-heading">Habits</h2>
+
+    <form id = "habit-form">
+      <div class="hf-group">
+        <!-- Input for Habit -->
+        <div class="input-group">
+          <label for="habitName">Habit Name:</label>
+          <input type="text" id="habit-name" name="habitName" placeholder="Ex:Jogging" required>
+        </div>
+        <!-- The Drop Down Menu for Category of Habit -->
+        <div class="input-group">
+          <label for="habitCategory">Category:</label>
+          <select id="habit-category" name="habitCategory">
+            <option value="Fitness">Fitness</option>
+            <option value="Productivity">Productivity</option>
+            <option value="Personal">Personal Development</option>
+            <option value="Social">Social</option>
+            <option value="Self-Care">Wellness</option>
+            <option value="Finances">Finances</option>
+          </select>
+        </div>
+        <!-- Intended User Target Frequency for Habit-->
+        <div class="input-group">
+          <label for="habitFrequency">Target Frequency (weekly):</label>
+          <input type="number" id="habit-frequency" name="habitFrequency" placeholder="Ex: 3" min="1" max="7" required>
+        </div>
+        <!-- Finally the button to add the Habit -->
+        <button id="add-habit">Add Habit</button>
+      </div>
+    </form>
+    <!-- List of Current User Habits ( populated via JS ) -->
+    <h2 id="form-heading">Habit List:</h2>
+    <div id="habit-list"></div>
+  </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

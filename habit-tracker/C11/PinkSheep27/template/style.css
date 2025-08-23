@@ -1,0 +1,143 @@
+body{
+    font-family: "Monteserrat", sans-serif;
+}
+.form-box{
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#top-divider{
+    height: 0.6rem;
+    background-color: slategray;
+    border: none;
+    border-radius: 8px;
+    margin: 1rem 0rem;
+    margin-top: 0.5rem 0rem 1rem;
+}
+
+#top-heading{
+    margin: 1rem 1rem 0.5rem;
+}
+
+#form-heading{
+    font-size: 2.3rem;
+    margin: 1rem 1rem;
+}
+
+.hf-group{
+    background-color:lightgray;
+    padding: 1rem;
+    border-radius: 10px;
+    gap: 1rem;
+    display: flex;
+    align-items: flex-end;
+}
+
+.input-group{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#habit-name,#habit-frequency{
+    height: 48px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+}
+
+#habit-category{
+    font-size: 1.2rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 8px;
+    border: none;
+    height: 48px;
+    box-sizing: border-box;
+}
+
+#add-habit{
+    color: white;
+    font-size: 1.3rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color:#2ecc71;
+    height: 48px;
+    box-sizing: border-box;
+}
+
+#add-habit:hover{
+    background-color:#27ae60;
+}
+
+.habit-display {
+    background: lightgrey;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.habit-info {
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.habit-stats {
+    margin: 0.5rem 0;
+}
+
+.habit-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.edit-button, .delete-button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button{
+    color: white;
+    background-color:#ff6b6b;
+}
+
+.toggle-button {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.toggle-button:hover{
+    background-color: #27ae60;
+}
+
+
+input{
+    font-size: 1.2rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+}
+
+input::placeholder{
+    font-style: italic;
+}
+
+label{
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0.5rem 0.5rem;
+}
