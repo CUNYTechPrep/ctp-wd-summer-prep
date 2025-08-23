@@ -1,0 +1,7 @@
+body { font-family: Arial, sans-serif; padding: 20px; }
+h1 { margin-bottom: 10px; }
+form { margin-bottom: 16px; }
+ul { list-style: none; padding: 0; }
+li { margin: 8px 0; }
+.stats { margin: 0 8px; font-weight: bold; }
+button { margin-left: 6px; }
