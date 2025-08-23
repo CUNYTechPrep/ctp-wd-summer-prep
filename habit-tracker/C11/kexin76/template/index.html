@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="/src/styles/index.css"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+</head>
+<body>
+  <header>
+    <h1>
+      Habit Tracker
+    </h1>
+  </header>
+  <main>
+    <article>
+      <!-- for inputting habit -->
+      <section class="submitting">
+        <form id="habit_form">
+          <label for="habitName">Habit:</label>
+          <input id="habitName" name="habit_name" type="text" required><br><br>
+          <label for="streakNum">Target Streak:</label>
+          <input id="streakNum" name="target_streak" type="number" min="2" required><br><br>
+          <input id="SubmitHabit" type="submit" value="Submit Habit">
+        </form>
+      </section>
+      <!-- Lists the habits -->
+      <br>
+      <section>
+        <h2>Current Habits:</h2>
+        <ul id="habit_list">
+
+        </ul>
+      </section>
+      <br>
+      <section>
+        <h2>Completed Habits:</h2>
+        <ul id="completed_list">
+        </ul>
+      </section>
+    </article>
+  </main>
+  <footer>
+
+  </footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

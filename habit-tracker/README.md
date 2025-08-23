@@ -177,7 +177,7 @@ npm install recharts date-fns lucide-react
 - ✅ Mark habits complete/incomplete for any date
 - ✅ Calculate and display current streaks
 - ✅ View completion history and statistics
-- ✅ Data persistence across browser sessions
+- ✅ Data persistence across browser sessions (done)
 - ✅ Responsive design for mobile and desktop
 
 ### Enhanced Features (Should Have)
