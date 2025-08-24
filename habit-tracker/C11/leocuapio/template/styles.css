@@ -1,0 +1,111 @@
+/* ====== Header ====== */
+#Logo_Head {
+  display: flex;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0d6efd; /* matches Bootstrap primary */
+  margin: 20px 0;
+}
+
+/* ====== Nav Bar (only keep if you add <ul id="nav_style">) ====== */
+#nav_style {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+#nav_style li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+}
+
+/* ====== Habit Grid ====== */
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.habit-card {
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.habit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  border-color: #4CAF50;
+}
+
+/* Habit Completed State */
+.habit-card.completed {
+  background-color: #e8f5e9;
+  border-color: #4CAF50;
+}
+
+/* ====== Buttons ====== */
+.complete-btn {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.complete-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.complete-btn:active {
+  transform: scale(0.95);
+}
+
+.edit-btn, .delete-btn {
+  padding: 8px 16px;
+  border-radius: 25px;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  transform: scale(1.05);
+}
+
+.delete-btn:hover {
+  transform: scale(1.05);
+}
+
+/* ====== Add/Delete Section ====== */
+#add_del {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+/* ====== Footer ====== */
+.center {
+  justify-content: center;
+  padding: 20px;
+  display: flex;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #ddd;
+}

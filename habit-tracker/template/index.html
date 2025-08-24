@@ -3,11 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vite + React + TS</title>
+  <title>Habit Tracker</title>
 </head>
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.js"></script>
+  <header>
+   <h1 id = "Logo_Head">HabitTracker</h1>  
+  </header>
+  <nav>
+    <ul id ="nav_style">
+      <li><a href="">Dashboard</a></li>
+      <li><a href="">About</a></li>
+      <li><a href="">Contact</a></li>
+    </ul>
+  </nav>
+  
+    <main>
+        <form id="habit_form">
+  <label for="habit_name">Habit Name: </label>
+  <input id="habit_name" name="habit_name" type="text" />
+  
+  <label for="target_streak">Target Streak</label>
+  <input id="target_streak" name="target_streak" min="0" max="10" type="number" />
+  
+  <button type="submit" id="submit_habit">Submit</button>
+</form>
+<ul id = "habit_list">
+
+</ul>
+
+        <div class="habits-grid">
+        <div class="habit-card">
+            <div class="card-icon">🏃‍♂️</div>
+            <h3>Morning Run</h3>
+            <p>5 day streak</p>
+            <button class="complete-btn">Complete</button>
+        </div>
+        
+        <div class="habit-card completed">
+            <div class="card-icon">📚</div>
+            <h3>Read 30 Minutes</h3>
+            <p>12 day streak</p>
+            <div class="checkmark">✓</div>
+        </div>
+        
+        <div class="habit-card">
+            <div class="card-icon">🧘‍♀️</div>
+            <h3>Meditate</h3>
+            <p>3 day streak</p>
+            <button class="complete-btn">Complete</button>
+        </div>
+    </div>
+    </main>
+    <footer>
+      <p class = "center">Made by L.C. 2025</p>
+    </footer>
 </body>
 </html>
