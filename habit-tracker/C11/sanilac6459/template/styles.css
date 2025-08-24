@@ -1,0 +1,251 @@
+body {
+    background-color: #E2CFCA;
+}
+
+h1 {
+  color: #6D2E46;
+}
+
+.habit-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+}
+
+.habit-card {
+  position: relative;
+  flex: 0 0 calc((100% / 3) - 10.66px);
+  box-sizing: border-box; 
+  margin: 0;
+  border: 3px solid #6D2E46;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  background-color: #D7C4C1;
+  overflow: visible;
+  height: 350px;
+}
+
+.habit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.habit-title {
+    margin: 0;
+    color: #6D2E46;
+    font-size: 20px;
+    position: relative;
+    top: 10px;
+}
+
+.habit-category {
+    background-color: #6D2E46;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    right: -63px;
+    top: 10px;
+}
+
+.habit-body {
+    margin-bottom: 24px;
+}
+
+.streak-info {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.streak-number {
+    font-size: 48px;
+    font-weight: bold;
+    color: #6D2E46;
+}
+
+.streak-label {
+    color: #000;
+    font-size: 16px;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #B7ABA4;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #6D2E46;
+    transition: width 0.3s ease;
+}
+
+.habit-time {
+    color: #000;
+    font-size: 14px;
+    margin: 0;
+}
+
+.habit-footer {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-complete, .btn-skip {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    top: 20px;
+}
+
+.btn-complete {
+    background-color: #72384A;
+    /* border: 2px solid #22223B; */
+    color: white;
+}
+
+.btn-complete:hover {
+    background-color: #6D2E46;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(34, 34, 59, 0.3);
+}
+
+.btn-skip {
+    background-color: #88555E;
+    /* border: 2px solid #666; */
+    color: white;
+}
+
+.btn-skip:hover {
+    background-color: #827380;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(34, 34, 59, 0.3);
+}
+
+#habit-form {
+  margin: 24px 0;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#habit-form input,
+#habit-form button {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.btn-edit {
+  background-color: #854B5A;
+  color: white;
+  position: relative;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  right: 3px;
+  top: 70px;
+  font-weight: bold;
+}
+
+.btn-edit:hover {
+  background-color: #827380;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(34, 34, 59, 0.3);
+}
+
+.delete-icon {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  width: 40px;
+  height: 40px;
+  background-color: #6D2E46;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.3s ease;
+}
+
+.delete-icon:hover {
+  background-color: #652A41;
+}
+
+
+.delete-icon img {
+  width: 30px;
+  height: 30px;
+  
+}
+
+.btn-add {
+  background-color: #6D2E46;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add:hover {
+  background-color: #652A41;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(34, 34, 59, 0.3);
+}
+
+.habit-history {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.btn-show-history {
+  background-color: #88555E;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  /* position: relative;
+  top: 20px; */
+    margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.btn-show-history:hover {
+  background-color: #76414D;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn-show-history:active {
+  background-color: #5A3B5A;
+  transform: translateY(0);
+  box-shadow: none;
+  /* margin-bottom: 48px; */
+}
