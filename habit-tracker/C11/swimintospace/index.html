@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <link rel="stylesheet" href="src/styles/style.css"/>
+</head>
+<body>
+    <header>
+        <h1>Habit Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#habits">My Habits</a></li>
+                <li><a href="#stats">Statistics</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <article class="habit-summary">
+            <header>
+                <h2>Daily Habits</h2>
+                <div class="habit-container">
+                    <!-- Habit cards will be dynamically generated here by JavaScript -->
+                </div>
+            </header>
+        </article>
+        
+        <form id="habit-form">
+            <h2>Add New Habit</h2>
+            <input type="text" id="habit-name" placeholder="Enter habit name" required />
+            <select id="habit-frequency">
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+            </select>
+            <button type="submit">Add Habit</button>
+        </form>
+    
+        <aside>
+            <h3>Quick Stats</h3>
+            <dl>
+                <dt>Total Habits</dt>
+                <dd>0</dd>
+                <dt>Longest Streak</dt>
+                <dd>0 days</dd>
+            </dl>
+        </aside>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Habit Tracker App</p>
+    </footer>
+
+    <!-- Add your JavaScript file -->
+    <script src="src/scripts/habit-tracker.js"></script>
+</body>
+</html>
