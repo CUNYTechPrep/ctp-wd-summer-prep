@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Habit Tracker</title>
+  </head>
+  <body>
+    <img
+      src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2M4bTMzam03OGo4dTc3NmFreDltZ2NvcW45MGx0NWhvMnU0Y294dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BWD3CtcudWL28/giphy.gif"
+      alt="decorative gif"
+      class="page-gif"
+    />
+
+    <main class="container">
+      <header>
+        <h1>Habit Tracker 🕸️</h1>
+
+        <form id="new-habit-form" aria-label="Add Habit">
+          <input id="habit-name" type="text" placeholder="Habit name" required />
+          <select id="habit-frequency">
+            <option value="daily" selected>Daily 🕷️</option>
+            <option value="weekly">Weekly 🕷️</option>
+            <option value="custom">Custom (x/week) 🕷️</option>
+          </select>
+          <input id="habit-target" type="number" min="1" max="7" value="3" style="display:none" />
+          <button type="submit">Add</button>
+        </form>
+
+<div id="error-message" class="error-message hidden" role="alert" aria-live="assertive">
+  <img
+    class="error-gif"
+    alt=""
+    src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHc1MTl5eG93Z29qaDloNWMxNXBuc3B0OTV6YXRxemtrZWRpZmdjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l36kU80xPf0ojG0Erg/giphy.gif"
+  />
+  <span id="error-text"> Two habits can't have the same name 💔 </span>
+</div>
+
+      </header>
+
+      <section id="habits" aria-live="polite"></section>
+
+      <template id="habit-card-template">
+        <article class="card">
+          <div class="card-head">
+            <h3 class="habit-title"></h3>
+            <div class="actions">
+              <button data-edit>Edit</button>
+              <button data-delete>Delete</button>
+            </div>
+          </div>
+          <div class="meta">
+            <span class="badge freq"></span>
+            <span class="badge streak"></span>
+            <span class="badge longest"></span>
+          </div>
+          <div class="calendar"></div>
+        </article>
+      </template>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
