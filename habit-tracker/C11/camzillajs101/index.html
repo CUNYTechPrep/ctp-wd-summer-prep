@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+</head>
+<body>
+  <div id="root">
+    <h1>My habits</h1>
+    <section id="habits_container">You have no habits</section>
+
+    <form id="new_habit">
+      <h1>Create habit</h1>
+
+      <label for="habit_name">Habit name:</label>
+      <input type="text" name="habit_name" id="habit_name" placeholder="Take out trash" required>
+
+      <label for="target_streak">Target streak:</label>
+      <input type="number" name="target_streak" id="target_streak" min="1" placeholder="5" required>
+
+      <input type="submit" id="submit_new_habit">
+    </form>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
