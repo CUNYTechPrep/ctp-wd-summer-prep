@@ -27,18 +27,18 @@ By completing this project, you will:
 **Starting Point**: Use the provided `template/` directory which includes a basic Vite setup with HTML structure, CSS foundation, and development tooling.
 
 **Deliverables**:
-- Basic HTML structure with forms for adding habits (extend the template)
-- JavaScript functions for habit CRUD operations
-- Streak calculation and progress tracking logic
-- Local storage implementation for data persistence
-- Enhanced CSS styling building on the template foundation
+- Basic HTML structure with forms for adding habits (extend the template) Done
+- JavaScript functions for habit CRUD operations Done
+- Streak calculation and progress tracking logic Done 
+- Local storage implementation for data persistence Done 
+- Enhanced CSS styling building on the template foundation Done
 
 **Core Features to Implement**:
-- Add new habits with custom names and target frequencies
-- Mark habits as complete for specific dates
-- Calculate current streaks and longest streaks
-- View habit completion history
-- Delete or edit existing habits
+- Add new habits with custom names and target frequencies Done
+- Mark habits as complete for specific dates 
+- Calculate current streaks and longest streaks Done 
+- View habit completion history 
+- Delete or edit existing habits Done 
 
 ### Week 2: TypeScript Enhancement
 **Focus**: Adding type safety and advanced features
