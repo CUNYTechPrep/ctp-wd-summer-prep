@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Habit Tracker TS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Habit Tracker</h1>
+  </header>
+  <main>
+    <!-- Add Habit Form -->
+    <section id="add-habit">
+      <h2>New Habit</h2>
+      <form id="habit-form">
+        <input type="text" id="name" placeholder="Name" required />
+        <select id="category">
+          <option value="Health">Health</option>
+          <option value="Productivity">Productivity</option>
+          <option value="Social">Social</option>
+        </select>
+        <select id="difficulty">
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+        <input type="number" id="target" placeholder="Target/week" min="1" required />
+        <button type="submit">Add</button>
+      </form>
+    </section>
+
+    <!-- Habit List -->
+    <section id="habits-list">
+      <h2>Habits</h2>
+      <ul id="habits"></ul>
+    </section>
+  </main>
+
+  <script type="module" src="main.ts"></script>
+</body>
+</html>
