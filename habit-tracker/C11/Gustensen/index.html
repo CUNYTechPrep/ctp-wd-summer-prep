@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite + React + TS</title>
+  <style> 
+  h1 {
+    color:white;
+    text-align: center;
+  }
+  ul {
+    color:black;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    gap: 10px;
+  } 
+  button {
+    color:lightgreen;
+  }
+  button:hover {
+      background: #555;
+    }
+  ul .habit-list {
+    color:bisque;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+  }</style>
+</head>
+<body>
+  <!-- Heading -->
+  <h1>Gustensen's First Web Page</h1>
+
+  <!-- Paragraph -->
+  <p>I'm learning HTML and CSS so I can build my own habit tracker web app!</p>
+
+  <!-- List -->
+  <h2>My Goals</h2>
+  <ul>
+    <li>Learn HTML</li>
+    <li>Learn JavaScript</li>
+    <li>Finish my habit tracker</li>
+  </ul>
+
+  <!-- Form -->
+  <h2>Add a Habit</h2>
+  <div id="root">
+    <form id="habit_form">
+      <label for="habit_name">Habit Name:</label>
+      <input id="habit_name" name="habit_name" type="text" required />
+      <label for="target_streak">Target Streak</label>
+      <input id="target_streak" required name="target_streak" min="0" max="10" type="number" />
+      <button type="submit" id="submit_habit">Submit</button>
+    </form>
+    <ul id="habit_list">
+    </ul>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
