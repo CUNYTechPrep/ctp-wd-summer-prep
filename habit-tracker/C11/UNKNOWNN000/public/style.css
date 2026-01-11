@@ -1,0 +1,74 @@
+html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgb(241, 241, 241);
+}
+
+body {
+    color: rgb(63, 63, 63);
+    font-size: 150%;
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    min-height: 80vh; /* Ensures the body takes up at least the full viewport height */
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+h2 {
+    font-weight: 400;
+    font-size: 300%;
+}
+
+#submit_habit {
+    margin: 5px;
+    font-size: medium;
+}
+
+#habit_list li {
+    border-bottom: 1px solid gray;
+    padding: 10px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+}
+
+#target_streak {
+    padding: 10px;
+    margin: 20px;
+    outline: 0;
+    border: 0;
+    border-radius: 100px;
+    width: 80px;
+}
+
+#habit_name {
+    padding: 10px;
+    margin: 20px;
+    outline: 0;
+    border: 0;
+    border-radius: 100px;
+}
+
+#frequency select{
+    padding: 10px;
+    margin: 20px;
+    width: 100px;
+    outline: 0;
+    border: 0;
+    border-radius: 100px;
+}
+
+.delete_btn {
+    padding: 5px;
+    margin: 5px;
+    font-size: medium;
+}
+
+#check {
+    padding: 5px;
+    margin: 5px;
+    font-size: medium;  
+}

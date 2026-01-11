@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habit Tracker</title>
+</head>
+<body>
+  <div id="root">
+    <h2>HABITS</h2>
+    <form id = "habit_form"> 
+      <label for = "habit_name"> Habit Name</label>
+      <input 
+        type = "text" 
+        name = "habit_name" 
+        id = "habit_name" 
+        placeholder= "Enter Habit Name"
+        required
+      />
+      <label for = "target_streak"> <br> Target Streak</label>
+      <input 
+        type = "number" 
+        min = "0" max = "50" 
+        name = "target_streak" 
+        id = "target_streak" 
+        required
+      />
+      <div id="frequency">
+          <label for="timeframe">Frequency </label>
+          <select name="timeframe" id="timeframe">
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Yearly">Yearly</option>
+          </select>
+        </div>
+      <button type = "submit" id = "submit_habit"> + Add Habit </button>
+    </form>
+    <ul id="habit_list">
+      <li>
+        Your Habits
+      </li>
+    </ul>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
