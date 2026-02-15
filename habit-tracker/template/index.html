@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vite + React + TS</title>
+  <meta charset="UTF-8" />
+  <title>Habit Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    form {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .habit {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.js"></script>
+  <h1>Habit Tracker</h1>
+
+  <form id="habit-form">
+    <input type="text" id="habit-name" placeholder="Habit name" required />
+    <button type="submit">Add Habit</button>
+  </form>
+
+  <div id="habit-list"></div>
+
+  <script src="src/main.js"></script>
 </body>
 </html>
